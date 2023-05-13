@@ -19,25 +19,25 @@ public class ProductSeedData implements CommandLineRunner {
         // Create and save product instances
         Product pannaCotta = new Product();
         pannaCotta.setTitle("Panna Cotta");
-        pannaCotta.setName("Vanilla Panna Cotta");
+        pannaCotta.setName("panna-cotta");
         pannaCotta.setDescription("Creamy Italian dessert with vanilla flavor");
         productService.save(pannaCotta);
 
         Product flan = new Product();
         flan.setTitle("Flan");
-        flan.setName("Classic Flan");
+        flan.setName("classic-flan");
         flan.setDescription("Smooth and caramelized custard dessert");
         productService.save(flan);
 
         Product tiramisu = new Product();
         tiramisu.setTitle("Tiramisu");
-        tiramisu.setName("Traditional Tiramisu");
+        tiramisu.setName("tiramisu");
         tiramisu.setDescription("Layered Italian dessert with coffee and mascarpone");
         productService.save(tiramisu);
 
         Product chocolateCake = new Product();
         chocolateCake.setTitle("Chocolate Cake");
-        chocolateCake.setName("Decadent Chocolate Cake");
+        chocolateCake.setName("chocolate-cake");
         chocolateCake.setDescription("Rich and moist chocolate cake");
         productService.save(chocolateCake);
 
