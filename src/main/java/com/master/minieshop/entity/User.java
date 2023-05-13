@@ -1,5 +1,6 @@
 package com.master.minieshop.entity;
 
+import com.master.minieshop.common.TimeStampEntity;
 import com.master.minieshop.enumeration.Gender;
 import com.master.minieshop.enumeration.Role;
 import jakarta.persistence.Entity;
@@ -10,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class User {
+public class User extends TimeStampEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
