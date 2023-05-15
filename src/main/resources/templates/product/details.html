@@ -9,10 +9,36 @@
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
   <h1>Product Details</h1>
-  <h2 th:text="${product.title}"></h2>
-  <p th:text="${product.description}"></p>
-  <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
-  <a th:href="@{/product}" class="btn btn-secondary">Back to List</a>
+  <table>
+    <tr>
+      <th>Title:</th>
+      <td th:text="${product.title}"></td>
+    </tr>
+    <tr>
+      <th>Name:</th>
+      <td th:text="${product.name}"></td>
+    </tr>
+    <tr>
+      <th>Description:</th>
+      <td th:text="${product.description}"></td>
+    </tr>
+    <tr>
+      <th>Status:</th>
+      <td th:text="${product.status}"></td>
+    </tr>
+    <tr>
+      <th>Price:</th>
+      <td th:text="${product.price}"></td>
+    </tr>
+    <tr>
+      <th>Category:</th>
+      <td th:text="${product.category.name}"></td>
+    </tr>
+  </table>
+  <div class="mt-4">
+    <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
+    <a th:href="@{/product}" class="btn btn-secondary">Back to List</a>
+  </div>
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 <th:block th:replace="layout :: script"></th:block>

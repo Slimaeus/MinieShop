@@ -8,21 +8,28 @@
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-
     <h1>Product List</h1>
     <a th:href="@{/product/create}">Create Product</a>
-    <table>
+    <table class="table">
         <thead>
         <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Actions</th>
+            <th scope="col">Title</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Status</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="product : ${products}">
             <td th:text="${product.title}"></td>
+            <td th:text="${product.name}"></td>
             <td th:text="${product.description}"></td>
+            <td th:text="${product.status}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category.name}"></td>
             <td>
                 <a th:href="@{/product/details/{id}(id=${product.id})}">Details</a> |
                 <a th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a> |

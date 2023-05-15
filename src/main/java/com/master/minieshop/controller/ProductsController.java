@@ -35,6 +35,7 @@ public class ProductsController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("product", new Product());
+        model.addAttribute("categories", categoryService.getAll());
         return "product/create";
     }
 
@@ -60,6 +61,14 @@ public class ProductsController {
     }
 
     @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Integer id, Model model) {
+        Product product = productService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
+        model.addAttribute("product", product);
+        return "product/delete";
+    }
+
+    @PostMapping("/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
         productService.deleteById(id);
         return "redirect:/product";
