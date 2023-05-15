@@ -13,6 +13,9 @@
         <th>Title</th>
         <th>Name</th>
         <th>Description</th>
+        <th>Create At</th>
+        <th>Updated At</th>
+        <th>Category</th>
     </tr>
     </thead>
     <tbody>
@@ -21,6 +24,9 @@
         <td th:text="${product.title}"></td>
         <td th:text="${product.name}"></td>
         <td th:text="${product.description}"></td>
+        <td th:text="${product.createdAt}"></td>
+        <td th:text="${product.updatedAt}"></td>
+        <td th:text="${product.category.name}"></td>
     </tr>
     </tbody>
 </table>

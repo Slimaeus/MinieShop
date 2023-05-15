@@ -1,8 +1,6 @@
 package com.master.minieshop.common;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +22,10 @@ public class BaseEntityService<T, ID, R extends JpaRepository<T, ID>> {
 
     public T save(T entity) {
         return repository.save(entity);
+    }
+
+    public List<T> saveAll(List<T> entities) {
+        return repository.saveAll(entities);
     }
 
     public void delete(T entity) {

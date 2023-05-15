@@ -4,11 +4,14 @@ import com.master.minieshop.common.TimeStampEntity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.Set;
 
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
-public class Product extends TimeStampEntity {
+public class Category extends TimeStampEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,7 +21,8 @@ public class Product extends TimeStampEntity {
     private String name;
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    @ToString.Exclude
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Product> products;
 }
