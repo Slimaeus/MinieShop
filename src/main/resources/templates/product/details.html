@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Details</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Product Details</h1>
+  <h2 th:text="${product.title}"></h2>
+  <p th:text="${product.description}"></p>
+  <a th:href="@{/product/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
+  <a th:href="@{/product}" class="btn btn-secondary">Back to List</a>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>
