@@ -11,7 +11,7 @@ import lombok.Data;
 
 @Data
 @Entity
-public class User extends TimeStampEntity {
+public class AppUser extends TimeStampEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

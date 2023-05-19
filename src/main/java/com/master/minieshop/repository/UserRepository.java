@@ -1,9 +1,10 @@
 package com.master.minieshop.repository;
 
-import com.master.minieshop.entity.User;
+import com.master.minieshop.entity.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    User findByUserName(String userName);
-    User findByEmail(String email);
+public interface UserRepository extends JpaRepository<AppUser, Long> {
+    AppUser findByUserName(String userName);
+    AppUser findByEmail(String email);
 }
