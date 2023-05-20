@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @MappedSuperclass
 public class TimeStampEntity {
     @Column(updatable = false)
+    @Temporal(TemporalType.DATE)
     private LocalDate createdAt;
 
     private LocalDate updatedAt;
