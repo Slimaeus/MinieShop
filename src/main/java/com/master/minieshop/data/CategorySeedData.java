@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+//@Component
 public class CategorySeedData implements CommandLineRunner {
 
     private final CategoryService categoryService;
@@ -19,6 +19,7 @@ public class CategorySeedData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        System.out.println("Category Seed");
         // Create and save category instances
         Category cake = createCategory("Cake", "cake", "Variety of delicious cakes");
         Category iceCream = createCategory("Ice Cream", "ice-cream", "Creamy frozen desserts");

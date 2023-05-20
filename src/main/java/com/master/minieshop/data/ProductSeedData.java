@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Random;
 
-@Component
-@DependsOn("categorySeedData")
+//@Component
+//@DependsOn("categorySeedData")
 public class ProductSeedData implements CommandLineRunner {
 
     private final ProductService productService;
@@ -26,6 +26,8 @@ public class ProductSeedData implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        System.out.println("Product Seed");
+
         List<Category> categories = categoryService.getAll();
         Random random = new Random();
 
@@ -48,6 +50,7 @@ public class ProductSeedData implements CommandLineRunner {
 
         // Add more products as needed
     }
+
 
     private Category getRandomCategory(List<Category> categories, Random random) {
         int index = random.nextInt(categories.size());

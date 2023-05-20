@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.Set;
+
 @Data
 @Entity
 @EqualsAndHashCode(callSuper = true)
@@ -15,14 +17,18 @@ public class Product extends TimeStampEntity {
     private Integer id;
 
     private String title;
-    @Column(unique = true)
+    @Column
     private String name;
     private String description;
     private ProductStatus status;
     private double price;
 
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL)
+    private Set<Image> images;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "category_id", nullable = false)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @Override

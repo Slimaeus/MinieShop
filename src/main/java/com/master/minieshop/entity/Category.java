@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
 
 import java.util.Set;
 
@@ -17,11 +18,10 @@ public class Category extends TimeStampEntity {
     private Integer id;
 
     private String title;
-    @Column(unique = true)
+    @Column
     private String name;
     private String description;
 
-    @ToString.Exclude
     @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     private Set<Product> products;
