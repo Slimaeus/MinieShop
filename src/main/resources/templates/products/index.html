@@ -9,7 +9,7 @@
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
     <h1>Product List</h1>
-    <a th:href="@{/product/create}">Create Product</a>
+    <a th:href="@{/products/create}">Create Product</a>
     <table class="table">
         <thead>
         <tr>
@@ -31,9 +31,9 @@
             <td th:text="${product.price}"></td>
             <td th:text="${product.category.name}"></td>
             <td>
-                <a th:href="@{/product/details/{id}(id=${product.id})}">Details</a> |
-                <a th:href="@{/product/edit/{id}(id=${product.id})}">Edit</a> |
-                <a th:href="@{/product/delete/{id}(id=${product.id})}">Delete</a>
+                <a th:href="@{/products/details/{id}(id=${product.id})}">Details</a> |
+                <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a> |
+                <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>
             </td>
         </tr>
         </tbody>

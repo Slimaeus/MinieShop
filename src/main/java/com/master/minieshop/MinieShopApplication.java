@@ -1,5 +1,7 @@
 package com.master.minieshop;
 
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.master.minieshop.entity.AppUser;
 import com.master.minieshop.entity.Category;
 import com.master.minieshop.entity.Image;
@@ -45,6 +47,7 @@ public class MinieShopApplication {
     public static void main(String[] args) {
         SpringApplication.run(MinieShopApplication.class, args);
     }
+
 
     @Bean
     CommandLineRunner commandLineRunner() {

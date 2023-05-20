@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class BaseEntityService<T, ID, R extends JpaRepository<T, ID>> {
-    private final R repository;
+    protected final R repository;
 
     public BaseEntityService(R repository) {
         this.repository = repository;
