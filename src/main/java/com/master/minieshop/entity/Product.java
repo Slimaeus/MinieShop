@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Data
 @Entity
-@Table(name = "products")
+@Table(name = "products", uniqueConstraints = {@UniqueConstraint(columnNames = "name")})
 @EqualsAndHashCode(callSuper = true)
 public class Product extends TimeStampEntity {
     @Id
