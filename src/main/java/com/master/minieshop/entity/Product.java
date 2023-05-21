@@ -39,4 +39,9 @@ public class Product extends TimeStampEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<OrderDetail> orderDetails;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Comment> comments;
 }

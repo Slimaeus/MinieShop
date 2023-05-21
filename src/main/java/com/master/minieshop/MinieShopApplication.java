@@ -6,10 +6,7 @@ import com.master.minieshop.entity.*;
 import com.master.minieshop.enumeration.*;
 import com.master.minieshop.repository.ProductRepository;
 import com.master.minieshop.repository.UserRepository;
-import com.master.minieshop.service.CategoryService;
-import com.master.minieshop.service.ImageService;
-import com.master.minieshop.service.OrderService;
-import com.master.minieshop.service.ProductService;
+import com.master.minieshop.service.*;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -40,6 +37,9 @@ public class MinieShopApplication {
 
     @Autowired
     private OrderService orderService;
+
+    @Autowired
+    private CommentService commentService;
 
     public static void main(String[] args) {
         SpringApplication.run(MinieShopApplication.class, args);
@@ -123,6 +123,13 @@ public class MinieShopApplication {
             imageService.save(image2);
             //endregion
 
+            Comment comment1 = createComment(5, "Nice!", thai, getRandomProduct(products, random));
+            Comment comment2 = createComment(4, "Good", mei, getRandomProduct(products, random));
+
+            commentService.save(comment1);
+            commentService.save(comment2);
+
+            //region Order Seed Data
             Order order1 = createOrder("1", "John Doe", "123456789", Gender.Male,
                     "123 Main St", PaymentMethod.Cash, "Please deliver ASAP",
                     50000, 0, 10000, 40000, OrderStatus.Pending, thai);
@@ -136,6 +143,7 @@ public class MinieShopApplication {
 
             order1.setOrderDetails(orderDetails1);
             orderService.save(order1);
+            //endregion
 
         };
     }
@@ -159,6 +167,17 @@ public class MinieShopApplication {
         product.setPrice(price);
         product.setCategory(category);
         return product;
+    }
+
+    private Comment createComment(int rate, String content, AppUser user, Product product) {
+        Comment comment = new Comment();
+
+        comment.setRate(rate);
+        comment.setContent(content);
+        comment.setUser(user);
+        comment.setProduct(product);
+
+        return comment;
     }
 
     private Image createImage(String id, String link, String title, ImageStatus status, Product product) {

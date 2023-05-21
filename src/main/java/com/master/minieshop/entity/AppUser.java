@@ -5,6 +5,10 @@ import com.master.minieshop.enumeration.Gender;
 import com.master.minieshop.enumeration.Role;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+import java.util.Set;
 
 @Data
 @Entity
@@ -22,4 +26,8 @@ public class AppUser {
     private String password;
     private Role role;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<Comment> comments;
 }
