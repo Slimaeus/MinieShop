@@ -41,6 +41,9 @@ public class MinieShopApplication {
     @Autowired
     private CommentService commentService;
 
+    @Autowired
+    private LoyaltyCardService loyaltyCardService;
+
     public static void main(String[] args) {
         SpringApplication.run(MinieShopApplication.class, args);
     }
@@ -64,6 +67,18 @@ public class MinieShopApplication {
 
             userRepository.save(thai);
             userRepository.save(mei);
+
+            LoyaltyCard thaiLoyaltyCard = createLoyaltyCard(10, LoyaltyCardStatus.Closed, thai);
+            LoyaltyCard meiLoyaltyCard = createLoyaltyCard(50, LoyaltyCardStatus.Closed, mei);
+
+            loyaltyCardService.save(thaiLoyaltyCard);
+            loyaltyCardService.save(meiLoyaltyCard);
+
+            thai.setLoyaltyCard(thaiLoyaltyCard);
+            mei.setLoyaltyCard(meiLoyaltyCard);
+            userRepository.save(thai);
+            userRepository.save(mei);
+
             //endregion
 
             //region Category Seed Data
@@ -211,6 +226,16 @@ public class MinieShopApplication {
         user.setRole(role);
         return user;
     }
+    private LoyaltyCard createLoyaltyCard(int point, LoyaltyCardStatus status, AppUser user) {
+        LoyaltyCard loyaltyCard = new LoyaltyCard();
+
+        loyaltyCard.setPoint(point);
+        loyaltyCard.setStatus(status);
+        loyaltyCard.setUser(user);
+
+        return loyaltyCard;
+    }
+
     public Order createOrder(String id, String customerName, String phoneNumber, Gender gender,
                              String address, PaymentMethod paymentMethod, String note,
                              double totalPrice, double discountPrice, double shippingCost,

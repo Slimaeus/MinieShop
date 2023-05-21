@@ -23,7 +23,7 @@ public class Category extends TimeStampEntity {
     private String description;
     private CategoryStatus status = CategoryStatus.Closed;
 
-    @OneToMany(mappedBy = "category",
+    @OneToMany(mappedBy = "category", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
