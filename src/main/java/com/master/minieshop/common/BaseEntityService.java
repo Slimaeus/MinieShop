@@ -35,4 +35,5 @@ public class BaseEntityService<T, ID, R extends JpaRepository<T, ID>> {
     public void deleteById(ID id) {
         repository.deleteById(id);
     }
+    public boolean any() { return repository.findAll().stream().count() > 0; }
 }

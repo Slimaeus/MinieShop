@@ -35,8 +35,7 @@ public class ProductsController {
         Product product = productService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
         List<Image> images = product.getImages().stream().toList();
-        System.out.println("Images size: " + images.size());
-        model.addAttribute("images", imageService.getAll().stream().filter(x -> x.getProduct().getId() == id).toList());
+        model.addAttribute("images", imageService.getImagesByProductId(id));
         model.addAttribute("product", product);
         return "products/details";
     }
