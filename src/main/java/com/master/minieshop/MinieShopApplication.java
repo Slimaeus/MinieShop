@@ -4,6 +4,7 @@ import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.master.minieshop.entity.*;
 import com.master.minieshop.enumeration.*;
+import com.master.minieshop.key.PromotionDetailKey;
 import com.master.minieshop.repository.ProductRepository;
 import com.master.minieshop.repository.UserRepository;
 import com.master.minieshop.service.*;
@@ -44,6 +45,9 @@ public class MinieShopApplication {
     @Autowired
     private LoyaltyCardService loyaltyCardService;
 
+    @Autowired
+    private PromotionService promotionService;
+
     public static void main(String[] args) {
         SpringApplication.run(MinieShopApplication.class, args);
     }
@@ -52,11 +56,12 @@ public class MinieShopApplication {
     @Bean
     CommandLineRunner commandLineRunner() {
         if (userRepository.count() > 0
-        || categoryService.any()
-        || productService.any()
-        || imageService.any()
-        || orderService.any())
-            return args -> {};
+                || categoryService.any()
+                || productService.any()
+                || imageService.any()
+                || orderService.any())
+            return args -> {
+            };
         return args -> {
             Random random = new Random();
 
@@ -138,11 +143,34 @@ public class MinieShopApplication {
             imageService.save(image2);
             //endregion
 
+            //region Comment Seed Data
             Comment comment1 = createComment(5, "Nice!", thai, getRandomProduct(products, random));
             Comment comment2 = createComment(4, "Good", mei, getRandomProduct(products, random));
 
             commentService.save(comment1);
             commentService.save(comment2);
+            //endregion
+
+            //region Promotion Seed Data
+            Promotion promotion1 = createPromotion("Hello", "Code for new user", 0.1, 0, PromotionStatus.Global);
+            Promotion promotion2 = createPromotion("HelloMember", "Code for new loyalty member", 0.2, 0, PromotionStatus.LoyaltyDiscount);
+            Promotion promotion3 = createPromotion("HelloGoodMember", "Code for good loyalty member", 0.4, 0, PromotionStatus.LoyaltyDiscount);
+
+            promotionService.save(promotion1);
+            promotionService.save(promotion2);
+            promotionService.save(promotion3);
+
+            List<PromotionDetail> promotionDetails = new ArrayList<>();
+
+            PromotionDetail promotionDetail1 = createPromotionDetail(3, 3, thai, promotion2);
+            PromotionDetail promotionDetail2 = createPromotionDetail(3, 3, thai, promotion3);
+
+            promotionDetails.add(promotionDetail1);
+            promotionDetails.add(promotionDetail2);
+
+            promotionService.savePromotionDetails(promotionDetails);
+
+            //endregion
 
             //region Order Seed Data
             Order order1 = createOrder("1", "John Doe", "123456789", Gender.Male,
@@ -152,7 +180,7 @@ public class MinieShopApplication {
             Set<OrderDetail> orderDetails1 = new HashSet<>();
             for (int i = 0; i < 3; i++) {
                 Product product = getRandomProduct(products, random);
-                OrderDetail orderDetail = createOrderDetail(product, order1);
+                OrderDetail orderDetail = createOrderDetail(product, order1, 3, 300000);
                 orderDetails1.add(orderDetail);
             }
 
@@ -226,6 +254,7 @@ public class MinieShopApplication {
         user.setRole(role);
         return user;
     }
+
     private LoyaltyCard createLoyaltyCard(int point, LoyaltyCardStatus status, AppUser user) {
         LoyaltyCard loyaltyCard = new LoyaltyCard();
 
@@ -234,6 +263,35 @@ public class MinieShopApplication {
         loyaltyCard.setUser(user);
 
         return loyaltyCard;
+    }
+
+    private Promotion createPromotion(String code, String title, double value, int quantity, PromotionStatus status) {
+        Promotion promotion = new Promotion();
+
+        promotion.setCode(code);
+        promotion.setTitle(title);
+        promotion.setValue(value);
+        promotion.setQuantity(quantity);
+        promotion.setRemain(quantity);
+        promotion.setStatus(status);
+
+        return promotion;
+    }
+
+    private PromotionDetail createPromotionDetail(int quantity, int remain, AppUser user, Promotion promotion) {
+        PromotionDetail promotionDetail = new PromotionDetail();
+
+        PromotionDetailKey promotionDetailKey = new PromotionDetailKey();
+        promotionDetailKey.setUserId(user.getId());
+        promotionDetailKey.setPromotionId(promotion.getId());
+
+        promotionDetail.setId(promotionDetailKey);
+        promotionDetail.setQuantity(quantity);
+        promotionDetail.setRemain(remain);
+        promotionDetail.setUser(user);
+        promotionDetail.setPromotion(promotion);
+
+        return promotionDetail;
     }
 
     public Order createOrder(String id, String customerName, String phoneNumber, Gender gender,
@@ -258,10 +316,12 @@ public class MinieShopApplication {
         return order;
     }
 
-    private OrderDetail createOrderDetail(Product product, Order order) {
+    private OrderDetail createOrderDetail(Product product, Order order, int quantity, double totalPrice) {
         OrderDetail orderDetail = new OrderDetail();
         orderDetail.setProduct(product);
         orderDetail.setOrder(order);
+        orderDetail.setQuantity(quantity);
+        orderDetail.setTotalPrice(totalPrice);
         return orderDetail;
     }
 }

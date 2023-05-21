@@ -1,6 +1,6 @@
 package com.master.minieshop.entity;
 
-import com.master.minieshop.key.OrderDetailKey;
+import com.master.minieshop.key.PromotionDetailKey;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,26 +8,25 @@ import lombok.ToString;
 
 @Data
 @Entity
-@Table(name = "order_details")
-public class OrderDetail {
+@Table(name = "promotion_details")
+public class PromotionDetail {
     @EmbeddedId
-    private OrderDetailKey id;
+    private PromotionDetailKey id;
 
     private int quantity;
-    private double totalPrice;
+    private int remain;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("productId")
-    @JoinColumn(name = "product_id")
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Product product;
+    private AppUser user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("orderId")
-    @JoinColumn(name = "order_id")
+    @MapsId("promotionId")
+    @JoinColumn(name = "promotion_id")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
-    private Order order;
-
+    private Promotion promotion;
 }

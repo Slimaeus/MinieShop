@@ -36,4 +36,9 @@ public class AppUser {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Comment> comments;
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Set<PromotionDetail> promotionDetails;
 }

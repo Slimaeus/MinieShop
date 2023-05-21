@@ -38,6 +38,12 @@ public class Order extends TimeStampEntity {
     @EqualsAndHashCode.Exclude
     private AppUser user;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "promotion_id")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private Promotion promotion;
+
     @OneToMany(mappedBy = "order", fetch = FetchType.LAZY)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
