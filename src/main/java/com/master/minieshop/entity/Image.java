@@ -16,17 +16,10 @@ public class Image extends TimeStampEntity {
 
     private String title;
     private String link;
-    private ImageStatus status;
+    private ImageStatus status = ImageStatus.Closed;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     private Product product;
-
-    @Override
-    public void onCreated() {
-        super.onCreated();
-        if (status == null)
-            status = ImageStatus.Closed;
-    }
 
 }

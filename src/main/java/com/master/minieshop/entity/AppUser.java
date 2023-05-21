@@ -19,7 +19,7 @@ public class AppUser {
     private String userName;
     private String phoneNumber;
     private String fullName;
-    private Gender gender;
+    private Gender gender = Gender.Male;
     private String email;
     private String password;
     private Role role;

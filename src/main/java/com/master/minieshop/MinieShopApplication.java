@@ -6,10 +6,7 @@ import com.master.minieshop.entity.AppUser;
 import com.master.minieshop.entity.Category;
 import com.master.minieshop.entity.Image;
 import com.master.minieshop.entity.Product;
-import com.master.minieshop.enumeration.Gender;
-import com.master.minieshop.enumeration.ImageStatus;
-import com.master.minieshop.enumeration.ProductStatus;
-import com.master.minieshop.enumeration.Role;
+import com.master.minieshop.enumeration.*;
 import com.master.minieshop.repository.ProductRepository;
 import com.master.minieshop.repository.UserRepository;
 import com.master.minieshop.service.CategoryService;
@@ -69,16 +66,16 @@ public class MinieShopApplication {
             //endregion
 
             //region Category Seed Data
-            Category cake = createCategory("Cake", "cake", "Variety of delicious cakes");
-            Category iceCream = createCategory("Ice Cream", "ice-cream", "Creamy frozen desserts");
-            Category cookies = createCategory("Cookies", "cookies", "Delightful cookie treats");
-            Category pie = createCategory("Pie", "pie", "Flaky and flavorful pies");
-            Category pudding = createCategory("Pudding", "pudding", "Smooth and creamy puddings");
-            Category chocolate = createCategory("Chocolate", "chocolate", "Decadent chocolate treats");
-            Category tart = createCategory("Tart", "tart", "Sweet and tangy tart desserts");
-            Category mousse = createCategory("Mousse", "mousse", "Light and airy mousse desserts");
-            Category parfait = createCategory("Parfait", "parfait", "Layered and delightful parfaits");
-            Category trifle = createCategory("Trifle", "trifle", "Trifles with layers of flavors");
+            Category cake = createCategory("Cake", "cake", "Variety of delicious cakes", CategoryStatus.Open);
+            Category iceCream = createCategory("Ice Cream", "ice-cream", "Creamy frozen desserts", CategoryStatus.Closed);
+            Category cookies = createCategory("Cookies", "cookies", "Delightful cookie treats", CategoryStatus.Closed);
+            Category pie = createCategory("Pie", "pie", "Flaky and flavorful pies", CategoryStatus.Open);
+            Category pudding = createCategory("Pudding", "pudding", "Smooth and creamy puddings", CategoryStatus.Closed);
+            Category chocolate = createCategory("Chocolate", "chocolate", "Decadent chocolate treats", CategoryStatus.Open);
+            Category tart = createCategory("Tart", "tart", "Sweet and tangy tart desserts", CategoryStatus.Open);
+            Category mousse = createCategory("Mousse", "mousse", "Light and airy mousse desserts", CategoryStatus.Closed);
+            Category parfait = createCategory("Parfait", "parfait", "Layered and delightful parfaits", CategoryStatus.Open);
+            Category trifle = createCategory("Trifle", "trifle", "Trifles with layers of flavors", CategoryStatus.Open);
 
             categoryService.save(cake);
             categoryService.save(iceCream);
@@ -159,11 +156,12 @@ public class MinieShopApplication {
         return image;
     }
 
-    private Category createCategory(String title, String name, String description) {
+    private Category createCategory(String title, String name, String description, CategoryStatus status) {
         Category category = new Category();
         category.setTitle(title);
         category.setName(name);
         category.setDescription(description);
+        category.setStatus(status);
         return category;
     }
 

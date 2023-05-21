@@ -20,7 +20,7 @@ public class Product extends TimeStampEntity {
     @Column
     private String name;
     private String description;
-    private ProductStatus status;
+    private ProductStatus status = ProductStatus.Closed;
     private double price;
 
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY,
@@ -30,11 +30,4 @@ public class Product extends TimeStampEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "category_id")
     private Category category;
-
-    @Override
-    public void onCreated() {
-        super.onCreated();
-        if (status == null)
-            status = ProductStatus.Closed;
-    }
 }
