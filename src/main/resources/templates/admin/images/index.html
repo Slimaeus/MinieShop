@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image List</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Image List</h1>
+  <a th:href="@{/admin/images/create}">Create Image</a>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Link</th>
+      <th scope="col">Status</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="image : ${images}">
+      <td th:text="${image.title}"></td>
+      <td th:text="${image.link}"></td>
+      <td th:text="${image.status}"></td>
+      <td>
+        <a th:href="@{/admin/images/edit/{id}(id=${image.id})}">Edit</a> |
+        <a th:href="@{/admin/images/delete/{id}(id=${image.id})}">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>
