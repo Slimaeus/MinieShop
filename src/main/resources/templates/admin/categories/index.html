@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product List</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Product List</h1>
+  <a th:href="@{/admin/categories/create}">Create Product</a>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Status</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="category : ${categories}">
+      <td th:text="${category.title}"></td>
+      <td th:text="${category.name}"></td>
+      <td th:text="${category.description}"></td>
+      <td th:text="${category.status}"></td>
+      <td>
+        <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}">Edit</a> |
+        <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>
