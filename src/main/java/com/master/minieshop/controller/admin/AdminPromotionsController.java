@@ -19,5 +19,19 @@ public class AdminPromotionsController {
         this.promotionService = promotionService;
     }
 
+    @GetMapping({"index", ""})
+    public String index(Model model) {
+        model.addAttribute("promotions", promotionService.getAll());
+        return "admin/promotions/index";
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable("id") Long id, Model model) {
+        Promotion promotion = promotionService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid promotion id: " + id));
+        model.addAttribute("promotion", promotion);
+        return "admin/promotions/details";
+    }
+
 
 }
