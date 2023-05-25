@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin/categories")
+@RequestMapping("admin/categories")
 public class AdminCategoriesController {
     @Autowired
     private CategoryService categoryService;
@@ -18,7 +18,7 @@ public class AdminCategoriesController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping
+    @GetMapping({"index", ""})
     public String showAllCurrentCategory(Model model){
         var currentCategories = categoryService.getAll();
         model.addAttribute("categories",currentCategories);

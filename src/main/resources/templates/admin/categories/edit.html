@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Edit Product</title>
+  <title>Edit Category</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-  <h1>Edit Product</h1>
+  <h1>Edit Category</h1>
   <form th:action="@{/admin/categories/edit/{id}(id=${category.id})}" th:object="${category}" method="post">
     <div class="form-group">
       <label for="title">Title:</label>

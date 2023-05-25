@@ -1,25 +1,21 @@
 package com.master.minieshop.controller.admin;
 
-import com.master.minieshop.entity.image;
-import com.master.minieshop.entity.Image;
-import com.master.minieshop.service.imageService;
+import com.master.minieshop.service.CategoryService;
 import com.master.minieshop.service.ImageService;
+import com.master.minieshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/admin/images")
+@RequestMapping("admin/images")
 public class AdminImageController {
-    @Autowired
-    private imageService imageService;
-
     @Autowired
     private ImageService imageService;
 
     @GetMapping
-    public String Image(Model model){
+    public String index(Model model){
         var currentImage = imageService.getAll();
         model.addAttribute("Image",currentImage);
         return "admin/Image/index";
