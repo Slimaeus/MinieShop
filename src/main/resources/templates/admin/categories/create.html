@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Image</title>
+  <title>Create Product</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-  <h1>Create Image</h1>
+  <h1>Create Product</h1>
   <form th:action="@{/admin/categories/create}" th:object="${category}" method="post">
     <div class="form-group">
       <label for="title">Title:</label>
@@ -25,7 +25,7 @@
     <div class="form-group">
       <label for="status">Status:</label>
       <select id="status" name="status" th:field="*{status}" class="form-select">
-        <option th:each="status : ${T(com.master.minieshop.enumeration.ImageStatus).values()}"
+        <option th:each="status : ${T(com.master.minieshop.enumeration.ProductStatus).values()}"
                 th:value="${status}" th:text="${status}"></option>
       </select>
     </div>
