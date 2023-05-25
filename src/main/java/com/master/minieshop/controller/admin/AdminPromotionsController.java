@@ -33,5 +33,43 @@ public class AdminPromotionsController {
         return "admin/promotions/details";
     }
 
+    @GetMapping("/create")
+    public String create(Model model) {
+        model.addAttribute("promotion", new Promotion());
+        return "admin/promotions/create";
+    }
 
+    @PostMapping("/create")
+    public String create(@ModelAttribute("promotion") Promotion promotion) {
+        promotionService.save(promotion);
+        return "redirect:/admin/promotions";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, Model model) {
+        Promotion promotion = promotionService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid promotion id: " + id));
+        model.addAttribute("promotion", promotion);
+        return "admin/promotions/edit";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, @ModelAttribute("promotion") Promotion promotion) {
+        promotionService.save(promotion);
+        return "redirect:/admin/promotions";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id, Model model) {
+        Promotion promotion = promotionService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid promotion id: " + id));
+        model.addAttribute("promotion", promotion);
+        return "admin/promotions/delete";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        promotionService.deleteById(id);
+        return "redirect:/admin/promotions";
+    }
 }
