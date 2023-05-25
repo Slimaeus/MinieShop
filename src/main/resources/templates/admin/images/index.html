@@ -16,6 +16,8 @@
       <th scope="col">Title</th>
       <th scope="col">Link</th>
       <th scope="col">Status</th>
+      <th scope="col">Product</th>
+      <th scope="col">Actions</th>
 
     </tr>
     </thead>
@@ -24,6 +26,7 @@
       <td th:text="${image.title}"></td>
       <td th:text="${image.link}"></td>
       <td th:text="${image.status}"></td>
+      <td th:text="${image.product.name}"></td>
       <td>
         <a th:href="@{/admin/images/edit/{id}(id=${image.id})}">Edit</a> |
         <a th:href="@{/admin/images/delete/{id}(id=${image.id})}">Delete</a>

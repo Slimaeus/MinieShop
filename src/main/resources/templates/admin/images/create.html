@@ -11,6 +11,10 @@
   <h1>Create Image</h1>
   <form th:action="@{/admin/images/create}" th:object="${image}" method="post">
     <div class="form-group">
+      <label for="id">Id:</label>
+      <input type="text" id="id" th:field="*{id}" class="form-control" required>
+    </div>
+    <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" id="title" th:field="*{title}" class="form-control" required>
     </div>
@@ -21,8 +25,14 @@
     <div class="form-group">
       <label for="status">Status:</label>
       <select id="status" name="status" th:field="*{status}" class="form-select">
-        <option th:each="status : ${T(com.master.minieshop.enumeration.Status).values()}"
+        <option th:each="status : ${T(com.master.minieshop.enumeration.ImageStatus).values()}"
                 th:value="${status}" th:text="${status}"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="category">Product:</label>
+      <select id="category" th:field="*{product.id}" class="form-control" required>
+        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
       </select>
     </div>
     <div class="mt-4">
