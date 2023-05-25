@@ -37,6 +37,21 @@
                         th:value="${status}" th:text="${status}"></option>
             </select>
         </div>
+        <div class="form-group">
+            <label for="type">Type:</label>
+            <select id="type" name="type" th:field="*{type}" class="form-select">
+                <option th:each="type : ${T(com.master.minieshop.enumeration.PromotionType).values()}"
+                        th:value="${type}" th:text="${type}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="startedAt">Started At:</label>
+            <input type="date" id="startedAt" th:field="*{startedAt}" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="endedAt">Ended At:</label>
+            <input type="date" id="endedAt" th:field="*{endedAt}" class="form-control" required>
+        </div>
         <div class="mt-4">
             <button type="submit" class="btn btn-primary">Create</button>
         </div>

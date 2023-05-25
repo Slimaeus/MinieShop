@@ -2,36 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Edit Category</title>
+  <title>Create Image</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-  <h1>Edit Category</h1>
-  <form th:action="@{/admin/categories/edit/{id}(id=${category.id})}" th:object="${category}" method="post">
+  <h1>Create Image</h1>
+  <form th:action="@{/admin/images/create}" th:object="${image}" method="post">
     <div class="form-group">
       <label for="title">Title:</label>
       <input type="text" id="title" th:field="*{title}" class="form-control" required>
     </div>
     <div class="form-group">
-      <label for="name">Name:</label>
-      <input type="text" id="name" th:field="*{name}" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="description">Description:</label>
-      <textarea id="description" th:field="*{description}" class="form-control" required></textarea>
+      <label for="link">link:</label>
+      <input type="text" id="link" th:field="*{link}" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="status">Status:</label>
       <select id="status" name="status" th:field="*{status}" class="form-select">
-        <option th:each="status : ${T(com.master.minieshop.enumeration.ProductStatus).values()}"
+        <option th:each="status : ${T(com.master.minieshop.enumeration.Status).values()}"
                 th:value="${status}" th:text="${status}"></option>
       </select>
     </div>
     <div class="mt-4">
-      <button type="submit" class="btn btn-primary">Update</button>
-      <a th:href="@{/admin/categories}" class="btn btn-secondary">Back to List</a>
+      <button type="submit" class="btn btn-primary">Create</button>
     </div>
   </form>
 </div>

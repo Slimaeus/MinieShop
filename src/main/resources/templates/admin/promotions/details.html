@@ -34,6 +34,18 @@
             <th>Status:</th>
             <td th:text="${promotion.status}"></td>
         </tr>
+        <tr>
+            <th>Type:</th>
+            <td th:text="${promotion.type}"></td>
+        </tr>
+        <tr>
+            <th>Started At:</th>
+            <td th:text="${promotion.startedAt}"></td>
+        </tr>
+        <tr>
+            <th>Ended At:</th>
+            <td th:text="${promotion.endedAt}"></td>
+        </tr>
     </table>
     <div class="mt-4">
         <a th:href="@{/admin/promotions/edit/{id}(id=${promotion.id})}" class="btn btn-primary">Edit</a>
