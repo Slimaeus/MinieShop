@@ -16,6 +16,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @SpringBootApplication
@@ -152,9 +153,9 @@ public class MinieShopApplication {
             //endregion
 
             //region Promotion Seed Data
-            Promotion promotion1 = createPromotion("Hello", "Code for new user", 0.1, 0, PromotionStatus.Global);
-            Promotion promotion2 = createPromotion("HelloMember", "Code for new loyalty member", 0.2, 0, PromotionStatus.LoyaltyDiscount);
-            Promotion promotion3 = createPromotion("HelloGoodMember", "Code for good loyalty member", 0.4, 0, PromotionStatus.LoyaltyDiscount);
+            Promotion promotion1 = createPromotion("Hello", "Code for new user", 0.1, 0, PromotionStatus.Open, PromotionType.Global, LocalDate.now(), LocalDate.now());
+            Promotion promotion2 = createPromotion("HelloMember", "Code for new loyalty member", 0.2, 0, PromotionStatus.Open, PromotionType.LoyaltyDiscount, LocalDate.now(), LocalDate.now());
+            Promotion promotion3 = createPromotion("HelloGoodMember", "Code for good loyalty member", 0.4, 0, PromotionStatus.Open, PromotionType.LoyaltyDiscount, LocalDate.now(), LocalDate.now());
 
             promotionService.save(promotion1);
             promotionService.save(promotion2);
@@ -265,7 +266,7 @@ public class MinieShopApplication {
         return loyaltyCard;
     }
 
-    private Promotion createPromotion(String code, String title, double value, int quantity, PromotionStatus status) {
+    private Promotion createPromotion(String code, String title, double value, int quantity, PromotionStatus status, PromotionType type, LocalDate startedAt, LocalDate endedAt) {
         Promotion promotion = new Promotion();
 
         promotion.setCode(code);
@@ -274,6 +275,9 @@ public class MinieShopApplication {
         promotion.setQuantity(quantity);
         promotion.setRemain(quantity);
         promotion.setStatus(status);
+        promotion.setType(type);
+        promotion.setStartedAt(startedAt);
+        promotion.setEndedAt(endedAt);
 
         return promotion;
     }

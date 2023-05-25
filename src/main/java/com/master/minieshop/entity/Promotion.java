@@ -2,11 +2,13 @@ package com.master.minieshop.entity;
 
 import com.master.minieshop.common.TimeStampEntity;
 import com.master.minieshop.enumeration.PromotionStatus;
+import com.master.minieshop.enumeration.PromotionType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 @Data
@@ -23,7 +25,12 @@ public class Promotion extends TimeStampEntity {
     private double value;
     private int quantity;
     private int remain;
-    private PromotionStatus status = PromotionStatus.Global;
+    private PromotionStatus status = PromotionStatus.Closed;
+    private PromotionType type = PromotionType.Global;
+    @Temporal(TemporalType.DATE)
+    private LocalDate startedAt;
+    @Temporal(TemporalType.DATE)
+    private LocalDate endedAt;
 
     @OneToMany(mappedBy = "promotion", fetch = FetchType.LAZY)
     @ToString.Exclude
