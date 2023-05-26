@@ -21,14 +21,22 @@ public class AdminImageController {
     }
 
     @GetMapping
-    public String index(Model model){
-        model.addAttribute("images",imageService.getAll());
+    public String index(Model model) {
+        model.addAttribute("images", imageService.getAll());
         return "admin/images/index";
     }
 
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable("id") String id, Model model) {
+        Image image = imageService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid image id: " + id));
+        model.addAttribute("image", image);
+        return "admin/images/details";
+    }
+
     @GetMapping("/create")
-    public String create(Model model){
-        model.addAttribute("image",new Image());
+    public String create(Model model) {
+        model.addAttribute("image", new Image());
         model.addAttribute("products", productService.getAll());
         return "admin/images/create";
     }
@@ -44,7 +52,7 @@ public class AdminImageController {
         Image image = imageService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid image id: " + id));
         model.addAttribute("image", image);
-            model.addAttribute("products", productService.getAll());
+        model.addAttribute("products", productService.getAll());
         return "admin/images/edit";
     }
 

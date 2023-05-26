@@ -1,4 +1,4 @@
-package com.master.minieshop.entity;
+    package com.master.minieshop.entity;
 
 import com.master.minieshop.common.TimeStampEntity;
 import com.master.minieshop.enumeration.ImageStatus;

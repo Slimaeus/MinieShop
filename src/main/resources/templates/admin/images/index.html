@@ -28,6 +28,7 @@
       <td th:text="${image.status}"></td>
       <td th:text="${image.product.name}"></td>
       <td>
+        <a th:href="@{/admin/images/details/{id}(id=${image.id})}">Details</a> |
         <a th:href="@{/admin/images/edit/{id}(id=${image.id})}">Edit</a> |
         <a th:href="@{/admin/images/delete/{id}(id=${image.id})}">Delete</a>
       </td>
