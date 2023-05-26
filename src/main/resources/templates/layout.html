@@ -17,10 +17,19 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home</a>
+                    <a class="nav-link" href="/home">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/products">Products</a>
+                    <a class="nav-link" href="/admin/categories">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/products">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/images">Images</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/promotions">Promotions</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">About</a>
@@ -30,6 +39,9 @@
     </nav>
 </header>
 
+<div th:insert="~{::${content}}">
+    <!--    NOI DUNG TRANG CON-->
+</div>
 
 <!-- Footer -->
 <footer th:fragment="footer" class="bg-light py-3 text-center fixed-bottom">
