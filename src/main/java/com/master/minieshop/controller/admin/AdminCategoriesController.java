@@ -2,6 +2,7 @@ package com.master.minieshop.controller.admin;
 
 import com.master.minieshop.entity.Category;
 import com.master.minieshop.entity.Product;
+import com.master.minieshop.entity.Promotion;
 import com.master.minieshop.service.CategoryService;
 import com.master.minieshop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,14 +16,19 @@ public class AdminCategoriesController {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private ProductService productService;
-
     @GetMapping({"index", ""})
     public String showAllCurrentCategory(Model model){
         var currentCategories = categoryService.getAll();
         model.addAttribute("categories",currentCategories);
         return "admin/categories/index";
+    }
+
+    @GetMapping("/details/{id}")
+    public String details(@PathVariable("id") Integer id, Model model) {
+        Category category = categoryService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid category id: " + id));
+        model.addAttribute("category", category);
+        return "admin/categories/details";
     }
 
     @GetMapping("/create")

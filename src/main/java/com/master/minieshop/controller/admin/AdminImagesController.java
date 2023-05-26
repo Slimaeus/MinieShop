@@ -1,21 +1,19 @@
 package com.master.minieshop.controller.admin;
 
 import com.master.minieshop.entity.Image;
-import com.master.minieshop.service.CategoryService;
 import com.master.minieshop.service.ImageService;
 import com.master.minieshop.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("admin/images")
-public class AdminImageController {
+public class AdminImagesController {
     private final ImageService imageService;
     private final ProductService productService;
 
-    public AdminImageController(ImageService imageService, ProductService productService) {
+    public AdminImagesController(ImageService imageService, ProductService productService) {
         this.imageService = imageService;
         this.productService = productService;
     }

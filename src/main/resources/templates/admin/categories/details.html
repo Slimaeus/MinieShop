@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Category Details</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Category Details</h1>
+  <table>
+    <tr>
+      <th>Title:</th>
+      <td th:text="${category.title}"></td>
+    </tr>
+    <tr>
+      <th>Name:</th>
+      <td th:text="${category.name}"></td>
+    </tr>
+    <tr>
+      <th>Description:</th>
+      <td th:text="${category.description}"></td>
+    </tr>
+    <tr>
+      <th>Status:</th>
+      <td th:text="${category.status}"></td>
+    </tr>
+  </table>
+  <div class="mt-4">
+    <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}" class="btn btn-primary">Edit</a>
+    <a th:href="@{/admin/categories}" class="btn btn-secondary">Back to List</a>
+  </div>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>
