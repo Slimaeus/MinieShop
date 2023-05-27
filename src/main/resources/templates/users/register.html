@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <th:block th:replace="~{layout :: link-css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout :: header}"></th:block>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <h3 class="card-title text-center">Sign Up</h3>
+      <form th:action="@{/register}" th:object="${user}" method="post">
+        <div class="mb-3">
+          <label for="fullName" class="form-label">Full name:</label>
+          <span class="text-danger">*</span>
+          <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
+          <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email:</label>
+          <input type="email" class="form-control" id="email" th:field="*{email}">
+          <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="mb-3">
+          <label for="userName" class="form-label">User Name:</label>
+          <span class="text-danger">*</span>
+          <input type="text" class="form-control" id="userName" th:field="*{userName}">
+          <span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <span class="text-danger">*</span>
+          <input type="password" class="form-control" id="password" th:field="*{password}">
+          <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn info">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<th:block th:replace="~{layout :: footer}"></th:block>
+</body>
+</html>
