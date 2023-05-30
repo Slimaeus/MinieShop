@@ -41,8 +41,8 @@ public class WebSecurityConfig {
             Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers( "/css/**", "/js/**", "/", "/register",
-                                "/error")
+                        .requestMatchers( "/css/**", "/js/**", "/pictures/**", "/", "/register",
+                                "/error", "", "/home", "/home/about")
                         .permitAll()
 
                         .requestMatchers( "/admin/**")

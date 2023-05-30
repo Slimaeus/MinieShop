@@ -9,7 +9,7 @@
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
     <h1>Upload Image</h1>
-    <form method="post" th:action="@{/images/upload}" enctype="multipart/form-data">
+    <form method="post" th:action="@{pictures}" enctype="multipart/form-data">
         <div class="form-group">
             <input type="file" name="file" class="form-control-file">
         </div>
