@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Page</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+    </style>
+    <script>
+        function addItem(productName) {
+            // Send an AJAX request to the server to add the item
+            $.post("/addItem", { productName: productName }, function () {
+                // Reload the page to reflect the updated cart
+                location.reload();
+            });
+        }
+
+        function removeItem(productName) {
+            // Send an AJAX request to the server to remove the item
+            $.post("/removeItem", { productName: productName }, function () {
+                // Reload the page to reflect the updated cart
+                location.reload();
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Cart Page</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Iterate over the products list and display each item -->
+            <tr th:each="product : ${products}">
+                <td th:text="${product.name}"></td>
+                <td>
+                    <img th:src="${product.image}" alt="Product Image" style="width: 100px; height: 100px;">
+                </td>
+                <td th:text="${product.price}"></td>
+                <td th:text="${product.quantity}"></td>
+                <td>
+                    <button onclick="addItem('${product.code}')">+</button>
+                    <button onclick="decreaseItem('${product.code}')">-</button>
+                    <button onclick="removeItem('${product.code}')">-</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
