@@ -53,7 +53,6 @@ public class MinieShopApplication {
         SpringApplication.run(MinieShopApplication.class, args);
     }
 
-
     @Bean
     CommandLineRunner commandLineRunner() {
         if (userRepository.count() > 0
@@ -66,11 +65,16 @@ public class MinieShopApplication {
         return args -> {
             Random random = new Random();
 
-            //region User Seed Data
+            // region User Seed Data
             String password = passwordEncoder.encode("P@ssw0rd");
-            AppUser thai = createUser("thai", "thai@gmail.com", "Nguyen Hong Thai", Gender.Male, "0123456789", password, Role.Manager);
-            AppUser mei = createUser("mei", "mei@gmail.com", "Truong Thuc Van", Gender.Female, "0987654321", password, Role.Manager);
+            AppUser thai = createUser("thai", "thai@gmail.com", "Nguyen Hong Thai", Gender.Male, "0123456789", password,
+                    Role.Manager);
+            AppUser mei = createUser("mei", "mei@gmail.com", "Truong Thuc Van", Gender.Female, "0987654321", password,
+                    Role.Manager);
+            AppUser nhon = createUser("nhon", "nhon@gmail.com", "Võ Thương Trường Nhơn", Gender.Female, "0987654321",
+                    password, Role.Manager);
 
+            userRepository.save(nhon);
             userRepository.save(thai);
             userRepository.save(mei);
 
@@ -85,18 +89,23 @@ public class MinieShopApplication {
             userRepository.save(thai);
             userRepository.save(mei);
 
-            //endregion
+            // endregion
 
-            //region Category Seed Data
+            // region Category Seed Data
             Category cake = createCategory("Cake", "cake", "Variety of delicious cakes", CategoryStatus.Open);
-            Category iceCream = createCategory("Ice Cream", "ice-cream", "Creamy frozen desserts", CategoryStatus.Closed);
+            Category iceCream = createCategory("Ice Cream", "ice-cream", "Creamy frozen desserts",
+                    CategoryStatus.Closed);
             Category cookies = createCategory("Cookies", "cookies", "Delightful cookie treats", CategoryStatus.Closed);
             Category pie = createCategory("Pie", "pie", "Flaky and flavorful pies", CategoryStatus.Open);
-            Category pudding = createCategory("Pudding", "pudding", "Smooth and creamy puddings", CategoryStatus.Closed);
-            Category chocolate = createCategory("Chocolate", "chocolate", "Decadent chocolate treats", CategoryStatus.Open);
+            Category pudding = createCategory("Pudding", "pudding", "Smooth and creamy puddings",
+                    CategoryStatus.Closed);
+            Category chocolate = createCategory("Chocolate", "chocolate", "Decadent chocolate treats",
+                    CategoryStatus.Open);
             Category tart = createCategory("Tart", "tart", "Sweet and tangy tart desserts", CategoryStatus.Open);
-            Category mousse = createCategory("Mousse", "mousse", "Light and airy mousse desserts", CategoryStatus.Closed);
-            Category parfait = createCategory("Parfait", "parfait", "Layered and delightful parfaits", CategoryStatus.Open);
+            Category mousse = createCategory("Mousse", "mousse", "Light and airy mousse desserts",
+                    CategoryStatus.Closed);
+            Category parfait = createCategory("Parfait", "parfait", "Layered and delightful parfaits",
+                    CategoryStatus.Open);
             Category trifle = createCategory("Trifle", "trifle", "Trifles with layers of flavors", CategoryStatus.Open);
 
             categoryService.save(cake);
@@ -110,52 +119,63 @@ public class MinieShopApplication {
             categoryService.save(parfait);
             categoryService.save(trifle);
 
-            //endregion
+            // endregion
 
-            //region Product Seed Data
+            // region Product Seed Data
             List<Category> categories = categoryService.getAll();
 
-            Product pannaCotta = createProduct("Panna Cotta", "panna-cotta", "Creamy Italian dessert with vanilla flavor", ProductStatus.Closed, 20000,
+            Product pannaCotta = createProduct("Panna Cotta", "panna-cotta",
+                    "Creamy Italian dessert with vanilla flavor", ProductStatus.Closed, 20000,
                     getRandomCategory(categories, random));
-            Product flan = createProduct("Flan", "classic-flan", "Smooth and caramelized custard dessert", ProductStatus.Open, 20000,
+            Product flan = createProduct("Flan", "classic-flan", "Smooth and caramelized custard dessert",
+                    ProductStatus.Open, 20000,
                     getRandomCategory(categories, random));
 
-            Product tiramisu = createProduct("Tiramisu", "tiramisu", "Layered Italian dessert with coffee and mascarpone", ProductStatus.Closed, 20000,
+            Product tiramisu = createProduct("Tiramisu", "tiramisu",
+                    "Layered Italian dessert with coffee and mascarpone", ProductStatus.Closed, 20000,
                     getRandomCategory(categories, random));
 
-            Product chocolateCake = createProduct("Chocolate Cake", "chocolate-cake", "Rich and moist chocolate cake", ProductStatus.Closed, 20000,
+            Product chocolateCake = createProduct("Chocolate Cake", "chocolate-cake", "Rich and moist chocolate cake",
+                    ProductStatus.Closed, 20000,
                     getRandomCategory(categories, random));
 
             productService.save(pannaCotta);
             productService.save(flan);
             productService.save(chocolateCake);
             productService.save(tiramisu);
-            //endregion
+            // endregion
 
-            //region Image Seed Data
+            // region Image Seed Data
             List<Product> products = productService.getAll();
 
-            Image image1 = createImage("image1", "https://images.pexels.com/photos/16307711/pexels-photo-16307711/free-photo-of-red-cabrio-car-driving-in-the-desert.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Image 1", ImageStatus.Open,
+            Image image1 = createImage("image1",
+                    "https://images.pexels.com/photos/16307711/pexels-photo-16307711/free-photo-of-red-cabrio-car-driving-in-the-desert.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "Image 1", ImageStatus.Open,
                     getRandomProduct(products, random));
-            Image image2 = createImage("image2", "https://images.pexels.com/photos/16494849/pexels-photo-16494849/free-photo-of-wood-light-dawn-landscape.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1", "Image 2", ImageStatus.Closed,
+            Image image2 = createImage("image2",
+                    "https://images.pexels.com/photos/16494849/pexels-photo-16494849/free-photo-of-wood-light-dawn-landscape.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    "Image 2", ImageStatus.Closed,
                     getRandomProduct(products, random));
 
             imageService.save(image1);
             imageService.save(image2);
-            //endregion
+            // endregion
 
-            //region Comment Seed Data
+            // region Comment Seed Data
             Comment comment1 = createComment(5, "Nice!", thai, getRandomProduct(products, random));
             Comment comment2 = createComment(4, "Good", mei, getRandomProduct(products, random));
 
             commentService.save(comment1);
             commentService.save(comment2);
-            //endregion
+            // endregion
 
-            //region Promotion Seed Data
-            Promotion promotion1 = createPromotion("Hello", "Code for new user", 0.1, 0, PromotionStatus.Open, PromotionType.Global, LocalDate.now(), LocalDate.now());
-            Promotion promotion2 = createPromotion("HelloMember", "Code for new loyalty member", 0.2, 0, PromotionStatus.Open, PromotionType.LoyaltyDiscount, LocalDate.now(), LocalDate.now());
-            Promotion promotion3 = createPromotion("HelloGoodMember", "Code for good loyalty member", 0.4, 0, PromotionStatus.Open, PromotionType.LoyaltyDiscount, LocalDate.now(), LocalDate.now());
+            // region Promotion Seed Data
+            Promotion promotion1 = createPromotion("Hello", "Code for new user", 0.1, 0, PromotionStatus.Open,
+                    PromotionType.Global, LocalDate.now(), LocalDate.now());
+            Promotion promotion2 = createPromotion("HelloMember", "Code for new loyalty member", 0.2, 0,
+                    PromotionStatus.Open, PromotionType.LoyaltyDiscount, LocalDate.now(), LocalDate.now());
+            Promotion promotion3 = createPromotion("HelloGoodMember", "Code for good loyalty member", 0.4, 0,
+                    PromotionStatus.Open, PromotionType.LoyaltyDiscount, LocalDate.now(), LocalDate.now());
 
             promotionService.save(promotion1);
             promotionService.save(promotion2);
@@ -171,9 +191,9 @@ public class MinieShopApplication {
 
             promotionService.savePromotionDetails(promotionDetails);
 
-            //endregion
+            // endregion
 
-            //region Order Seed Data
+            // region Order Seed Data
             Order order1 = createOrder("1", "John Doe", "123456789", Gender.Male,
                     "123 Main St", PaymentMethod.Cash, "Please deliver ASAP",
                     50000, 0, 10000, 40000, OrderStatus.Pending, thai);
@@ -187,7 +207,7 @@ public class MinieShopApplication {
 
             order1.setOrderDetails(orderDetails1);
             orderService.save(order1);
-            //endregion
+            // endregion
 
         };
     }
@@ -202,7 +222,8 @@ public class MinieShopApplication {
         return products.get(index);
     }
 
-    private Product createProduct(String title, String name, String description, ProductStatus status, double price, Category category) {
+    private Product createProduct(String title, String name, String description, ProductStatus status, double price,
+            Category category) {
         Product product = new Product();
         product.setTitle(title);
         product.setName(name);
@@ -244,7 +265,8 @@ public class MinieShopApplication {
         return category;
     }
 
-    private AppUser createUser(String username, String email, String fullName, Gender gender, String phoneNumber, String password, Role role) {
+    private AppUser createUser(String username, String email, String fullName, Gender gender, String phoneNumber,
+            String password, Role role) {
         AppUser user = new AppUser();
         user.setUserName(username);
         user.setEmail(email);
@@ -266,7 +288,8 @@ public class MinieShopApplication {
         return loyaltyCard;
     }
 
-    private Promotion createPromotion(String code, String title, double value, int quantity, PromotionStatus status, PromotionType type, LocalDate startedAt, LocalDate endedAt) {
+    private Promotion createPromotion(String code, String title, double value, int quantity, PromotionStatus status,
+            PromotionType type, LocalDate startedAt, LocalDate endedAt) {
         Promotion promotion = new Promotion();
 
         promotion.setCode(code);
@@ -299,9 +322,9 @@ public class MinieShopApplication {
     }
 
     public Order createOrder(String id, String customerName, String phoneNumber, Gender gender,
-                             String address, PaymentMethod paymentMethod, String note,
-                             double totalPrice, double discountPrice, double shippingCost,
-                             double totalBill, OrderStatus status, AppUser user) {
+            String address, PaymentMethod paymentMethod, String note,
+            double totalPrice, double discountPrice, double shippingCost,
+            double totalBill, OrderStatus status, AppUser user) {
         Order order = new Order();
         order.setId(id);
         order.setCustomerName(customerName);

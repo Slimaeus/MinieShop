@@ -18,13 +18,14 @@ public class ProductsController {
     private final CategoryService categoryService;
     private final ImageService imageService;
 
-    public ProductsController(ProductService productService, CategoryService categoryService, ImageService imageService) {
+    public ProductsController(ProductService productService, CategoryService categoryService,
+            ImageService imageService) {
         this.productService = productService;
         this.categoryService = categoryService;
         this.imageService = imageService;
     }
 
-    @GetMapping({"index", ""})
+    @GetMapping({ "index", "" })
     public String index(Model model) {
         model.addAttribute("products", productService.getAll());
         return "products/index";
@@ -34,8 +35,9 @@ public class ProductsController {
     public String details(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
+        product.getImages().size();
         List<Image> images = product.getImages().stream().toList();
-        model.addAttribute("images", imageService.getImagesByProductId(id));
+        model.addAttribute("images", images);
         model.addAttribute("product", product);
         return "products/details";
     }
@@ -81,4 +83,16 @@ public class ProductsController {
         productService.deleteById(id);
         return "redirect:/products";
     }
+
+    @GetMapping({ "indexCategory/{id}", "" })
+    public String indexCategory(Model model, @PathVariable("id") Integer id) {
+        var category = categoryService.getById(id)
+                .orElseThrow(
+                        () -> new IllegalArgumentException("Invalid category id: " + id));
+        category.getProducts().size();
+        var products = category.getProducts().stream().toList();
+        model.addAttribute("products", products);
+        return "products/indexCategory";
+    }
+
 }
