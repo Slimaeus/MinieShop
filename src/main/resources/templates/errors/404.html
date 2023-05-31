@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        h1 {
+            font-size: 48px;
+            color: #333333;
+            margin-bottom: 30px;
+            animation: fade-in 1s ease-out;
+        }
+
+        p {
+            font-size: 24px;
+            color: #666666;
+            margin-bottom: 30px;
+            animation: fade-in 1s ease-out;
+        }
+
+        a {
+            text-decoration: none;
+            color: #337ab7;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .emoji {
+            font-size: 72px;
+            transition: transform 0.3s ease-in-out;
+            cursor: pointer;
+            animation: float 3s infinite;
+        }
+
+        .emoji:hover {
+            transform: rotate(360deg);
+        }
+
+        .emoji-container {
+            display: inline-block;
+            position: relative;
+        }
+
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #333333;
+            color: #ffffff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .emoji-container:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+<h1>Oops! Page not found</h1>
+<p>The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.</p>
+<p>Let's get you back on track:</p>
+<a href="/">Go to the Homepage</a>
+<br><br>
+<p>Or have some fun while you're here:</p>
+<div class="emoji-container">
+    <a href="javascript:void(0)" onclick="spinEmoji()">
+        <span class="emoji" id="emoji">🤔</span>
+        <span class="tooltip">Click me!</span>
+    </a>
+</div>
+
+<script>
+    function spinEmoji() {
+        const emoji = document.getElementById('emoji');
+        const emojis = ['🤔', '😄', '🤓', '😎', '🙌', '🎉'];
+        emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+    }
+</script>
+</body>
+</html>
