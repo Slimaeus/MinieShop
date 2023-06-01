@@ -3,16 +3,16 @@ package com.master.minieshop.controller;
 import com.master.minieshop.entity.AppUser;
 import com.master.minieshop.service.CustomUserDetailsService;
 import com.master.minieshop.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,7 +22,8 @@ public class UsersController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model, AppUser user) {
+        model.addAttribute("userD",user);
         return "users/login";
     }
     @GetMapping("/register")
@@ -45,5 +46,14 @@ public class UsersController {
                 BCryptPasswordEncoder().encode(user.getPassword()));
         userService.save(user);
         return "redirect:/login";
+    }
+
+    @GetMapping("/user-detail/{id}")
+    public String userDetail(@SessionAttribute("id") @PathVariable("id") Long id,Model model, HttpSession session){
+        AppUser user = userService.getById(id);
+        System.out.println(user);
+            model.addAttribute("userD",user);
+            return "users/user-detail";
+
     }
 }
