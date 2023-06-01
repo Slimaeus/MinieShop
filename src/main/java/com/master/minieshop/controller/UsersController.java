@@ -49,7 +49,7 @@ public class UsersController {
     }
 
     @GetMapping("/user-detail/{id}")
-    public String userDetail(@SessionAttribute("id") @PathVariable("id") Long id,Model model, HttpSession session){
+    public String userDetail( @PathVariable("id") Long id,Model model, HttpSession session){
         AppUser user = userService.getById(id);
         System.out.println(user);
             model.addAttribute("userD",user);
