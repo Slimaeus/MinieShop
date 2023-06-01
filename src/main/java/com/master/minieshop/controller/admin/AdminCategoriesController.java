@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.*;
 public class AdminCategoriesController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ProductService productService;
 
     @GetMapping({"index", ""})
     public String showAllCurrentCategory(Model model){
@@ -69,6 +71,15 @@ public class AdminCategoriesController {
     public String deleteCategory(@PathVariable("id") Integer id) {
         categoryService.deleteById(id);
         return "redirect:/admin/categories";
+    }
+
+    @GetMapping("/details/{id}/products")
+    public String getItemInCategory(@PathVariable("id") Integer id,Model model){
+        Category category = categoryService.getById(id).
+                orElseThrow(()-> new IllegalArgumentException("Invalid category id: " + id));
+        var item = productService.getAll().stream().filter(m->m.getCategory().equals(category));
+        model.addAttribute("products",item);
+        return "admin/categories/category-products";
     }
 
 }
