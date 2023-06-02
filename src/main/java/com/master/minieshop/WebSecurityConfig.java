@@ -45,6 +45,10 @@ public class WebSecurityConfig {
                                 "/error", "", "/home", "/home/about")
                         .permitAll()
 
+                        // Test
+                        .requestMatchers("/orders/**")
+                        .permitAll()
+
                         .requestMatchers( "/admin/**")
 
                         .hasAnyAuthority("Manager")

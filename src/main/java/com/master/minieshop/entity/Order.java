@@ -18,6 +18,7 @@ import java.util.Set;
 @EqualsAndHashCode(callSuper = true)
 public class Order extends TimeStampEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
     private String customerName;
     private String phoneNumber;

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order result</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<h1>Momo Result</h1>
+<table>
+    <tr>
+        <td>Partner Code:</td>
+        <td th:text="${momoResult.partnerCode}"></td>
+    </tr>
+    <tr>
+        <td>Order ID:</td>
+        <td th:text="${momoResult.orderId}"></td>
+    </tr>
+    <tr>
+        <td>Request ID:</td>
+        <td th:text="${momoResult.requestId}"></td>
+    </tr>
+    <tr>
+        <td>Amount:</td>
+        <td th:text="${momoResult.amount}"></td>
+    </tr>
+    <tr>
+        <td>Order Info:</td>
+        <td th:text="${momoResult.orderInfo}"></td>
+    </tr>
+    <tr>
+        <td>Order Type:</td>
+        <td th:text="${momoResult.orderType}"></td>
+    </tr>
+    <tr>
+        <td>Transaction ID:</td>
+        <td th:text="${momoResult.transId}"></td>
+    </tr>
+    <tr>
+        <td>Result Code:</td>
+        <td th:text="${momoResult.resultCode}"></td>
+    </tr>
+    <tr>
+        <td>Message:</td>
+        <td th:text="${momoResult.message}"></td>
+    </tr>
+    <tr>
+        <td>Pay Type:</td>
+        <td th:text="${momoResult.payType}"></td>
+    </tr>
+    <tr>
+        <td>Response Time:</td>
+        <td th:text="${momoResult.responseTime}"></td>
+    </tr>
+    <tr>
+        <td>Extra Data:</td>
+        <td th:text="${momoResult.extraData}"></td>
+    </tr>
+    <tr>
+        <td>Signature:</td>
+        <td th:text="${momoResult.signature}"></td>
+    </tr>
+</table>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
