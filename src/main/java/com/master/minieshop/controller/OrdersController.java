@@ -3,6 +3,9 @@ package com.master.minieshop.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.master.minieshop.entity.Order;
 import com.master.minieshop.entity.OrderDetail;
+import com.master.minieshop.enumeration.OrderStatus;
+import com.master.minieshop.enumeration.PaymentMethod;
+import com.master.minieshop.enumeration.PaymentStatus;
 import com.master.minieshop.model.MomoResponse;
 import com.master.minieshop.model.MomoResult;
 import com.master.minieshop.service.OrderService;
@@ -81,10 +84,21 @@ public class OrdersController {
         result.setExtraData(extraData);
         result.setSignature(signature);
 
-        if (result.getResultCode() == 0)
-        {
-
+        Order order = orderService.getById(result.getOrderId()).orElse(null);
+        if (order != null) {
+            order.setPaymentMethod(PaymentMethod.Momo);
+            if (result.getResultCode() == 0)
+            {
+                order.setStatus(OrderStatus.Completed);
+                order.setPaymentStatus(PaymentStatus.Paid);
+            }
+            else {
+                order.setStatus(OrderStatus.Failed);
+                order.setPaymentStatus(PaymentStatus.Unpaid);
+            }
+            orderService.save(order);
         }
+
 
         model.addAttribute("momoResult", result);
 
