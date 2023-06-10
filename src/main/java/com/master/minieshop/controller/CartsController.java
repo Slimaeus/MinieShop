@@ -6,6 +6,7 @@ import com.master.minieshop.entity.Image;
 import com.master.minieshop.service.CartService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,14 +16,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/carts")
+@RequestMapping("/cart")
+@RequiredArgsConstructor
 
 public class CartsController {
     @Autowired
     private CartService cartService;
-
-    public CartsController() {
-    }
 
     @GetMapping
     public String showCart(HttpSession session,
@@ -32,7 +31,7 @@ public class CartsController {
                 cartService.getSumPrice(session));
         model.addAttribute("totalQuantity",
                 cartService.getSumQuantity(session));
-        return "book/cart";
+        return "products/cart";
     }
 
     @GetMapping("/removeFromCart/{id}")
@@ -49,7 +48,7 @@ public class CartsController {
             @PathVariable int quantity) {
         var cart = cartService.getCart(session);
         cart.updateItems(id, quantity);
-        return "book/cart";
+        return "product/cart";
     }
 
     @GetMapping("/clearCart")
@@ -67,6 +66,6 @@ public class CartsController {
         var cart = cartService.getCart(session);
         cart.addItems(new Item(id, name, price, quantity));
         cartService.updateCart(session, cart);
-        return "redirect:/books";
+        return "redirect:/products";
     }
 }
