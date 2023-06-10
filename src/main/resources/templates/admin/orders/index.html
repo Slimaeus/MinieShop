@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Order and Product List</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Order List</h1>
+  <a th:href="@{/admin/orders/create}">Create Order</a>
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">Customer Name</th>
+      <th scope="col">Phone Number</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Address</th>
+      <th scope="col">Payment Method</th>
+      <th scope="col">Note</th>
+      <th scope="col">Total Price</th>
+      <th scope="col">Discount Price</th>
+      <th scope="col">Shipping Cost</th>
+      <th scope="col">Total Bill</th>
+      <th scope="col">Status</th>
+      <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+      <td th:text="${order.customerName}"></td>
+      <td th:text="${order.phoneNumber}"></td>
+      <td th:text="${order.gender}"></td>
+      <td th:text="${order.address}"></td>
+      <td th:text="${order.paymentMethod}"></td>
+      <td th:text="${order.note}"></td>
+      <td th:text="${order.totalPrice}"></td>
+      <td th:text="${order.discountPrice}"></td>
+      <td th:text="${order.shippingCost}"></td>
+      <td th:text="${order.totalBill}"></td>
+      <td th:text="${order.status}"></td>
+      <td>
+        <a th:href="@{/admin/orders/details/{id}(id=${order.id})}">Details</a> |
+        <a th:href="@{/admin/orders/edit/{id}(id=${order.id})}">Edit</a> |
+        <a th:href="@{/admin/orders/delete/{id}(id=${order.id})}">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>

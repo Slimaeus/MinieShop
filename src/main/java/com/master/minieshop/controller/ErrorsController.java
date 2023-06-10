@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-@Controller
+//@Controller
 public class ErrorsController implements ErrorController {
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
@@ -20,7 +20,8 @@ public class ErrorsController implements ErrorController {
             int statusCode = Integer.parseInt(status.toString());
             if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "errors/404";
-            } else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
+            }
+            else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
                 return "errors/500";
             }
         }

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Details</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Image Details</h1>
+  <table>
+    <tr>
+      <th>Title:</th>
+      <td th:text="${image.title}"></td>
+    </tr>
+    <tr>
+      <th>Link:</th>
+      <td th:text="${image.link}"></td>
+    </tr>
+    <tr>
+      <th>Status:</th>
+      <td th:text="${image.status}"></td>
+    </tr>
+    <img th:src="${image.link}" th:alt="${image.title}" />
+  <div class="mt-4">
+    <a th:href="@{/admin/images/edit/{id}(id=${image.id})}" class="btn btn-primary">Edit</a>
+    <a th:href="@{/admin/images}" class="btn btn-secondary">Back to List</a>
+  </div>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>
