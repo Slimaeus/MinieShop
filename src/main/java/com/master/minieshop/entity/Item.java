@@ -1,12 +1,12 @@
 package com.master.minieshop.entity;
 
 public class Item {
-    private String productId;
+    private Integer productId;
     private String name;
     private double price;
     private int quantity;
 
-    public Item(String productId, String name, double price, int quantity) {
+    public Item(Integer productId, String name, double price, int quantity) {
         this.productId = productId;
         this.name = name;
         this.price = price;

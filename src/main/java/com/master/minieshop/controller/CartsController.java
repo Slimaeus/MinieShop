@@ -4,6 +4,7 @@ import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Item;
 import com.master.minieshop.entity.Image;
 import com.master.minieshop.service.CartService;
+import com.master.minieshop.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,9 @@ public class CartsController {
     @Autowired
     private CartService cartService;
 
+    @Autowired
+    private ProductService productService;
+
     @GetMapping
     public String showCart(HttpSession session,
             @NotNull Model model) {
@@ -36,7 +40,7 @@ public class CartsController {
 
     @GetMapping("/removeFromCart/{id}")
     public String removeFromCart(HttpSession session,
-            @PathVariable String id) {
+            @PathVariable Integer id) {
         var cart = cartService.getCart(session);
         cart.removeItems(id);
         return "redirect:/cart";
@@ -44,7 +48,7 @@ public class CartsController {
 
     @GetMapping("/updateCart/{id}/{quantity}")
     public String updateCart(HttpSession session,
-            @PathVariable String id,
+            @PathVariable Integer id,
             @PathVariable int quantity) {
         var cart = cartService.getCart(session);
         cart.updateItems(id, quantity);
@@ -59,12 +63,11 @@ public class CartsController {
 
     @PostMapping("/add-to-cart")
     public String addToCart(HttpSession session,
-            @RequestParam String id,
-            @RequestParam String name,
-            @RequestParam double price,
+            @RequestParam Integer id,
             @RequestParam(defaultValue = "1") int quantity) {
+        var product = productService.getById(id).orElseThrow();
         var cart = cartService.getCart(session);
-        cart.addItems(new Item(id, name, price, quantity));
+        cart.addItems(new Item(id, product.getName(), product.getPrice(), quantity));
         cartService.updateCart(session, cart);
         return "redirect:/products";
     }

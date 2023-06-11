@@ -53,7 +53,7 @@ public class WebSecurityConfig {
 
                         .hasAnyAuthority("Manager")
 
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
 
                 )
                 .logout(logout -> logout.logoutUrl("/logout")

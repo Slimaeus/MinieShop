@@ -24,12 +24,12 @@ public class Cart {
         }
     }
 
-    public void removeItems(String productId) {
+    public void removeItems(Integer productId) {
         cartItems.removeIf(item -> Objects.equals(item.getProductId(),
                 productId));
     }
 
-    public void updateItems(String productId, int quantity) {
+    public void updateItems(Integer productId, int quantity) {
         cartItems.stream()
                 .filter(item -> Objects.equals(item
                         .getProductId(), productId))
