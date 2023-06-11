@@ -1,17 +1,19 @@
-    package com.master.minieshop.entity;
+package com.master.minieshop.entity;
 
 import com.master.minieshop.common.TimeStampEntity;
 import com.master.minieshop.enumeration.ImageStatus;
-import com.master.minieshop.enumeration.ProductStatus;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
-@Data
+import java.util.Objects;
+
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "images")
-@EqualsAndHashCode(callSuper = true)
 public class Image extends TimeStampEntity {
     @Id
     private String id;
@@ -25,4 +27,16 @@ public class Image extends TimeStampEntity {
     @EqualsAndHashCode.Exclude
     private Product product;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Image image = (Image) o;
+        return getId() != null && Objects.equals(getId(), image.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

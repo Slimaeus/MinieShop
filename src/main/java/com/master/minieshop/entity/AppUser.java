@@ -1,16 +1,18 @@
 package com.master.minieshop.entity;
 
-import com.master.minieshop.common.TimeStampEntity;
 import com.master.minieshop.enumeration.Gender;
 import com.master.minieshop.enumeration.Role;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "users")
 public class AppUser {
@@ -41,4 +43,17 @@ public class AppUser {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<PromotionDetail> promotionDetails;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        AppUser appUser = (AppUser) o;
+        return getId() != null && Objects.equals(getId(), appUser.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }

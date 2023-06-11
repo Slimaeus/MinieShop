@@ -4,17 +4,19 @@ import com.master.minieshop.common.TimeStampEntity;
 import com.master.minieshop.enumeration.PromotionStatus;
 import com.master.minieshop.enumeration.PromotionType;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "promotions", uniqueConstraints = {@UniqueConstraint(columnNames = "code")})
-@EqualsAndHashCode(callSuper = true)
 public class Promotion extends TimeStampEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,4 +43,17 @@ public class Promotion extends TimeStampEntity {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<PromotionDetail> promotionDetails;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        Promotion promotion = (Promotion) o;
+        return getId() != null && Objects.equals(getId(), promotion.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
