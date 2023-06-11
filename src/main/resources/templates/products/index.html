@@ -34,7 +34,13 @@
                 <a th:href="@{/products/details/{id}(id=${product.id})}">Details</a> |
                 <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a> |
                 <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>|
-                <a href="#" th:onclick="|addToCart(event, ${product.id})|">Add to Cart</a>
+                <form th:action="@{/cart/add-to-cart}" method="post" class="d-inline">
+                    <input type="hidden" name="id" th:value="${product.getId()}">
+                    <button type="submit" class="btn btn-success"
+                            onclick="return confirm('Are you sure you want to add this book to cart?')">
+                        Add to cart</button>
+                </form>
+
             </td>
         </tr>
         </tbody>
@@ -42,37 +48,5 @@
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 <th:block th:replace="layout :: script"></th:block>
-<script>
-    function addToCart(event, productId) {
-        console.log(productId)
-        event.preventDefault();
-
-        fetch('/cart/add-to-cart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: new URLSearchParams({
-                id: productId,
-                quantity: 1
-            })
-        })
-            .then(response => {
-                if (response.ok) {
-                    // Cart updated successfully
-                    // You can perform any additional actions here
-                    console.log('Item added to cart');
-                } else {
-                    // Handle error case
-                    console.log(response)
-                    console.error('Failed to add item to cart');
-                }
-            })
-            .catch(error => {
-                // Handle network or fetch error
-                console.error('Error occurred while adding item to cart:', error);
-            });
-    }
-</script>
 </body>
 </html>

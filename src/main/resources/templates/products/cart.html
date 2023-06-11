@@ -26,7 +26,7 @@
             <tbody>
                 <tr th:each="item : ${cart.cartItems}">
                     <td th:text="${item.getProductId()}"></td>
-                    <td th:text="${item.getProductName()}"></td>
+                    <td th:text="${item.getName()}"></td>
                     <td>
                         <label>
                             <input type="number" min="1" th:value="${item.getQuantity()}"
