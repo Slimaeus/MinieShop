@@ -61,6 +61,7 @@ public class OrdersController {
         order.setTotalPrice(totalPrice);
         order.setCustomerName(userPrincipal.getUsername());
         order.setNote("Mua bánh");
+        order.setPaymentMethod(PaymentMethod.Momo);
         Set<OrderDetail> orderDetails = new HashSet<>();
 
         cart.getCartItems().forEach(item -> {
@@ -78,6 +79,8 @@ public class OrdersController {
         orderDetails.add(orderDetail1);
         order.setOrderDetails(orderDetails);
 
+        orderService.save(order);
+
         MomoResponse response = orderService.createMomoPayment(order);
 
         return ResponseEntity.status(HttpStatus.FOUND)
@@ -85,7 +88,7 @@ public class OrdersController {
                 .build();
     }
     @GetMapping("momo-result")
-    public String result(Model model,
+    public String result(Model model, HttpSession session,
                          @RequestParam("partnerCode") String partnerCode,
                          @RequestParam("orderId") String orderId,
                          @RequestParam("requestId") String requestId,
@@ -130,6 +133,7 @@ public class OrdersController {
             orderService.save(order);
         }
 
+        cartService.removeCart(session);
 
         model.addAttribute("momoResult", result);
 
