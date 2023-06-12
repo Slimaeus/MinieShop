@@ -1,10 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Checkout</title>
+    <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
+<th:block th:replace="layout :: header"></th:block>
 
+<h1>Checkout</h1>
+
+<form action="/checkout" method="post">
+    <!-- Display customer information -->
+    <h2>Customer Information</h2>
+    <label for="customerName">Customer Name:</label>
+    <input type="text" id="customerName" name="customerName" value="${order.customerName}" required>
+
+    <!-- Add more fields for customer information (e.g., phoneNumber, address) if needed -->
+
+    <!-- Display order details -->
+    <h2>Order Details</h2>
+    <table>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Total Price</th>
+        </tr>
+    </table>
+
+    <!-- Display total bill -->
+    <p>Total Bill: ${order.totalBill}</p>
+
+    <!-- Add more fields for payment method if needed -->
+    <h2>Payment Method</h2>
+    <input type="radio" id="momo" name="paymentMethod" value="Momo" checked>
+    <label for="momo">Momo</label><br>
+    <!-- Add more payment method options if needed -->
+
+    <!-- Add note field if needed -->
+    <h2>Note</h2>
+    <textarea id="note" name="note">${order.note}</textarea>
+
+    <button type="submit">Proceed to Payment</button>
+</form>
+
+<th:block th:replace="layout :: footer"></th:block>
 </body>
 </html>

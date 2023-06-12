@@ -70,9 +70,11 @@ public class MinieShopApplication {
             String password = passwordEncoder.encode("P@ssw0rd");
             AppUser thai = createUser("thai", "thai@gmail.com", "Nguyen Hong Thai", Gender.Male, "0123456789", password, Role.Manager);
             AppUser mei = createUser("mei", "mei@gmail.com", "Truong Thuc Van", Gender.Female, "0987654321", password, Role.Manager);
+            AppUser user = createUser("user", "user@gmail.com", "User", Gender.Female, "0987654321", password, Role.LoyalCustomer);
 
             userRepository.save(thai);
             userRepository.save(mei);
+            userRepository.save(user);
 
             LoyaltyCard thaiLoyaltyCard = createLoyaltyCard(10, LoyaltyCardStatus.Closed, thai);
             LoyaltyCard meiLoyaltyCard = createLoyaltyCard(50, LoyaltyCardStatus.Closed, mei);

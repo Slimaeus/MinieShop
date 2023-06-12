@@ -44,40 +44,12 @@ public class OrdersController {
 
 
     @GetMapping("momo-pay")
-    public ResponseEntity<Void> momoPay(HttpSession session, @AuthenticationPrincipal MyUserPrincipal userPrincipal) throws NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
-        Cart cart = cartService.getCart(session);
-
-        double totalPrice = cart.getCartItems()
-                .stream()
-                .map(x -> x.getPrice() * x.getQuantity())
-                .mapToDouble(x -> x)
-                .sum();
-
-        double totalBill = totalPrice;
-
-        Order order = new Order();
-        order.setId(java.util.UUID.randomUUID().toString());
-        order.setTotalBill(totalBill);
-        order.setTotalPrice(totalPrice);
-        order.setCustomerName(userPrincipal.getUsername());
-        order.setNote("Mua bánh");
-        order.setPaymentMethod(PaymentMethod.Momo);
-        Set<OrderDetail> orderDetails = new HashSet<>();
-
-        cart.getCartItems().forEach(item -> {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
-            orderDetail.setQuantity(item.getQuantity());
-            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
-            orderDetails.add(orderDetail);
-        });
-
-        order.setOrderDetails(orderDetails);
+    public ResponseEntity<Void> momoPay(HttpSession session) throws NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
 
         Order sessionOrder = orderService.getSessionOrder(session);
-        orderService.updateSessionOrder(session,order);
+        orderService.updateSessionOrder(session, sessionOrder);
 
-        MomoResponse response = orderService.createMomoPayment(order);
+        MomoResponse response = orderService.createMomoPayment(sessionOrder);
 
         return ResponseEntity.status(HttpStatus.FOUND)
                 .header("Location", response.getPayUrl())

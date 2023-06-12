@@ -1,20 +1,24 @@
 package com.master.minieshop.controller;
 
-import com.master.minieshop.entity.Cart;
-import com.master.minieshop.entity.Item;
-import com.master.minieshop.entity.Image;
+import com.master.minieshop.entity.*;
+import com.master.minieshop.enumeration.PaymentMethod;
+import com.master.minieshop.model.MyUserPrincipal;
 import com.master.minieshop.service.CartService;
 import com.master.minieshop.service.ProductService;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/cart")
@@ -73,7 +77,56 @@ public class CartsController {
     }
 
     @GetMapping("/checkout")
-    public String checkout(Model model) {
+    public String checkout(Model model, HttpSession session, @AuthenticationPrincipal MyUserPrincipal userPrincipal) {
+        Cart cart = cartService.getCart(session);
+
+        double totalPrice = cart.getCartItems()
+                .stream()
+                .map(x -> x.getPrice() * x.getQuantity())
+                .mapToDouble(x -> x)
+                .sum();
+
+        double totalBill = totalPrice;
+
+        Order order = new Order();
+        order.setTotalBill(totalBill);
+        order.setTotalPrice(totalPrice);
+        order.setCustomerName(userPrincipal.getUsername());
+
+        order.setId(java.util.UUID.randomUUID().toString());
+
+        order.setNote("Mua bánh");
+        order.setPaymentMethod(PaymentMethod.Momo);
+
+
+        Set<OrderDetail> orderDetails = new HashSet<>();
+
+        cart.getCartItems().forEach(item -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
+            orderDetails.add(orderDetail);
+        });
+
+        order.setOrderDetails(orderDetails);
+
+
+        model.addAttribute("order", order);
         return "orders/checkout";
+    }
+
+    @PostMapping("/checkout")
+    public String checkout(HttpSession session, @Valid Order order) {
+
+
+
+        switch (order.getPaymentMethod()) {
+            case Momo:
+                return "redirect:/orders/momo-pay";
+            default:
+                return "home/index";
+        }
+
     }
 }
