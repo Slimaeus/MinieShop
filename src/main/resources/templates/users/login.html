@@ -15,7 +15,6 @@
       <h3 class="card-title text-center">Login</h3>
       <form th:action="@{/login}" method="post">
         <fieldset>
-          <legend>Please login</legend>
           <div th:if="${param.error}" class="alert alert-danger">
             Invalid username and password
           </div>

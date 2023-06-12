@@ -14,6 +14,8 @@ public class ValidUsernameValidator implements
     @Override
     public boolean isValid(String username, ConstraintValidatorContext
             context) {
-        return customUserDetailsService.findByUsername(username).isEmpty();
+        if (customUserDetailsService == null) return true;
+        var result = customUserDetailsService.findByUsername(username);
+        return result.isEmpty();
     }
 }

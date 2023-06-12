@@ -38,7 +38,8 @@
           <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         </div>
         <div class="d-grid gap-2">
-          <button type="submit" class="btn info">Sign Up</button>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+          <a class="text-primary text-center" href="/login">Already have an account. Login?</a>
         </div>
       </form>
     </div>

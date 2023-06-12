@@ -1,6 +1,7 @@
 package com.master.minieshop.controller;
 
 import com.master.minieshop.entity.AppUser;
+import com.master.minieshop.enumeration.Role;
 import com.master.minieshop.service.CustomUserDetailsService;
 import com.master.minieshop.service.UserService;
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +43,7 @@ public class UsersController {
             }
             return "users/register";
         }
+        user.setRole(Role.LoyalCustomer);
         user.setPassword(new
                 BCryptPasswordEncoder().encode(user.getPassword()));
         userService.save(user);
