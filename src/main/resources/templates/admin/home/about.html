@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="bg-light">
+  <div class="container py-5">
+    <div class="row  h-100 align-items-center py-5">
+      <h1 class="text-center display-1">ABOUT US</h1>
+    </div>
+  </div>
+</div>
+<h2 style="text-align:center">Our Team</h2>
+<div class="card-group">
+  <div class="card">
+    <h5 class="card-header text-center">Vo Thuong Truong Nhon</h5>
+    <img class="card-img-top" src="/pictures/VoThuongTruongNhon.jpg" alt="Card image cap">
+    <div class="card-body" style="display: flex; justify-content: space-between; flex-direction: column;">
+      <p class="card-title">MSSV</p>
+      <p>Member</p>
+      <a href="" target="_blank" class="btn btn-primary">More</a>
+
+    </div>
+  </div>
+  <div class="card">
+    <h5 class="card-header text-center">Truong Thuc Van</h5>
+    <img class="card-img-top" src="/pictures/TruongThucVan.jpg" alt="Card image cap">
+    <div class="card-body" style="display: flex; justify-content: space-between; flex-direction: column;">
+      <p class="card-title">2080600803</p>
+      <p>Member</p>
+      <a href="https://www.facebook.com/misa.truong.16" target="_blank" class="btn btn-primary">More</a>
+
+    </div>
+
+  </div>
+  <div class="card">
+
+    <h5 class="card-header text-center">Nguyen Hong Thai</h5>
+    <img class="card-img-top" src="/pictures/NguyenHongThai.jpg" alt="Card image cap">
+    <div class="card-body" style="display: flex; justify-content: space-between; flex-direction: column;">
+      <p class="card-title">2080600914</p>
+      <p>Leader</p>
+      <a href="https://www.facebook.com/thai.nguyenhong.587606" target="_blank" class="btn btn-primary">More</a>
+
+    </div>
+
+  </div>
+  <div class="card">
+
+    <h5 class="card-header text-center">Bui Thanh Dat</h5>
+    <img class="card-img-top" src="/pictures/BuiThanhDat.jpg" alt="Card image cap">
+    <div class="card-body" style="display: flex; justify-content: space-between; flex-direction: column;">
+      <p class="card-title">2011063152</p>
+      <p>Member</p>
+      <a href="https://www.facebook.com/buidat.shiro" target="_blank" class="btn btn-primary">More</a>
+
+    </div>
+
+  </div>
+
+
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>
