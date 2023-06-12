@@ -71,4 +71,9 @@ public class CartsController {
         cartService.updateCart(session, cart);
         return "redirect:/products";
     }
+
+    @GetMapping("/checkout")
+    public String checkout(Model model) {
+        return "orders/checkout";
+    }
 }
