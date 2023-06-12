@@ -48,12 +48,12 @@ public class UsersController {
         return "redirect:/login";
     }
 
-    @GetMapping("/user-detail/{id}")
+    @GetMapping("/user-details/{id}")
     public String userDetail( @PathVariable("id") Long id,Model model, HttpSession session){
         AppUser user = userService.getById(id);
         System.out.println(user);
             model.addAttribute("userD",user);
-            return "users/user-detail";
+            return "users/user-details";
 
     }
 }
