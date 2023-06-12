@@ -4,11 +4,14 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.master.minieshop.common.BaseEntityService;
 import com.master.minieshop.encryption.MomoSecurity;
+import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Order;
 import com.master.minieshop.model.MomoItem;
 import com.master.minieshop.model.MomoRequest;
 import com.master.minieshop.model.MomoResponse;
 import com.master.minieshop.repository.OrderRepository;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -17,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService extends BaseEntityService<Order, String, OrderRepository> {
@@ -24,6 +28,7 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
     private RestTemplate restTemplate;
     @Autowired
     private Environment env;
+    private static final String ORDER_SESSION_KEY = "order";
     public OrderService(OrderRepository repository) {
         super(repository);
     }
@@ -78,5 +83,20 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
         ObjectMapper objectMapper = new ObjectMapper();
 
         return objectMapper.readValue(result, MomoResponse.class);
+    }
+
+    public Order getSessionOrder(@NotNull HttpSession session) {
+        return Optional.ofNullable((Order) session.getAttribute(ORDER_SESSION_KEY))
+                .orElseGet(() -> {
+                    Order order = new Order();
+                    session.setAttribute(ORDER_SESSION_KEY, order);
+                    return order;
+                });
+    }
+    public void updateSessionOrder(@NotNull HttpSession session, Order order) {
+        session.setAttribute(ORDER_SESSION_KEY, order);
+    }
+    public void removeSessionOrder(@NotNull HttpSession session) {
+        session.removeAttribute(ORDER_SESSION_KEY);
     }
 }

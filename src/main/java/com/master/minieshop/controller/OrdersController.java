@@ -74,12 +74,8 @@ public class OrdersController {
 
         order.setOrderDetails(orderDetails);
 
-        OrderDetail orderDetail1 = new OrderDetail();
-        orderDetail1.setProduct(productService.getAll().stream().findFirst().orElse(null));
-        orderDetails.add(orderDetail1);
-        order.setOrderDetails(orderDetails);
-
-        orderService.save(order);
+        Order sessionOrder = orderService.getSessionOrder(session);
+        orderService.updateSessionOrder(session,order);
 
         MomoResponse response = orderService.createMomoPayment(order);
 
@@ -118,7 +114,7 @@ public class OrdersController {
         result.setExtraData(extraData);
         result.setSignature(signature);
 
-        Order order = orderService.getById(result.getOrderId()).orElse(null);
+        Order order = orderService.getSessionOrder(session);
         if (order != null) {
             order.setPaymentMethod(PaymentMethod.Momo);
             if (result.getResultCode() == 0)
@@ -134,6 +130,7 @@ public class OrdersController {
         }
 
         cartService.removeCart(session);
+        orderService.removeSessionOrder(session);
 
         model.addAttribute("momoResult", result);
 
