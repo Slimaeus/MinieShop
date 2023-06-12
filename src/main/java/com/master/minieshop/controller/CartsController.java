@@ -139,10 +139,8 @@ public class CartsController {
         switch (order.getPaymentMethod()) {
             case Momo:
                 return "redirect:/orders/momo-pay";
-            case Cash:
-                return "redirect:/home";
             default:
-                return "redirect:/home";
+                return "redirect:/orders/cash-pay";
         }
 
     }

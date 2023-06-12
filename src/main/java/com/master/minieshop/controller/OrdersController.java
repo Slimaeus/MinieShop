@@ -38,11 +38,22 @@ public class OrdersController {
     @Autowired
     private OrderService orderService;
     @Autowired
-    private ProductService productService;
-    @Autowired
     private CartService cartService;
 
+    @GetMapping("cash-pay")
+    public String cashPay(HttpSession session) {
+        Order order = orderService.getSessionOrder(session);
+        if (order != null) {
+            order.setPaymentMethod(PaymentMethod.Cash);
+            order.setStatus(OrderStatus.Completed);
+            order.setPaymentStatus(PaymentStatus.Unpaid);
+            orderService.save(order);
+        }
 
+        cartService.removeCart(session);
+        orderService.removeSessionOrder(session);
+        return "orders/cash-result";
+    }
     @GetMapping("momo-pay")
     public ResponseEntity<Void> momoPay(HttpSession session) throws NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
 
