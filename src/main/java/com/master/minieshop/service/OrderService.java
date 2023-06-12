@@ -41,8 +41,7 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
         String requestId = java.util.UUID.randomUUID().toString();
         String extraData = "";
         List<MomoItem> items = order.getOrderDetails().stream().map(x -> new MomoItem(x.getProduct().getId().toString(), x.getProduct().getName())).toList();
-        items.forEach(x -> System.out.println(x.getName()));
-        System.out.println(items.size());
+
         String rawHash = "accessKey=" + accessKey +
                 "&amount=" + amount +
                 "&extraData=" + extraData +
@@ -77,8 +76,7 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
         String result = restTemplate.postForObject(endPoint, momoMessage, String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
-        MomoResponse response = objectMapper.readValue(result, MomoResponse.class);
 
-        return response;
+        return objectMapper.readValue(result, MomoResponse.class);
     }
 }

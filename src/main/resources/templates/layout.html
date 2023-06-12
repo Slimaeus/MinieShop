@@ -20,6 +20,23 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">Home</a>
                 </li>
+                <th:block sec:authorize="!hasAuthority('Manager')">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/images">Images</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/orders">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/promotions">Promotions</a>
+                    </li>
+                </th:block>
                 <th:block sec:authorize="hasAuthority('Manager')">
                     <li class="nav-item">
                         <a class="nav-link" href="/admin/categories">Categories</a>
@@ -40,19 +57,21 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/home/about">About</a>
                 </li>
-
             </ul>
             <ul class="navbar-nav">
-                <li sec:authorize="isAuthenticated()" class="nav-item">
+                <li class="nav-item me-2">
+                    <a class="btn btn-info" href="/cart">Cart</a>
+                </li>
+                <li sec:authorize="isAuthenticated()" class="nav-item me-2">
                         <button class="btn btn-primary">Hello <span sec:authentication="name">Username</span></button>
                 </li>
-                <li sec:authorize="isAuthenticated()" class="nav-item">
+                <li sec:authorize="isAuthenticated()" class="nav-item me-2">
 
                     <form th:action="@{/logout}" method="post">
                         <button class="btn btn-outline-danger" type="submit">Logout</button>
                     </form>
                 </li>
-                <li sec:authorize="!isAuthenticated()" class="nav-item">
+                <li sec:authorize="!isAuthenticated()" class="nav-item me-2">
                     <a class="btn btn-outline-light" href="/login">Login</a>
                 </li>
             </ul>
