@@ -4,6 +4,7 @@ import com.master.minieshop.entity.*;
 import com.master.minieshop.enumeration.PaymentMethod;
 import com.master.minieshop.model.MyUserPrincipal;
 import com.master.minieshop.service.CartService;
+import com.master.minieshop.service.OrderService;
 import com.master.minieshop.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -30,6 +31,8 @@ public class CartsController {
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private OrderService orderService;
 
     @GetMapping
     public String showCart(HttpSession session,
@@ -91,7 +94,8 @@ public class CartsController {
         Order order = new Order();
         order.setTotalBill(totalBill);
         order.setTotalPrice(totalPrice);
-        order.setCustomerName(userPrincipal.getUsername());
+        if (userPrincipal != null)
+            order.setCustomerName(userPrincipal.getUsername());
 
         order.setId(java.util.UUID.randomUUID().toString());
 
@@ -117,15 +121,28 @@ public class CartsController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(HttpSession session, @Valid Order order) {
+    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order) {
+        Cart cart = cartService.getCart(session);
+        Set<OrderDetail> orderDetails = new HashSet<>();
 
+        cart.getCartItems().forEach(item -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
+            orderDetails.add(orderDetail);
+        });
 
-
+        order.setOrderDetails(orderDetails);
+        orderService.getSessionOrder(session);
+        orderService.updateSessionOrder(session, order);
         switch (order.getPaymentMethod()) {
             case Momo:
                 return "redirect:/orders/momo-pay";
+            case Cash:
+                return "redirect:/home";
             default:
-                return "home/index";
+                return "redirect:/home";
         }
 
     }

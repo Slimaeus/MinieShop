@@ -7,42 +7,67 @@
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
-
+<div class="container">
 <h1>Checkout</h1>
 
-<form action="/checkout" method="post">
+<form th:action="@{/cart/checkout}" th:object="${order}" method="post">
     <!-- Display customer information -->
-    <h2>Customer Information</h2>
-    <label for="customerName">Customer Name:</label>
-    <input type="text" id="customerName" name="customerName" value="${order.customerName}" required>
-
+    <div class="form-group">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" th:field="*{customerName}" class="form-control" required>
+    </div>
+    <input type="hidden" th:field="*{id}" />
+    <input type="hidden" th:field="*{totalPrice}" />
+    <input type="hidden" th:field="*{status}" />
+    <input type="hidden" th:field="*{totalBill}" />
+    <input type="hidden" th:field="*{createdAt}" />
+    <input type="hidden" th:field="*{updatedAt}" />
     <!-- Add more fields for customer information (e.g., phoneNumber, address) if needed -->
 
-    <!-- Display order details -->
-    <h2>Order Details</h2>
-    <table>
-        <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Total Price</th>
-        </tr>
-    </table>
-
     <!-- Display total bill -->
-    <p>Total Bill: ${order.totalBill}</p>
+    <p>Total Bill: <span th:text="${order.totalBill}"></span></p>
 
     <!-- Add more fields for payment method if needed -->
-    <h2>Payment Method</h2>
-    <input type="radio" id="momo" name="paymentMethod" value="Momo" checked>
-    <label for="momo">Momo</label><br>
+    <div class="form-group">
+        <label for="paymentMethod">Payment Method:</label>
+        <select id="paymentMethod" name="paymentMethod" th:field="*{paymentMethod}" class="form-select">
+            <option th:each="paymentMethod : ${T(com.master.minieshop.enumeration.PaymentMethod).values()}"
+                    th:value="${paymentMethod}" th:text="${paymentMethod}"></option>
+        </select>
+    </div>
     <!-- Add more payment method options if needed -->
 
     <!-- Add note field if needed -->
-    <h2>Note</h2>
-    <textarea id="note" name="note">${order.note}</textarea>
+    <div class="form-group">
+        <label for="note">Note:</label>
+        <input type="text" id="note" th:field="*{note}" class="form-control" />
+    </div>
 
-    <button type="submit">Proceed to Payment</button>
+
+    <!-- Display order details -->
+    <label for="order-details">Order Details:</label>
+    <table class="table" id="order-details">
+        <thead>
+        <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="orderDetail : ${order.orderDetails}">
+            <td th:text="${orderDetail.product.name}"></td>
+            <td th:text="${orderDetail.quantity}"></td>
+            <td th:text="${orderDetail.totalPrice}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="mt-4">
+        <button class="btn btn-primary" type="submit">Proceed to Payment</button>
+    </div>
 </form>
+</div>
 
 <th:block th:replace="layout :: footer"></th:block>
 </body>
