@@ -21,7 +21,7 @@ public class Item {
         return price;
     }
 
-    public Object getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 

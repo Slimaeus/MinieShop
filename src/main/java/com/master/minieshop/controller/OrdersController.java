@@ -1,6 +1,7 @@
 package com.master.minieshop.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Order;
 import com.master.minieshop.entity.OrderDetail;
 import com.master.minieshop.enumeration.OrderStatus;
@@ -8,11 +9,15 @@ import com.master.minieshop.enumeration.PaymentMethod;
 import com.master.minieshop.enumeration.PaymentStatus;
 import com.master.minieshop.model.MomoResponse;
 import com.master.minieshop.model.MomoResult;
+import com.master.minieshop.model.MyUserPrincipal;
+import com.master.minieshop.service.CartService;
 import com.master.minieshop.service.OrderService;
 import com.master.minieshop.service.ProductService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,14 +39,40 @@ public class OrdersController {
     private OrderService orderService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private CartService cartService;
+
+
     @GetMapping("momo-pay")
-    public ResponseEntity<Void> momoPay() throws NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+    public ResponseEntity<Void> momoPay(HttpSession session, @AuthenticationPrincipal MyUserPrincipal userPrincipal) throws NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
+        Cart cart = cartService.getCart(session);
+
+        double totalPrice = cart.getCartItems()
+                .stream()
+                .map(x -> x.getPrice() * x.getQuantity())
+                .mapToDouble(x -> x)
+                .sum();
+
+        double totalBill = totalPrice;
+
         Order order = new Order();
         order.setId(java.util.UUID.randomUUID().toString());
-        order.setTotalBill(2000000);
-        order.setCustomerName("Nguyễn Hồng Thái");
+        order.setTotalBill(totalBill);
+        order.setTotalPrice(totalPrice);
+        order.setCustomerName(userPrincipal.getUsername());
         order.setNote("Mua bánh");
         Set<OrderDetail> orderDetails = new HashSet<>();
+
+        cart.getCartItems().forEach(item -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
+            orderDetails.add(orderDetail);
+        });
+
+        order.setOrderDetails(orderDetails);
+
         OrderDetail orderDetail1 = new OrderDetail();
         orderDetail1.setProduct(productService.getAll().stream().findFirst().orElse(null));
         orderDetails.add(orderDetail1);

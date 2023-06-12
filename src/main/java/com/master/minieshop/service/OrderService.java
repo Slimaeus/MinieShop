@@ -39,7 +39,7 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
         String amount = String.valueOf(order.getTotalBill()).replaceAll("[^\\d]", ""); // Xóa dấu phẩy
         String orderId = order.getId();
         String requestId = java.util.UUID.randomUUID().toString();
-        String extraData = "{ \"note\": \"" + order.getNote() + "\"}";
+        String extraData = "";
         List<MomoItem> items = order.getOrderDetails().stream().map(x -> new MomoItem(x.getProduct().getId().toString(), x.getProduct().getName())).toList();
         items.forEach(x -> System.out.println(x.getName()));
         System.out.println(items.size());

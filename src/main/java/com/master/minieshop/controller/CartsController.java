@@ -52,7 +52,7 @@ public class CartsController {
             @PathVariable int quantity) {
         var cart = cartService.getCart(session);
         cart.updateItems(id, quantity);
-        return "product/cart";
+        return "products/cart";
     }
 
     @GetMapping("/clearCart")
