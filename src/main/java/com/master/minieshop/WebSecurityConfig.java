@@ -1,6 +1,10 @@
 package com.master.minieshop;
 
+import com.master.minieshop.entity.AppUser;
+import com.master.minieshop.enumeration.Role;
 import com.master.minieshop.service.CustomUserDetailsService;
+import com.master.minieshop.service.OAuthService;
+import com.master.minieshop.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,11 +17,16 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.core.oidc.user.DefaultOidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
+    @Autowired
+    private OAuthService oAuthService;
+    @Autowired
+    private UserService userService;
     @Bean
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService();
@@ -56,6 +65,31 @@ public class WebSecurityConfig {
                         .anyRequest().permitAll()
 
                 )
+                .oauth2Login(oauth2Login -> oauth2Login.loginPage("/login")
+                        .failureUrl("/login?error")
+                        .userInfoEndpoint(userInfoEndpoint ->
+                                userInfoEndpoint
+                                        .userService(oAuthService)
+                        )
+                        .successHandler(
+                                (request, response,
+                                 authentication) -> {
+                                    var oidcUser = (DefaultOidcUser) authentication.getPrincipal();
+
+                                    if (userService.findByUsername(oidcUser.getName()) == null) {
+                                        AppUser user = new AppUser();
+                                        user.setUserName(oidcUser.getName());
+                                        user.setEmail(oidcUser.getEmail());
+                                        user.setFullName(oidcUser.getFullName());
+                                        user.setPassword(new BCryptPasswordEncoder().encode(oidcUser.getName()));
+                                        user.setRole(Role.LoyalCustomer);
+                                        userService.save(user);
+                                    };
+
+                                    response.sendRedirect("/");
+                                }
+                        )
+                        .permitAll())
                 .logout(logout -> logout.logoutUrl("/logout")
                         .logoutSuccessUrl("/login")
                         .deleteCookies("JSESSIONID")
