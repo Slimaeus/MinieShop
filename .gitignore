@@ -4,9 +4,6 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# Application properties
-src/main/resources/application.properties
-
 ### STS ###
 .apt_generated
 .classpath
@@ -36,4 +33,4 @@ build/
 .vscode/
 
 ### Secret ###
-secret.properties
+src/main/resources/secret.properties
