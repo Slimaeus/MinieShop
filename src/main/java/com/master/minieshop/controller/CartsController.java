@@ -6,6 +6,7 @@ import com.master.minieshop.model.MyUserPrincipal;
 import com.master.minieshop.service.CartService;
 import com.master.minieshop.service.OrderService;
 import com.master.minieshop.service.ProductService;
+import com.master.minieshop.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -33,6 +34,8 @@ public class CartsController {
     private ProductService productService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping
     public String showCart(HttpSession session,
@@ -103,17 +106,7 @@ public class CartsController {
         order.setPaymentMethod(PaymentMethod.Momo);
 
 
-        Set<OrderDetail> orderDetails = new HashSet<>();
-
-        cart.getCartItems().forEach(item -> {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
-            orderDetail.setQuantity(item.getQuantity());
-            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
-            orderDetails.add(orderDetail);
-        });
-
-        order.setOrderDetails(orderDetails);
+        setOrderDetailsFromCart(order, cart);
 
 
         model.addAttribute("order", order);
@@ -121,19 +114,13 @@ public class CartsController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order) {
+    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order,  @AuthenticationPrincipal MyUserPrincipal userPrincipal) {
         Cart cart = cartService.getCart(session);
-        Set<OrderDetail> orderDetails = new HashSet<>();
-
-        cart.getCartItems().forEach(item -> {
-            OrderDetail orderDetail = new OrderDetail();
-            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
-            orderDetail.setQuantity(item.getQuantity());
-            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
-            orderDetails.add(orderDetail);
-        });
-
-        order.setOrderDetails(orderDetails);
+        setOrderDetailsFromCart(order, cart);
+        if (userPrincipal != null) {
+            AppUser user = userService.findByUsername(userPrincipal.getUsername());
+            order.setUser(user);
+        }
         orderService.getSessionOrder(session);
         orderService.updateSessionOrder(session, order);
         switch (order.getPaymentMethod()) {
@@ -143,5 +130,19 @@ public class CartsController {
                 return "redirect:/orders/cash-pay";
         }
 
+    }
+
+    private void setOrderDetailsFromCart(@ModelAttribute("order") @Valid Order order, Cart cart) {
+        Set<OrderDetail> orderDetails = new HashSet<>();
+
+        cart.getCartItems().forEach(item -> {
+            OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setProduct(productService.getById(item.getProductId()).orElse(null));
+            orderDetail.setQuantity(item.getQuantity());
+            orderDetail.setTotalPrice(item.getQuantity() * item.getPrice());
+            orderDetails.add(orderDetail);
+        });
+
+        order.setOrderDetails(orderDetails);
     }
 }

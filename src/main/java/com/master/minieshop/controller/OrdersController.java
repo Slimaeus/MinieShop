@@ -40,6 +40,10 @@ public class OrdersController {
     @Autowired
     private CartService cartService;
 
+    @GetMapping("me")
+    public String me() {
+        return "orders/me";
+    }
     @GetMapping("cash-pay")
     public String cashPay(HttpSession session) {
         Order order = orderService.getSessionOrder(session);
