@@ -36,6 +36,13 @@
     </tr>
   </table>
   <ul>
+    <th:block th:each="image : ${product.getImages()}">
+      <li>
+        <img th:src="${image.link}" th:alt="${image.title}" />
+      </li>
+    </th:block>
+  </ul>
+  <ul>
     <th:block th:each="image : ${images}">
       <li>
         <img th:src="${image.link}" th:alt="${image.title}" />

@@ -32,6 +32,7 @@
             <td th:text="${product.category.name}"></td>
             <td>
                 <a th:href="@{/products/details/{id}(id=${product.id})}">Details</a> |
+                <a th:href="@{/{name}(name=${product.name})}">Details By Name</a> |
                 <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a> |
                 <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>|
                 <form th:action="@{/cart/add-to-cart}" method="post" class="d-inline">

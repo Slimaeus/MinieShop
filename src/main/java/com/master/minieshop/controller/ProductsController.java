@@ -5,6 +5,10 @@ import com.master.minieshop.entity.Product;
 import com.master.minieshop.service.CategoryService;
 import com.master.minieshop.service.ImageService;
 import com.master.minieshop.service.ProductService;
+import jakarta.annotation.Nullable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +34,11 @@ public class ProductsController {
         return "products/info";
     }
     @GetMapping({"products/index", "products"})
-    public String index(Model model) {
+    public String index(Model model, @RequestParam("index") @Nullable Integer index, @RequestParam("size") @Nullable Integer size) {
+        int pageIndex = index == null || index <= 0 ? 1 : index;
+        int pageSize = size == null || size <= 0 ? 10 : size;
+        Pageable paging = PageRequest.of(pageIndex, pageSize, Sort.by("title"));
+
         model.addAttribute("products", productService.getAll());
         return "products/index";
     }

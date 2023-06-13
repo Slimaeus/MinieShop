@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -83,7 +84,7 @@ public class CartsController {
     }
 
     @GetMapping("/checkout")
-    public String checkout(Model model, HttpSession session, @AuthenticationPrincipal MyUserPrincipal userPrincipal) {
+    public String checkout(Model model, HttpSession session, Principal principal) {
         Cart cart = cartService.getCart(session);
 
         double totalPrice = cart.getCartItems()
@@ -97,8 +98,8 @@ public class CartsController {
         Order order = new Order();
         order.setTotalBill(totalBill);
         order.setTotalPrice(totalPrice);
-        if (userPrincipal != null) {
-            AppUser user = userPrincipal.getUser();
+        if (principal != null) {
+            AppUser user = userService.findByUsername(principal.getName());
             order.setCustomerName(user.getFullName());
             order.setPhoneNumber(user.getPhoneNumber());
             order.setGender(user.getGender());
@@ -115,11 +116,11 @@ public class CartsController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order,  @AuthenticationPrincipal MyUserPrincipal userPrincipal) {
+    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order,  Principal principal) {
         Cart cart = cartService.getCart(session);
         setOrderDetailsFromCart(order, cart);
-        if (userPrincipal != null) {
-            AppUser user = userPrincipal.getUser();
+        if (principal != null) {
+            AppUser user = userService.findByUsername(principal.getName());
             order.setUser(user);
         }
         orderService.getSessionOrder(session);
