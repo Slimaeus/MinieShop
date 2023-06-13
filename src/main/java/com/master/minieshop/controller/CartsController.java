@@ -105,13 +105,10 @@ public class CartsController {
         }
 
         order.setId(java.util.UUID.randomUUID().toString());
-
         order.setNote("Mua bánh");
         order.setPaymentMethod(PaymentMethod.Momo);
 
-
         setOrderDetailsFromCart(order, cart);
-
 
         model.addAttribute("order", order);
         return "orders/checkout";
@@ -122,7 +119,7 @@ public class CartsController {
         Cart cart = cartService.getCart(session);
         setOrderDetailsFromCart(order, cart);
         if (userPrincipal != null) {
-            AppUser user = userService.findByUsername(userPrincipal.getUsername());
+            AppUser user = userPrincipal.getUser();
             order.setUser(user);
         }
         orderService.getSessionOrder(session);
