@@ -10,4 +10,7 @@ public class ProductService extends BaseEntityService<Product, Integer, ProductR
     public ProductService(ProductRepository repository) {
         super(repository);
     }
+    public Product findByName(String name) {
+        return repository.findByName(name);
+    }
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/products")
 public class ProductsController {
     private final ProductService productService;
     private final CategoryService categoryService;
@@ -24,13 +23,19 @@ public class ProductsController {
         this.imageService = imageService;
     }
 
-    @GetMapping({"index", ""})
+    @GetMapping("{name}")
+    public String getProduct(@PathVariable("name") String name, Model model) {
+        Product product = productService.findByName(name);
+        model.addAttribute("product", product);
+        return "products/info";
+    }
+    @GetMapping({"products/index", "products"})
     public String index(Model model) {
         model.addAttribute("products", productService.getAll());
         return "products/index";
     }
 
-    @GetMapping("/details/{id}")
+    @GetMapping("products/details/{id}")
     public String details(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
@@ -40,20 +45,20 @@ public class ProductsController {
         return "products/details";
     }
 
-    @GetMapping("/create")
+    @GetMapping("products/create")
     public String create(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAll());
         return "products/create";
     }
 
-    @PostMapping("/create")
+    @PostMapping("products/create")
     public String create(@ModelAttribute("product") Product product) {
         productService.save(product);
         return "redirect:/products";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("products/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
@@ -62,13 +67,13 @@ public class ProductsController {
         return "products/edit";
     }
 
-    @PostMapping("/edit/{id}")
+    @PostMapping("products/edit/{id}")
     public String edit(@PathVariable("id") Integer id, @ModelAttribute("product") Product product) {
         productService.save(product);
         return "redirect:/products";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("products/delete/{id}")
     public String delete(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
@@ -76,7 +81,7 @@ public class ProductsController {
         return "products/delete";
     }
 
-    @PostMapping("/delete/{id}")
+    @PostMapping("products/delete/{id}")
     public String delete(@PathVariable("id") Integer id) {
         productService.deleteById(id);
         return "redirect:/products";
