@@ -12,14 +12,27 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-lg-6 col-md-8">
-      <h3 class="card-title text-center">Sign Up</h3>
-      <form th:action="@{/register}" th:object="${user}" method="post">
+      <h3 class="card-title text-center">Edit User</h3>
+      <form th:action="@{/edit-user/{username}(username=${user.userName})}" th:object="${user}" method="post">
+        <div class="mb-3">
+          <label for="id" class="form-label">Id:</label>
+          <input type="text" class="form-control" id="id" th:field="*{id}" readonly="true">
+        </div>
+
         <div class="mb-3">
           <label for="fullName" class="form-label">Full name:</label>
           <span class="text-danger">*</span>
           <input type="text" class="form-control" id="fullName" th:field="*{fullName}">
           <span class="text-danger" th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
         </div>
+
+        <div class="mb-3">
+          <label for="userName" class="form-label">User Name:</label>
+          <span class="text-danger">*</span>
+          <input type="text" class="form-control" id="userName" th:field="*{userName}">
+          <span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
+        </div>
+
         <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
           <input type="email" class="form-control" id="email" th:field="*{email}">
@@ -33,21 +46,15 @@
         </div>
 
         <div class="mb-3">
-          <label for="userName" class="form-label">User Name:</label>
-          <span class="text-danger">*</span>
-          <input type="text" class="form-control" id="userName" th:field="*{userName}">
-          <span class="text-danger" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
-        </div>
-        <div class="mb-3">
           <label for="password" class="form-label">Password:</label>
           <span class="text-danger">*</span>
           <input type="password" class="form-control" id="password" th:field="*{password}">
           <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
         </div>
-        <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary">Sign Up</button>
-          <a class="text-primary text-center" href="/login">Already have an account. Login?</a>
-        </div>
+        <form th:action="@{/logout}" method="post">
+          <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Bạn cần đăng nhập lại với ' +
+           'Username và Password vừa đổi(Nếu có) để lưu các thay đổi trên')">Save</button>
+      </form>
       </form>
     </div>
   </div>

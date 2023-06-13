@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,12 +51,35 @@ public class UsersController {
         return "redirect:/login";
     }
 
-    @GetMapping("/user-details/{id}")
-    public String userDetail( @PathVariable("id") Long id,Model model, HttpSession session){
-        AppUser user = userService.getById(id);
-        System.out.println(user);
-            model.addAttribute("userD",user);
-            return "users/user-details";
+    @GetMapping("/user-details/{username}")
+    public String userDetail( @PathVariable("username") String username){
+        return "users/user-details";
+    }
 
+    @GetMapping("/edit-user/{username}")
+    public String editUser( @PathVariable("username") String username,HttpSession session, Model model){
+        AppUser user = (AppUser)session.getAttribute("userD");
+        model.addAttribute("user",user);
+        return "users/edit-user";
+    }
+
+    @PostMapping("/edit-user/{username}")
+    public String editUser(@PathVariable("username") String username, @Valid @ModelAttribute("user") AppUser user
+            , HttpSession session, BindingResult bindingResult, Model model, Authentication authentication) {
+        if (bindingResult.hasErrors()) {
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for (FieldError error : errors) {
+                model.addAttribute(error.getField() + "_error",
+                        error.getDefaultMessage());
+            }
+            return "users/edit-user";
+        }
+        else{
+            user.setPassword(new
+                    BCryptPasswordEncoder().encode(user.getPassword()));
+            user.setRole(Role.LoyalCustomer);
+            userService.save(user);
+            return "redirect:/login";
+        }
     }
 }
