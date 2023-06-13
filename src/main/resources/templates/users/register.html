@@ -26,6 +26,19 @@
           <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
         </div>
         <div class="mb-3">
+          <label for="phoneNumber" class="form-label">Phone number:</label>
+          <span class="text-danger">*</span>
+          <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+          <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender:</label>
+          <select id="gender" name="gender" th:field="*{gender}" class="form-select">
+            <option th:each="gender : ${T(com.master.minieshop.enumeration.Gender).values()}"
+                    th:value="${gender}" th:text="${gender}"></option>
+          </select>
+        </div>
+        <div class="mb-3">
           <label for="userName" class="form-label">User Name:</label>
           <span class="text-danger">*</span>
           <input type="text" class="form-control" id="userName" th:field="*{userName}">

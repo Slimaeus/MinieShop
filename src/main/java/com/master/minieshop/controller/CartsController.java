@@ -97,8 +97,12 @@ public class CartsController {
         Order order = new Order();
         order.setTotalBill(totalBill);
         order.setTotalPrice(totalPrice);
-        if (userPrincipal != null)
-            order.setCustomerName(userPrincipal.getUsername());
+        if (userPrincipal != null) {
+            AppUser user = userPrincipal.getUser();
+            order.setCustomerName(user.getFullName());
+            order.setPhoneNumber(user.getPhoneNumber());
+            order.setGender(user.getGender());
+        }
 
         order.setId(java.util.UUID.randomUUID().toString());
 
