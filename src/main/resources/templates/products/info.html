@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Product Details</title>
@@ -54,13 +56,29 @@
       </li>
     </th:block>
   </ul>
-  <ul>
-    <th:block th:each="image : ${images}">
-      <li>
-        <img th:src="${image.link}" th:alt="${image.title}" />
-      </li>
-    </th:block>
-  </ul>
+  <div class="comment-container">
+    <h3>Comments</h3>
+    <div sec:authorize="isAuthenticated()" class="form-control">
+      <label for="comment-input">Comment</label>
+      <textarea id="comment-input" th:attr="data-id=${product.id}" placeholder="Write your comment here..."></textarea>
+      <button type="button" class="btn btn-primary" id="submit-comment">Submit Comment</button>
+    </div>
+
+    <div id="comments">
+      <th:block th:each="comment : ${product.getComments()}">
+        <div class="comment">
+          <div class="comment-header">
+            <strong>User:</strong> <span th:text="${comment.user.getUserName()}"></span>
+          </div>
+          <div class="comment-body">
+            <p><strong>Rate:</strong> <span th:text="${comment.rate}"></span></p>
+            <p><strong>Content:</strong> <span th:text="${comment.content}"></span></p>
+          </div>
+        </div>
+      </th:block>
+    </div>
+  </div>
+
   <div class="mt-4">
     <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
     <a th:href="@{/products}" class="btn btn-secondary">Back to List</a>
@@ -81,6 +99,17 @@
           success: () => {
             Snackbar.show({text: 'Add product to cart successfully!'});
         }
+      })
+    })
+
+    $('#submit-comment').click(function (event) {
+      event.preventDefault();
+      const commentInput = $('#comment-input');
+      const content = commentInput.val();
+      const productId = commentInput.attr('data-id');
+      $.ajax({
+        url: '/api/comments/' + productId + '/' + content + '/' + 1,
+        type: 'GET',
       })
     })
   });
