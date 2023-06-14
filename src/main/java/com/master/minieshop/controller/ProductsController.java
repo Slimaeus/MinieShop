@@ -27,9 +27,10 @@ public class ProductsController {
         this.imageService = imageService;
     }
 
-    @GetMapping("{name}")
+    @GetMapping("desserts/{name}")
     public String getProduct(@PathVariable("name") String name, Model model) {
-        Product product = productService.findByName(name);
+        Product product = productService.findByName(name)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid product name: " + name));
         model.addAttribute("product", product);
         return "products/info";
     }

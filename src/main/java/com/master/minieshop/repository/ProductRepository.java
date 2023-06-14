@@ -6,7 +6,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.awt.print.Pageable;
 import java.util.List;
+import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>, PagingAndSortingRepository<Product, Integer> {
-    public Product findByName(String name);
+    public Optional<Product> findByName(String name);
 }
