@@ -6,9 +6,30 @@
     <title>Title</title>
     <th:block th:fragment="link-css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/snackbar.min.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/snackbar.min.css}">
+        <style>
+            html,
+            body {
+                height: 100%;
+            }
+
+            .container {
+                min-height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .content {
+                padding-top: 56px;
+                flex: 1;
+            }
+
+            footer {
+                flex-shrink: 0;
+            }
+        </style>
     </th:block>
 </head>
 <body>
@@ -71,7 +92,7 @@
                     <a class="btn btn-info" href="/cart"><i class="bi bi-cart4"></i> Cart</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
-                        <button class="btn btn-primary">Hello <span sec:authentication="name">Username</span></button>
+                    <button class="btn btn-primary">Hello <span sec:authentication="name">Username</span></button>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
 
@@ -87,20 +108,22 @@
     </nav>
 </header>
 
-<div th:insert="~{::${content}}">
-    <!--    NOI DUNG TRANG CON-->
+<div class="container">
+    <div class="content">
+        <!-- Page content goes here -->
+        <div th:insert="~{::${content}}"></div>
+    </div>
+    <!-- Footer -->
+    <footer th:fragment="footer" class="bg-light py-3 text-center">
+        <p>© 2023 Minie Shop. All Rights Reserved.</p>
+    </footer>
 </div>
-
-<!-- Footer -->
-<footer th:fragment="footer" class="bg-light py-3 text-center fixed-bottom">
-    <p>© 2023 Minie Shop. All Rights Reserved.</p>
-</footer>
 
 <!-- Scripts -->
 <th:block th:fragment="script">
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/jquery-3.7.0.min.js"></script>
-<script src="/js/snackbar.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.7.0.min.js"></script>
+    <script src="/js/snackbar.min.js"></script>
 </th:block>
 </body>
 </html>
