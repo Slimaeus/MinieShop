@@ -6,16 +6,37 @@
     <title>Title</title>
     <th:block th:fragment="link-css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-    <link rel="stylesheet" th:href="@{/css/snackbar.min.css}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+        <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/css/snackbar.min.css}">
+        <style>
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+            }
+
+            .container {
+                min-height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .content {
+                flex: 1;
+            }
+
+            footer {
+                flex-shrink: 0;
+            }
+        </style>
     </th:block>
 </head>
 <body>
 <!-- Header -->
 <header th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="/">Minie Shop</a>
+        <a class="navbar-brand ms-4" href="/">Minie Shop</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -23,47 +44,29 @@
         <div class="collapse navbar-collapse container-fluid" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/">Trang Chủ</a>
                 </li>
-                <th:block sec:authorize="!hasAuthority('Manager')">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/categories">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/images">Images</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/orders">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/promotions">Promotions</a>
-                    </li>
-                </th:block>
-                <th:block sec:authorize="hasAuthority('Manager')">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/categories">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/products">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/images">Images</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/comments">Comments</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/orders">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/admin/promotions">Promotions</a>
-                    </li>
-                </th:block>
                 <li class="nav-item">
-                    <a class="nav-link" href="/home/about">About</a>
+                    <a class="nav-link" href="/products">Sản Phẩm</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/promotions">Khuyến Mãi</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/orders">Đơn Hàng</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/about">Cửa Hàng</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/home/about">Về Chúng Tôi</a>
+                </li>
+                <li>
+                    <form class="d-flex ms-4" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm"
+                               aria-label="Search">
+                        <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
                 </li>
             </ul>
             <ul class="navbar-nav">
@@ -71,36 +74,63 @@
                     <a class="btn btn-info" href="/cart"><i class="bi bi-cart4"></i> Cart</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
-                        <button class="btn btn-primary">Hello <span sec:authentication="name">Username</span></button>
+                    <button class="btn btn-dark">Hello <span sec:authentication="name">Username</span></button>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
-
                     <form th:action="@{/logout}" method="post">
-                        <button class="btn btn-outline-danger" type="submit">Logout</button>
+                        <button class="btn btn-danger" type="submit">Logout</button>
                     </form>
                 </li>
                 <li sec:authorize="!isAuthenticated()" class="nav-item me-2">
-                    <a class="btn btn-outline-light" href="/login">Login</a>
+                    <a class="btn btn-dark" href="/login">Đăng Nhập</a>
+                </li>
+                <li sec:authorize="!isAuthenticated()" class="nav-item me-2">
+                    <a class="btn btn-dark" href="/register">Đăng Ký</a>
                 </li>
             </ul>
         </div>
     </nav>
 </header>
 
-<div th:insert="~{::${content}}">
-    <!--    NOI DUNG TRANG CON-->
+<div class="container">
+    <div class="content">
+        <!-- Page content goes here -->
+        <div th:insert="~{::${content}}"></div>
+    </div>
+    <!-- Footer -->
+    <footer th:fragment="footer" class="bg-primary py-3 text-center row">
+        <div class="col d-grid">
+            <h4><strong>MINIE SHOP</strong></h4>
+            <p class="text-white">Cảm ơn bạn đã tin tưởng chọn cửa hàng
+                <br/>
+                bánh của chúng tôi, mong được phục vụ
+                <br/>
+                bạn những vị bánh thơm ngon và khiến
+                <br/>
+                bạn hài lòng khi nếm thử!
+            </p>
+        </div>
+        <div class="col d-grid">
+            <h4><strong>Liên Hệ</strong></h4>
+            <p class="text-white"><i class="bi bi-geo-alt-fill"></i> 123 Đường ABC, Phường XYZ, Quận 3, TP.HCM</p>
+            <p class="text-white"><i class="bi bi-telephone-fill"></i> 08 7777 1111</p>
+            <p class="text-white"><i class="bi bi-envelope-fill"></i> admin@minie.com</p>
+        </div>
+        <div class="col d-grid">
+            <h4><strong>Giới Thiệu</strong></h4>
+            <a class="nav-link text-white" href="/products">Sản Phẩm</a>
+            <a class="nav-link text-white" href="/promotions">Khuyến Mãi</a>
+            <a class="nav-link text-white" href="/home/about">Cửa Hàng</a>
+            <a class="nav-link text-white" href="/home/about">Tuyển Dụng</a>
+        </div>
+    </footer>
 </div>
-
-<!-- Footer -->
-<footer th:fragment="footer" class="bg-light py-3 text-center fixed-bottom">
-    <p>© 2023 Minie Shop. All Rights Reserved.</p>
-</footer>
 
 <!-- Scripts -->
 <th:block th:fragment="script">
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/jquery-3.7.0.min.js"></script>
-<script src="/js/snackbar.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.7.0.min.js"></script>
+    <script src="/js/snackbar.min.js"></script>
 </th:block>
 </body>
 </html>
