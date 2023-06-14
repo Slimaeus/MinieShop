@@ -9,36 +9,45 @@
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
   <h1>Create Product</h1>
-  <form th:action="@{/admin/products/create}" th:object="${product}" method="post">
+  <form th:action="@{/admin/products/create}" th:object="${createProductDto}" method="post" enctype="multipart/form-data">
     <div class="form-group">
       <label for="title">Title:</label>
-      <input type="text" id="title" th:field="*{title}" class="form-control" required>
+      <input type="text" id="title" th:field="*{product.title}" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="name">Name:</label>
-      <input type="text" id="name" th:field="*{name}" class="form-control" required>
+      <input type="text" id="name" th:field="*{product.name}" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="price">Price:</label>
-      <input type="number" id="price" th:field="*{price}" class="form-control" required>
+      <input type="number" id="price" th:field="*{product.price}" class="form-control" required>
     </div>
     <div class="form-group">
       <label for="description">Description:</label>
-      <textarea id="description" th:field="*{description}" class="form-control" required></textarea>
+      <textarea id="description" th:field="*{product.description}" class="form-control" required></textarea>
     </div>
     <div class="form-group">
       <label for="status">Status:</label>
-      <select id="status" name="status" th:field="*{status}" class="form-select">
+      <select id="status" name="status" th:field="*{product.status}" class="form-select">
         <option th:each="status : ${T(com.master.minieshop.enumeration.ProductStatus).values()}"
                 th:value="${status}" th:text="${status}"></option>
       </select>
     </div>
     <div class="form-group">
       <label for="category">Category:</label>
-      <select id="category" th:field="*{category.id}" class="form-control" required>
+      <select id="category" th:field="*{product.category.id}" class="form-control" required>
         <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
       </select>
     </div>
+
+    <div class="form-group">
+      <label for="image-title">Image:</label>
+      <input type="text" id="image-title" th:field="*{imageUpload.title}" class="form-control">
+    </div>
+    <div class="form-group">
+      <input type="file" th:field="*{imageUpload.file}" class="form-control-file">
+    </div>
+
     <div class="mt-4">
       <button type="submit" class="btn btn-primary">Create</button>
     </div>
