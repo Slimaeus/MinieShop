@@ -19,10 +19,18 @@ public class HomeController {
 
     @Autowired
     private UserService userService;
+    private Long k;
     @GetMapping({"home", "/"})
     public String home(Authentication authentication, HttpSession session) {
-        if(authentication != null){
+        if(authentication != null && session.getAttribute("userD") == null){
             AppUser user = userService.findByUsername(authentication.getName());
+            session.setAttribute("userD",user);
+            k = user.getId();
+        }
+
+        else if (authentication != null && session.getAttribute("userD") != null) {
+            session.removeAttribute("userD");
+            AppUser user = userService.getById(k);
             session.setAttribute("userD",user);
         }
         return "home/index";

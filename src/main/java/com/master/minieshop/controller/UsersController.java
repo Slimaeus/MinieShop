@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.List;
 
 @Controller
@@ -65,7 +66,7 @@ public class UsersController {
 
     @PostMapping("/edit-user/{username}")
     public String editUser(@PathVariable("username") String username, @Valid @ModelAttribute("user") AppUser user
-            , HttpSession session, BindingResult bindingResult, Model model, Authentication authentication) {
+            , HttpSession session, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
@@ -77,8 +78,8 @@ public class UsersController {
         else{
             user.setPassword(new
                     BCryptPasswordEncoder().encode(user.getPassword()));
-            user.setRole(Role.LoyalCustomer);
             userService.save(user);
+
             return "redirect:/login";
         }
     }

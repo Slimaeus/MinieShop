@@ -14,9 +14,11 @@
     <div class="col-lg-6 col-md-8">
       <h3 class="card-title text-center">Edit User</h3>
       <form th:action="@{/edit-user/{username}(username=${user.userName})}" th:object="${user}" method="post">
+
         <div class="mb-3">
-          <label for="id" class="form-label">Id:</label>
-          <input type="text" class="form-control" id="id" th:field="*{id}" readonly="true">
+          <label for="id" class="form-label"></label>
+          <input type="text" class="form-control" id="id" th:field="*{id}" hidden="true">
+          <span class="text-danger" th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></span>
         </div>
 
         <div class="mb-3">
@@ -34,6 +36,13 @@
         </div>
 
         <div class="mb-3">
+          <label for="password" class="form-label">Password:</label>
+          <span class="text-danger">*</span>
+          <input type="password" class="form-control" id="password" th:field="*{password}">
+          <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+
+        <div class="mb-3">
           <label for="email" class="form-label">Email:</label>
           <input type="email" class="form-control" id="email" th:field="*{email}">
           <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -45,16 +54,26 @@
           <span class="text-danger" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></span>
         </div>
 
-        <div class="mb-3">
-          <label for="password" class="form-label">Password:</label>
-          <span class="text-danger">*</span>
-          <input type="password" class="form-control" id="password" th:field="*{password}">
-          <span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        <div class="form-group">
+          <label for="gender"></label>
+          <select id="gender" name="gender" th:field="*{gender}" class="form-select" hidden="true">
+            <option th:each="status : ${T(com.master.minieshop.enumeration.Gender).values()}"
+                    th:value="${status}" th:text="${status}"></option>
+          </select>
         </div>
+
+        <div class="form-group">
+          <label for="role"></label>
+          <select id="role" name="role" th:field="*{role}" class="form-select" hidden="true">
+            <option th:each="status : ${T(com.master.minieshop.enumeration.Role).values()}"
+                    th:value="${status}" th:text="${status}"></option>
+          </select>
+        </div>
+
         <form th:action="@{/logout}" method="post">
           <button class="btn btn-outline-danger" type="submit" onclick="return confirm('Bạn cần đăng nhập lại với ' +
            'Username và Password vừa đổi(Nếu có) để lưu các thay đổi trên')">Save</button>
-      </form>
+        </form>
       </form>
     </div>
   </div>
