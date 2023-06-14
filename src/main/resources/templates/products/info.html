@@ -34,7 +34,19 @@
       <th>Category:</th>
       <td th:text="${product.category.name}"></td>
     </tr>
+    <tr>
+      <th>Quantity:</th>
+      <td>
+        <label>
+          <input type="number" min="1" th:value="${1}"
+                 th:attr="data-id=${product.id}" class="form-control" id="quantity">
+        </label>
+      </td>
+    </tr>
   </table>
+  <div class="d-grid gap-2 form-action">
+    <button type="submit" class="btn btn-primary" id="add-to-cart">Add to Cart</button>
+  </div>
   <ul>
     <th:block th:each="image : ${product.getImages()}">
       <li>
@@ -56,5 +68,23 @@
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 <th:block th:replace="layout :: script"></th:block>
+<script>
+  $(document).ready(function () {
+    $('#add-to-cart').click(function (event) {
+      event.preventDefault();
+      const quantityInput = $('#quantity');
+      const quantity = quantityInput.val();
+      const id = quantityInput.attr('data-id');
+      $.ajax({
+          url: '/api/cart/add-to-cart/' + id + '/' + quantity,
+          type: 'GET',
+          success: () => {
+            Snackbar.show({text: 'Add product to cart successfully!'});
+        }
+      })
+    })
+  });
+
+</script>
 </body>
 </html>

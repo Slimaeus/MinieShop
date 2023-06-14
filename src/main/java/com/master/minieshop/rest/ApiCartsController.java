@@ -1,38 +1,39 @@
 package com.master.minieshop.rest;
 
+import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Item;
 import com.master.minieshop.service.CartService;
-import com.master.minieshop.service.OrderService;
 import com.master.minieshop.service.ProductService;
-import com.master.minieshop.service.UserService;
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/carts")
-public class CartsController {
+@CrossOrigin("*")
+public class ApiCartsController {
     @Autowired
     private CartService cartService;
 
     @Autowired
     private ProductService productService;
 
-    @Transactional
+    @GetMapping("/api/cart/")
+    public Cart showCart(HttpSession session) {
+        return cartService.getCart(session);
+    }
 
-    @PostMapping("/add-to-cart")
-    public void addToCart(HttpSession session,
-                            @RequestParam Integer id,
-                            @RequestParam(defaultValue = "1") int quantity) {
+    @GetMapping("/api/cart/add-to-cart/{id}/{quantity}")
+    public void addToCart(HttpSession session, @PathVariable(value = "id") Integer id, @PathVariable("quantity") Integer quantity) {
         var product = productService.getById(id).orElseThrow();
         var cart = cartService.getCart(session);
-        cart.addItems(new Item(id, product.getName(), product.getPrice(), quantity));
+        cart.addItems(new Item(product.getId(), product.getName(), product.getPrice(), quantity));
         cartService.updateCart(session, cart);
     }
 
-    @Transactional
-    @GetMapping("/updateCart/{id}/{quantity}")
+    @GetMapping("/api/cart/updateCart/{id}/{quantity}")
     public void updateCart(HttpSession session,
                              @PathVariable Integer id,
                              @PathVariable int quantity) {

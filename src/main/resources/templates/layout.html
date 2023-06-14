@@ -6,8 +6,9 @@
     <title>Title</title>
     <th:block th:fragment="link-css">
 
-    <link th:fragment="link-css" rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/snackbar.min.css}">
     </th:block>
 </head>
 <body>
@@ -96,6 +97,7 @@
 <th:block th:fragment="script">
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/jquery-3.7.0.min.js"></script>
+<script src="/js/snackbar.min.js"></script>
 </th:block>
 </body>
 </html>
