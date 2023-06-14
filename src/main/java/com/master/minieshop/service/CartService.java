@@ -1,7 +1,7 @@
 package com.master.minieshop.service;
 
-import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Item;
+import com.master.minieshop.model.Cart;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.constraints.NotNull;

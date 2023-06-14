@@ -1,9 +1,11 @@
-package com.master.minieshop.entity;
+package com.master.minieshop.model;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import com.master.minieshop.entity.Item;
 
 public class Cart {
     private List<Item> cartItems = new ArrayList<>();

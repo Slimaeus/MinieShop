@@ -1,7 +1,7 @@
 package com.master.minieshop.rest;
 
-import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Item;
+import com.master.minieshop.model.Cart;
 import com.master.minieshop.service.CartService;
 import com.master.minieshop.service.ProductService;
 import jakarta.servlet.http.HttpSession;
