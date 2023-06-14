@@ -2,6 +2,7 @@ package com.master.minieshop.controller;
 
 import com.master.minieshop.entity.*;
 import com.master.minieshop.enumeration.PaymentMethod;
+import com.master.minieshop.model.Cart;
 import com.master.minieshop.model.MyUserPrincipal;
 import com.master.minieshop.service.CartService;
 import com.master.minieshop.service.OrderService;
