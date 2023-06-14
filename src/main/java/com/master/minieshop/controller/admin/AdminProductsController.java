@@ -61,7 +61,7 @@ public class AdminProductsController {
                          Model model) {
         Map uploadResult = imageService.uploadImage(createProductDto.getImageUpload()).orElse(null);
 
-        if (result.hasErrors() || uploadResult == null || uploadResult.isEmpty()){
+        if (result.hasErrors() || uploadResult == null || uploadResult.isEmpty()) {
 
             CreateProductDto dto = new CreateProductDto();
             dto.setProduct(new Product());

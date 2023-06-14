@@ -21,7 +21,7 @@ public class AdminCommentsController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping({ "index", "" })
+    @GetMapping({"index", ""})
     public String showAllCurrentComment(Model model) {
         var currentComments = commentService.getAll();
         model.addAttribute("comments", currentComments);
