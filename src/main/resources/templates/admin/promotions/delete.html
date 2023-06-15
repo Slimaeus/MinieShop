@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Delete Promotion</title>
-    <th:block th:replace="layout :: link-css"></th:block>
+    <title>Xóa khuyến mãi</title>
+    <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
+
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
-    <h1>Delete Promotion</h1>
-    <p>Are you sure you want to delete this promotion?</p>
+    <h1>Xóa khuyến mãi</h1>
+    <p>Bạn có muốn xóa khuyến mãi này không ?</p>
     <form th:action="@{/admin/promotions/delete/{id}(id=${promotion.id})}" method="post">
-        <button type="submit" class="btn btn-danger">Delete</button>
-        <a th:href="@{/admin/promotions}" class="btn btn-secondary">Cancel</a>
+        <button type="submit" class="btn btn-danger">Xóa</button>
+        <a th:href="@{/admin/promotions}" class="btn btn-secondary">Hủy</a>
     </form>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>

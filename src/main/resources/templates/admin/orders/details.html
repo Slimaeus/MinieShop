@@ -1,67 +1,70 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Order Details</title>
-  <th:block th:replace="layout :: link-css"></th:block>
+  <title>Chi tiết đơn hàng</title>
+  <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
+
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
-  <h1>Order Details</h1>
+  <h1>Chi tiết đơn hàng</h1>
   <div class="form-group">
-    <label for="orderId">Order ID:</label>
+    <label for="orderId">Mã đơn:</label>
     <input type="text" id="orderId" th:value="${order.id}" class="form-control" readonly>
   </div>
   <div class="form-group">
-    <label for="customerName">Customer Name:</label>
+    <label for="customerName">Tên khách hàng:</label>
     <input type="text" id="customerName" th:value="${order.customerName}" class="form-control" readonly>
   </div>
   <div class="form-group">
-    <label for="phoneNumber">Phone Number:</label>
+    <label for="phoneNumber">SĐT:</label>
     <input type="text" id="phoneNumber" th:value="${order.phoneNumber}" class="form-control" readonly>
   </div>
   <div class="form-group">
-    <label for="gender">Gender:</label>
+    <label for="gender">Giới tính:</label>
     <input type="text" id="gender" th:value="${order.gender}" class="form-control" readonly>
   </div>
   <div class="form-group">
-    <label for="address">Address:</label>
+    <label for="address">Địa chỉ:</label>
     <input type="text" id="address" th:value="${order.address}" class="form-control" readonly>
   </div>
   <div class="form-group">
-    <label for="paymentMethod">Payment Method:</label>
+    <label for="paymentMethod">Phương thức thanh toán:</label>
     <input type="text" id="paymentMethod" th:value="${order.paymentMethod}" class="form-control" readonly>
   </div>
   <div class="form-group">
-    <label for="note">Note:</label>
+    <label for="note">Ghi chú:</label>
     <textarea id="note" class="form-control" readonly>${order.note}</textarea>
   </div>
   <div class="form-group">
-    <label for="totalPrice">Total Price:</label>
+    <label for="totalPrice">Tổng tiển:</label>
     <input type="number" id="totalPrice" th:value="${order.totalPrice}" class="form-control" step="0.01" readonly>
   </div>
   <div class="form-group">
-    <label for="discountPrice">Discount Price:</label>
+    <label for="discountPrice">Giảm giá:</label>
     <input type="number" id="discountPrice" th:value="${order.discountPrice}" class="form-control" step="0.01" readonly>
   </div>
   <div class="form-group">
-    <label for="shippingCost">Shipping Cost:</label>
+    <label for="shippingCost">Phí giao hàng:</label>
     <input type="number" id="shippingCost" th:value="${order.shippingCost}" class="form-control" step="0.01" readonly>
   </div>
   <div class="form-group">
-    <label for="totalBill">Total Bill:</label>
+    <label for="totalBill">Tổng số tiền phải trả:</label>
     <input type="number" id="totalBill" th:value="${order.totalBill}" class="form-control" step="0.01" readonly>
   </div>
   <div class="form-group">
-    <label for="status">Status:</label>
+    <label for="status">Tình trạng:</label>
     <input type="text" id="status" th:value="${order.status}" class="form-control" readonly>
   </div>
   <div class="mt-4">
-    <a th:href="@{/admin/orders}" class="btn btn-secondary">Back to List</a>
+    <a th:href="@{/admin/orders}" class="btn btn-secondary">Quay lại</a>
   </div>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>

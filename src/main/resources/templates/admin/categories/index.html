@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Category List</title>
-  <th:block th:replace="layout :: link-css"></th:block>
+  <title>Danh sách danh mục</title>
+  <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
+
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
-  <h1>Category List</h1>
-  <a th:href="@{/admin/categories/create}">Create Category</a>
+  <h1>Danh sách danh mục</h1>
+  <a th:href="@{/admin/categories/create}">Tạo danh mục</a>
   <table class="table">
-    <thead>
+    <thead style="text-align: center">
     <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Status</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Tên danh mục</th>
+      <th scope="col">Tên đặc trưng</th>
+      <th scope="col">Mô tả</th>
+      <th scope="col">Tình trạng</th>
+      <th scope="col">Hành động</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody style="text-align: center">
     <tr th:each="category : ${categories}">
       <td th:text="${category.title}"></td>
       <td th:text="${category.name}"></td>
       <td th:text="${category.description}"></td>
       <td th:text="${category.status}"></td>
       <td>
-        <a th:href="@{/admin/categories/details/{id}(id=${category.id})}">Details</a> |
-        <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}">Edit</a> |
-        <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}">Delete</a> |
-        <a th:href="@{/admin/categories/details/{id}/products(id=${category.id})}">Products</a> |
+        <a th:href="@{/admin/categories/details/{id}(id=${category.id})}">Chi tiết</a> |
+        <a th:href="@{/admin/categories/edit/{id}(id=${category.id})}">Chỉnh sửa</a> |
+        <a th:href="@{/admin/categories/delete/{id}(id=${category.id})}">Xóa</a> |
+        <a th:href="@{/admin/categories/details/{id}/products(id=${category.id})}">Sản phẩm</a> |
       </td>
     </tr>
     </tbody>
   </table>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>

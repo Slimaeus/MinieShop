@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Comment Details</title>
-  <th:block th:replace="layout :: link-css"></th:block>
+  <title>Chi tiết bình luận</title>
+  <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
+
 <body>
-<th:block th:replace="layout :: header"></th:block>
-<div class="container">
-  <h1>Comment Details</h1>
-  <table>
-    <tr>
-      <th>Id:</th>
-      <td th:text="${comment.id}"></td>
-    </tr>
-    <tr>
-      <th>Rate:</th>
-      <td th:text="${comment.rate}"></td>
-    </tr>
-    <tr>
-      <th>Content:</th>
-      <td th:text="${comment.content}"></td>
-    </tr>
-  </table>
-  <div class="mt-4">
-    <a th:href="@{/admin/comments}" class="btn btn-secondary">Back to List</a>
+  <th:block th:replace="./admin/layout :: header"></th:block>
+  <div class="container">
+    <h1>Chi tiết bình luận</h1>
+    <table>
+      <tr>
+        <th>Mã:</th>
+        <td th:text="${comment.id}"></td>
+      </tr>
+      <tr>
+        <th>Đánh giá:</th>
+        <td th:text="${comment.rate}"></td>
+      </tr>
+      <tr>
+        <th>Nội dung:</th>
+        <td th:text="${comment.content}"></td>
+      </tr>
+    </table>
+    <div class="mt-4">
+      <a th:href="@{/admin/comments}" class="btn btn-secondary">Quay lại danh sách</a>
+    </div>
   </div>
-</div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+  <th:block th:replace="./admin/layout :: footer"></th:block>
+  <th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>

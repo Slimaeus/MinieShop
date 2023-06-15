@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <title>Order and Product List</title>
-  <th:block th:replace="layout :: link-css"></th:block>
+  <title>Danh sách đơn hàng</title>
+  <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
+
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
-  <h1>Order List</h1>
-  <a th:href="@{/admin/orders/create}">Create Order</a>
+  <h1>Danh sách đơn hàng</h1>
+  <a th:href="@{/admin/orders/create}">Tạo đơn hàng</a>
   <table class="table">
-    <thead>
+    <thead style="text-align: center">
     <tr>
-      <th scope="col">Customer Name</th>
-      <th scope="col">Phone Number</th>
-      <th scope="col">Gender</th>
-      <th scope="col">Address</th>
-      <th scope="col">Payment Method</th>
-      <th scope="col">Note</th>
-      <th scope="col">Total Price</th>
-      <th scope="col">Discount Price</th>
-      <th scope="col">Shipping Cost</th>
-      <th scope="col">Total Bill</th>
-      <th scope="col">Status</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Tên khách hàng</th>
+      <th scope="col">SĐT</th>
+      <th scope="col">Giới tính</th>
+      <th scope="col">Địa chỉ</th>
+      <th scope="col">Phương thức thanh toán</th>
+      <th scope="col">Ghi chú</th>
+      <th scope="col">Tổng tiển</th>
+      <th scope="col">Giảm giá</th>
+      <th scope="col">Phí giao hàng</th>
+      <th scope="col">Tổng số tiền phải trả</th>
+      <th scope="col">Tình trạng</th>
+      <th scope="col">Hành động</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody style="text-align: center">
     <tr th:each="order : ${orders}">
       <td th:text="${order.customerName}"></td>
       <td th:text="${order.phoneNumber}"></td>
@@ -41,15 +43,16 @@
       <td th:text="${order.totalBill}"></td>
       <td th:text="${order.status}"></td>
       <td>
-        <a th:href="@{/admin/orders/details/{id}(id=${order.id})}">Details</a> |
-        <a th:href="@{/admin/orders/edit/{id}(id=${order.id})}">Edit</a> |
-        <a th:href="@{/admin/orders/delete/{id}(id=${order.id})}">Delete</a>
+        <a th:href="@{/admin/orders/details/{id}(id=${order.id})}">Chi tiết</a> |
+        <a th:href="@{/admin/orders/edit/{id}(id=${order.id})}">Chỉnh sửa</a> |
+        <a th:href="@{/admin/orders/delete/{id}(id=${order.id})}">Xóa</a>
       </td>
     </tr>
     </tbody>
   </table>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>

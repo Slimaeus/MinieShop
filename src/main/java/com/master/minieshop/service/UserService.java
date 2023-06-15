@@ -20,6 +20,9 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void delete(Long id){
+        userRepository.deleteById(id);
+    }
     public AppUser getById(Long id){return userRepository.getReferenceById(id);}
     public AppUser findByUsername(String username) { return userRepository.findByUserName(username);}
     public void updateResetPasswordToken(String token, String email) throws NotFoundException {

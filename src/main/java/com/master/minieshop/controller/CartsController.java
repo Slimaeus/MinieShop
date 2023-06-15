@@ -1,5 +1,6 @@
 package com.master.minieshop.controller;
 
+import com.master.minieshop.MinieShopApplication;
 import com.master.minieshop.entity.*;
 import com.master.minieshop.enumeration.PaymentMethod;
 import com.master.minieshop.model.Cart;
@@ -13,6 +14,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -38,6 +41,7 @@ public class CartsController {
     private OrderService orderService;
     @Autowired
     private UserService userService;
+    private static Logger logger = LoggerFactory.getLogger(MinieShopApplication.class);
 
     @GetMapping
     public String showCart(HttpSession session,
@@ -81,6 +85,10 @@ public class CartsController {
         var cart = cartService.getCart(session);
         cart.addItems(new Item(id, product.getName(), product.getPrice(), quantity));
         cartService.updateCart(session, cart);
+
+        // Logging statements
+        logger.info("Item added to cart. ID: {}, Name: {}, Quantity: {}", id, product.getName(), quantity);
+
         return "redirect:/products";
     }
 
@@ -117,7 +125,7 @@ public class CartsController {
     }
 
     @PostMapping("/checkout")
-    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order,  Principal principal) {
+    public String checkout(HttpSession session, @Valid @ModelAttribute("order") Order order, Principal principal) {
         Cart cart = cartService.getCart(session);
         setOrderDetailsFromCart(order, cart);
         if (principal != null) {

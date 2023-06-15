@@ -91,7 +91,7 @@
                     <div class="card-body">
                         <h3 class="card-title" th:text="${product.title}" style="font-weight: bold;"></h3>
                         <h5 class="card-text" th:text="${product.price} + ' VND'"></h5>
-                        <button class="btn btn-primary">CHỌN MUA</button>
+                        <a class="btn btn-primary add-to-cart-buttons" th:attr="data-id=${product.id}">CHỌN MUA</a>
                     </div>
                 </div>
             </div>
@@ -110,7 +110,7 @@
                     <div class="card-body">
                         <h3 class="card-title" th:text="${product.title}" style="font-weight: bold;"></h3>
                         <h5 class="card-text" th:text="${product.price} + ' VND'"></h5>
-                        <button class="btn btn-primary">CHỌN MUA</button>
+                        <a class="btn btn-primary add-to-cart-buttons" th:attr="data-id=${product.id}">CHỌN MUA</a>
                     </div>
                 </div>
             </div>
@@ -135,5 +135,23 @@
 
 </div>
 <th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+<script>
+    $(document).ready(function () {
+        $('.add-to-cart-buttons').click(function (event) {
+            event.preventDefault();
+            const id = $(this).attr("data-id");
+            $.ajax({
+                url: '/api/cart/add-to-cart/' + id + '/' + 1,
+                type: 'GET',
+                success: function () {
+                    Snackbar.show({
+                        text: "Thêm thành công"
+                    });
+                }
+            });
+        })
+    })
+</script>
 </body>
 </html>
