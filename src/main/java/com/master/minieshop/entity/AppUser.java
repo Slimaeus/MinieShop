@@ -31,7 +31,7 @@ public class AppUser {
     @Size(min = 1, max = 50, message = "Username must be between 1 and 50 characters")
     @ValidUsername
     private String userName;
-    @Column(name = "phone_number", length = 10, unique = true)
+    @Column(name = "phone_number", length = 10)
     @Length(min = 10, max = 10, message = "Phone must be 10 characters")
     @Pattern(regexp = "^[0-9]*$", message = "Phone must be number")
     private String phoneNumber;
@@ -46,6 +46,8 @@ public class AppUser {
     @NotBlank(message = "Password is required")
     private String password;
     private Role role;
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "loyal_card_id", referencedColumnName = "id")

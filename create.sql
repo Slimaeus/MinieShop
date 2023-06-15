@@ -7,10 +7,12 @@ create table orders (id varchar(255) not null, created_at date, updated_at date,
 create table products (id integer not null auto_increment, created_at date, updated_at date, description varchar(255), name varchar(255), price float(53) not null, status smallint, title varchar(255), category_id integer not null, primary key (id)) engine=InnoDB;
 create table promotion_details (promotion_id bigint not null, user_id bigint not null, quantity integer not null, remain integer not null, primary key (promotion_id, user_id)) engine=InnoDB;
 create table promotions (id bigint not null auto_increment, created_at date, updated_at date, code varchar(255), ended_at date, quantity integer not null, remain integer not null, started_at date, status smallint, title varchar(255), type smallint, value float(53) not null, primary key (id)) engine=InnoDB;
-create table users (id bigint not null auto_increment, email varchar(255), full_name varchar(255), gender smallint, password varchar(255), phone_number varchar(255), role smallint, user_name varchar(255), loyal_card_id bigint, primary key (id)) engine=InnoDB;
+create table users (id bigint not null auto_increment, email varchar(50), full_name varchar(255), gender smallint, password varchar(250), phone_number varchar(10), reset_password_token varchar(255), role smallint, user_name varchar(50), loyal_card_id bigint, primary key (id)) engine=InnoDB;
 alter table categories add constraint UKt8o6pivur7nn124jehx7cygw5 unique (name);
 alter table products add constraint UKo61fmio5yukmmiqgnxf8pnavn unique (name);
 alter table promotions add constraint UKjdho73ymbyu46p2hh562dk4kk unique (code);
+alter table users add constraint UK_6dotkott2kjsp8vw4d0m25fb7 unique (email);
+alter table users add constraint UK_k8d0f2n7n88w1a16yhua64onx unique (user_name);
 alter table comments add constraint FK6uv0qku8gsu6x1r2jkrtqwjtn foreign key (product_id) references products (id);
 alter table comments add constraint FK8omq0tc18jd43bu5tjh6jvraq foreign key (user_id) references users (id);
 alter table images add constraint FKghwsjbjo7mg3iufxruvq6iu3q foreign key (product_id) references products (id);

@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import com.master.minieshop.service.CategoryService;
+import com.master.minieshop.service.ImageService;
+import com.master.minieshop.service.ProductService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +19,12 @@ import java.security.Principal;
 
 @Controller
 public class HomeController {
-
+    @Autowired
+    private ProductService productService;
+    /*
     @Autowired
     private UserService userService;
+
     private Long k;
     @GetMapping({"home", "/"})
     public String home(Authentication authentication, HttpSession session) {
@@ -33,6 +39,12 @@ public class HomeController {
             AppUser user = userService.getById(k);
             session.setAttribute("userD",user);
         }
+*/
+    
+
+    @GetMapping({"home", "/"})
+    public String home(Model model) {
+        model.addAttribute("products", productService.getAll());
         return "home/index";
     }
     @GetMapping("home/about")

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Details</title>
+  <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+  <h1>Product Details</h1>
+  <table>
+    <tr>
+      <th>Title:</th>
+      <td th:text="${product.title}"></td>
+    </tr>
+    <tr>
+      <th>Name:</th>
+      <td th:text="${product.name}"></td>
+    </tr>
+    <tr>
+      <th>Description:</th>
+      <td th:text="${product.description}"></td>
+    </tr>
+    <tr>
+      <th>Status:</th>
+      <td th:text="${product.status}"></td>
+    </tr>
+    <tr>
+      <th>Price:</th>
+      <td th:text="${product.price}"></td>
+    </tr>
+    <tr>
+      <th>Category:</th>
+      <td th:text="${product.category.name}"></td>
+    </tr>
+    <tr>
+      <th>Quantity:</th>
+      <td>
+        <label>
+          <input type="number" min="1" th:value="${1}"
+                 th:attr="data-id=${product.id}" class="form-control" id="quantity">
+        </label>
+      </td>
+    </tr>
+  </table>
+  <div class="d-grid gap-2 form-action">
+    <button type="submit" class="btn btn-primary" id="add-to-cart">Add to Cart</button>
+  </div>
+  <ul>
+    <th:block th:each="image : ${product.getImages()}">
+      <li>
+        <img th:src="${image.link}" th:alt="${image.title}" />
+      </li>
+    </th:block>
+  </ul>
+  <div class="comment-container">
+    <h3>Comments</h3>
+    <div sec:authorize="isAuthenticated()" class="form-control">
+      <label for="comment-input">Comment</label>
+      <textarea id="comment-input" th:attr="data-id=${product.id}" placeholder="Write your comment here..."></textarea>
+      <button type="button" class="btn btn-primary" id="submit-comment">Submit Comment</button>
+    </div>
+
+    <div id="comments">
+      <th:block th:each="comment : ${product.getComments()}">
+        <div class="comment">
+          <div class="comment-header">
+            <strong>User:</strong> <span th:text="${comment.user.getUserName()}"></span>
+          </div>
+          <div class="comment-body">
+            <p><strong>Rate:</strong> <span th:text="${comment.rate}"></span></p>
+            <p><strong>Content:</strong> <span th:text="${comment.content}"></span></p>
+          </div>
+        </div>
+      </th:block>
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn btn-primary">Edit</a>
+    <a th:href="@{/products}" class="btn btn-secondary">Back to List</a>
+  </div>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+<script>
+  $(document).ready(function () {
+    $('#add-to-cart').click(function (event) {
+      event.preventDefault();
+      const quantityInput = $('#quantity');
+      const quantity = quantityInput.val();
+      const id = quantityInput.attr('data-id');
+      $.ajax({
+          url: '/api/cart/add-to-cart/' + id + '/' + quantity,
+          type: 'GET',
+          success: () => {
+            Snackbar.show({text: 'Add product to cart successfully!'});
+        }
+      })
+    })
+
+    $('#submit-comment').click(function (event) {
+      event.preventDefault();
+      const commentInput = $('#comment-input');
+      const content = commentInput.val();
+      const productId = commentInput.attr('data-id');
+      $.ajax({
+        url: '/api/comments/' + productId + '/' + content + '/' + 1,
+        type: 'GET',
+      })
+    })
+  });
+
+</script>
+</body>
+</html>

@@ -1,36 +1,26 @@
 package com.master.minieshop.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.master.minieshop.entity.Cart;
 import com.master.minieshop.entity.Order;
-import com.master.minieshop.entity.OrderDetail;
 import com.master.minieshop.enumeration.OrderStatus;
 import com.master.minieshop.enumeration.PaymentMethod;
 import com.master.minieshop.enumeration.PaymentStatus;
 import com.master.minieshop.model.MomoResponse;
 import com.master.minieshop.model.MomoResult;
-import com.master.minieshop.model.MyUserPrincipal;
 import com.master.minieshop.service.CartService;
 import com.master.minieshop.service.OrderService;
-import com.master.minieshop.service.ProductService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/orders")

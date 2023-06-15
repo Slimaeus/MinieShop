@@ -1,6 +1,7 @@
 package com.master.minieshop.model;
 
 import com.master.minieshop.entity.AppUser;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
-
+@Data
 public class MyUserPrincipal implements UserDetails {
     private AppUser user;
     public MyUserPrincipal(AppUser user) {

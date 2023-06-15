@@ -3,12 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <title>Minie Shop</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
     <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-    <h1>WELCOME TO MINIE SHOP!</h1>
+    <!--    <h1>WELCOME TO MINIE SHOP!</h1>-->
+    <div id="carouselBanner" class="carousel slide mt-4">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/pictures/banners/minieshop-banner-1.png" class="d-block w-100" alt="Minie Shop Banner 1">
+            </div>
+            <div class="carousel-item">
+                <img src="/pictures/banners/minieshop-banner-2.png" class="d-block w-100" alt="Minie Shop Banner 2">
+            </div>
+            <div class="carousel-item">
+                <img src="/pictures/banners/minieshop-banner-3.png" class="d-block w-100" alt="Minie Shop Banner 3">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselBanner" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselBanner" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <div class="card bg-info mb-4">
+        <div class="card-body">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col d-grid">
+                        <button type="button" class="btn btn-primary btn-lg">CHÍNH SÁCH VẬN CHUYỂN</button>
+                    </div>
+                    <div class="col d-grid">
+                        <button type="button" class="btn btn-primary btn-lg">CHÍNH SÁCH <br/> KHÁCH HÀNG THÀNH VIÊN
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+            <div class="card h-100 bg-success">
+                <img src="/pictures/categories/category-pannacotta.png" class="card-img-top" alt="Category PannaCotta">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>PANNA COTTA</strong></h3>
+                    <h5 class="card-text">Kem, sữa và đường</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 bg-success">
+                <img src="/pictures/categories/category-flan.png" class="card-img-top" alt="Category Flan">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>BÁNH FLAN</strong></h3>
+                    <h5 class="card-text">Trứng, sữa và Caramel</h5>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card h-100 bg-success">
+                <img src="/pictures/categories/category-yogurt.png" class="card-img-top" alt="Category Yogurt">
+                <div class="card-body">
+                    <h3 class="card-title"><strong>SỮA CHUA</strong></h3>
+                    <h5 class="card-text">Đường và Sữa lên men</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-secondary mt-4 mb-4 pb-4">
+        <h1 class="mt-4 mb-4"><strong>SẢN PHẨM NỔI BẬT</strong></h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" th:each="product, iterStat : ${products}" th:if="${iterStat.index < 3}">
+                <div class="card h-100 bg-info text-center">
+                    <img th:if="${product.getImages().size() > 0}" th:src="@{${product.getImages()[0].getLink()}}"
+                         class="card-img-top" alt="Product Images">
+                    <img th:unless="${product.getImages().size() > 0}" src="/pictures/categories/category-flan.png"
+                         class="card-img-top" alt="Default Image">
+
+                    <div class="card-body">
+                        <h3 class="card-title" th:text="${product.title}" style="font-weight: bold;"></h3>
+                        <h5 class="card-text" th:text="${product.price} + ' VND'"></h5>
+                        <button class="btn btn-primary">CHỌN MUA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h1 class="mt-4 mb-4"><strong>SẢN PHẨM ĐỀ XUẤT CHO BẠN</strong></h1>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" th:each="product, iterStat : ${products}"
+                 th:if="${products.size() - 3 <= iterStat.index && iterStat.index < products.size()}">
+                <div class="card h-100 bg-info text-center">
+                    <img th:if="${product.getImages().size() > 0}" th:src="@{${product.getImages()[0].getLink()}}"
+                         class="card-img-top" alt="Product Images">
+                    <img th:unless="${product.getImages().size() > 0}" src="/pictures/categories/category-flan.png"
+                         class="card-img-top" alt="Default Image">
+
+                    <div class="card-body">
+                        <h3 class="card-title" th:text="${product.title}" style="font-weight: bold;"></h3>
+                        <h5 class="card-text" th:text="${product.price} + ' VND'"></h5>
+                        <button class="btn btn-primary">CHỌN MUA</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-3 bg-dark">
+        <div class="row g-0">
+            <div class="col-md-8">
+                <div class="card-body text-center mt-2">
+                    <h1 class="card-title text-white"><strong>MINIE SHOP</strong></h1>
+                    <h3 class="card-text text-white">Bánh Nhà Làm - Chất Lượng Cao</h3>
+                    <button class="btn btn-light mt-2">Tìm Hiểu Thêm</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <img src="/pictures/banners/minieshop-banner-1.png" class="img-fluid rounded-start"
+                     alt="Minie Shop Banner"> <!-- Added inline CSS -->
+            </div>
+        </div>
+    </div>
+
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 </body>

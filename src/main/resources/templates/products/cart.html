@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initialscale=1.0">
-    <title>Cart</title>
+    <title>Giỏ hàng</title>
     <th:block th:replace="~{layout::link-css}"></th:block>
 </head>
 
@@ -15,12 +15,12 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">Product ID</th>
-                    <th scope="col">Product Name</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Total</th>
-                    <th scope="col">Action</th>
+                    <th scope="col">Mã sản phẩm</th>
+                    <th scope="col">Tên</th>
+                    <th scope="col">Số lượng</th>
+                    <th scope="col">Giá</th>
+                    <th scope="col">Tổng cộng</th>
+                    <th scope="col">Hành động</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
                     <td th:text="${item.getPrice() * item.getQuantity()}"></td>
                     <td>
                         <a class="btn btn-danger" th:href="@{/cart/removeFromCart/{id}(id=${item.getProductId()})}">
-                            Remove
+                            Xoá
                         </a>
                     </td>
                 </tr>
@@ -45,11 +45,11 @@
         </table>
         <div class="row">
             <div class="col-md-12">
-                <h3>Total: <span th:text="${totalPrice}"></span></h3>
+                <h3>Tổng cộng: <span th:text="${totalPrice}"></span></h3>
             </div>
             <div class="col-md-12 text-center">
-                <a class="btn btn-success" th:href="@{/cart/checkout}">Checkout</a>
-                <a class="btn btn-danger" th:href="@{/cart/clearCart}">Clear Cart</a>
+                <a class="btn btn-success" th:href="@{/cart/checkout}">Đặt hàng</a>
+                <a class="btn btn-danger" th:href="@{/cart/clearCart}">Đặt lại giỏ hàng</a>
             </div>
         </div>
     </div>
@@ -57,10 +57,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 offset-md-3 text-center">
-                    <h3 class="mt-5">Your cart is empty</h3>
-                    <p class="lead">Please add some products to your cart</p>
-                    <a class="btn btn-primary" href="/products">Go to list
-                        product</a>
+                    <h3 class="mt-5">Giỏ hàng của bạn đang trống</h3>
+                    <p class="lead">Vui lòng thêm vào giỏ hàng vài sản phẩm</p>
+                    <a class="btn btn-primary" href="/products">Quay lại danh sách sản phẩm</a>
                 </div>
             </div>
         </div>
