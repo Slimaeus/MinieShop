@@ -3,52 +3,52 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Promotion List</title>
-    <th:block th:replace="./admin/layout :: link-css"></th:block>
+    <title>Danh sách sản phẩm</title>
+    <th:block th:replace="layout :: link-css"></th:block>
 </head>
 
 <body>
-    <th:block th:replace="./admin/layout :: header"></th:block>
-    <div class="container">
-        <h1>Promotion List</h1>
-        <a th:href="@{/admin/promotions/create}">Create Promotion</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Code</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Remain</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Type</th>
-                    <th scope="col">Started At</th>
-                    <th scope="col">Ended At</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="promotion : ${promotions}">
-                    <td th:text="${promotion.code}"></td>
-                    <td th:text="${promotion.title}"></td>
-                    <td th:text="${promotion.value}"></td>
-                    <td th:text="${promotion.quantity}"></td>
-                    <td th:text="${promotion.remain}"></td>
-                    <td th:text="${promotion.status}"></td>
-                    <td th:text="${promotion.type}"></td>
-                    <td th:text="${promotion.startedAt}"></td>
-                    <td th:text="${promotion.endedAt}"></td>
-                    <td>
-                        <a th:href="@{/admin/promotions/details/{id}(id=${promotion.id})}">Details</a> |
-                        <a th:href="@{/admin/promotions/edit/{id}(id=${promotion.id})}">Edit</a> |
-                        <a th:href="@{/admin/promotions/delete/{id}(id=${promotion.id})}">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <th:block th:replace="./admin/layout :: footer"></th:block>
-    <th:block th:replace="./admin/layout :: script"></th:block>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1>Promotion List</h1>
+    <a th:href="@{/admin/promotions/create}">Tạo khuyến mãi</a>
+    <table class="table">
+        <thead style="text-align: center">
+        <tr>
+            <th scope="col">Mã Code</th>
+            <th scope="col">Tên</th>
+            <th scope="col">Giá trị</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Còn lại</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Loại</th>
+            <th scope="col">Từ ngày</th>
+            <th scope="col">Đến ngày</th>
+            <th scope="col">Hành động</th>
+        </tr>
+        </thead>
+        <tbody style="text-align: center">
+        <tr th:each="promotion : ${promotions}">
+            <td th:text="${promotion.code}"></td>
+            <td th:text="${promotion.title}"></td>
+            <td th:text="${promotion.value}"></td>
+            <td th:text="${promotion.quantity}"></td>
+            <td th:text="${promotion.remain}"></td>
+            <td th:text="${promotion.status}"></td>
+            <td th:text="${promotion.type}"></td>
+            <td th:text="${promotion.startedAt}"></td>
+            <td th:text="${promotion.endedAt}"></td>
+            <td>
+                <a th:href="@{/admin/promotions/details/{id}(id=${promotion.id})}">Chi tiết</a> |
+                <a th:href="@{/admin/promotions/edit/{id}(id=${promotion.id})}">Chỉnh sửa</a> |
+                <a th:href="@{/admin/promotions/delete/{id}(id=${promotion.id})}">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
 </body>
 
 </html>

@@ -3,46 +3,46 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Product List</title>
-    <th:block th:replace="./admin/layout :: link-css"></th:block>
+    <title>Danh sách sản phẩm</title>
+    <th:block th:replace="layout :: link-css"></th:block>
 </head>
 
 <body>
-    <th:block th:replace="./admin/layout :: header"></th:block>
-    <div class="container">
-        <h1>Product List</h1>
-        <a th:href="@{/admin/products/create}">Create Product</a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Title</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Status</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="product : ${products}">
-                    <td th:text="${product.title}"></td>
-                    <td th:text="${product.name}"></td>
-                    <td th:text="${product.description}"></td>
-                    <td th:text="${product.status}"></td>
-                    <td th:text="${product.price}"></td>
-                    <td th:text="${product.category.name}"></td>
-                    <td>
-                        <a th:href="@{/admin/products/details/{id}(id=${product.id})}">Details</a> |
-                        <a th:href="@{/admin/products/edit/{id}(id=${product.id})}">Edit</a> |
-                        <a th:href="@{/admin/products/delete/{id}(id=${product.id})}">Delete</a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <th:block th:replace="./admin/layout :: footer"></th:block>
-    <th:block th:replace="./admin/layout :: script"></th:block>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <h1>Danh sách sản phẩm</h1>
+    <a th:href="@{/admin/products/create}">Tạo sản phẩm</a>
+    <table class="table">
+        <thead style="text-align: center">
+        <tr>
+            <th scope="col">Tên sản phẩm</th>
+            <th scope="col">Tên đặc trưng</th>
+            <th scope="col">Mô tả</th>
+            <th scope="col">Tình trạng</th>
+            <th scope="col">Giá</th>
+            <th scope="col">Danh mục</th>
+            <th scope="col">Hành động</th>
+        </tr>
+        </thead>
+        <tbody style="text-align: center">
+        <tr th:each="product : ${products}">
+            <td th:text="${product.title}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.status}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.category.name}"></td>
+            <td>
+                <a th:href="@{/admin/products/details/{id}(id=${product.id})}">Chi tiết</a> |
+                <a th:href="@{/admin/products/edit/{id}(id=${product.id})}">Chỉnh sửa</a> |
+                <a th:href="@{/admin/products/delete/{id}(id=${product.id})}">Xóa</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
 </body>
 
 </html>
