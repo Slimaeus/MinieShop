@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Delete Comment</title>
+  <title>Xoá bình luận</title>
   <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
 
@@ -11,10 +11,10 @@
   <th:block th:replace="./admin/layout :: header"></th:block>
   <div class="container">
     <h1>Delete Product</h1>
-    <p>Are you sure you want to delete this product?</p>
-    <form th:action="@{/admin/categories/delete/{id}(id=${comment.id})}" method="post">
-      <button type="submit" class="btn btn-danger">Delete</button>
-      <a th:href="@{/admin/categories}" class="btn btn-secondary">Cancel</a>
+    <p>Bạn có thật sự muốn xoá bình luận này?</p>
+    <form th:action="@{/admin/comments/delete/{id}(id=${comment.id})}" method="post">
+      <button type="submit" class="btn btn-danger">Xoá</button>
+      <a th:href="@{/admin/comments}" class="btn btn-secondary">Huỷ</a>
     </form>
   </div>
   <th:block th:replace="./admin/layout :: footer"></th:block>

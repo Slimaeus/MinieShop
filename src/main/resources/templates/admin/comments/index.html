@@ -3,20 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Comment List</title>
+  <title>Danh sách bình luận</title>
   <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
 
 <body>
   <th:block th:replace="./admin/layout :: header"></th:block>
   <div class="container">
-    <h1>Comment List</h1>
+    <h1>Danh sách bình luận</h1>
     <table class="table">
       <thead>
         <tr>
-          <th scope="col">id</th>
-          <th scope="col">rate</th>
-          <th scope="col">content</th>
+          <th scope="col">Mã</th>
+          <th scope="col">Đánh giá</th>
+          <th scope="col">Nội dung</th>
         </tr>
       </thead>
       <tbody>
@@ -25,8 +25,8 @@
           <td th:text="${comment.rate}"></td>
           <td th:text="${comment.content}"></td>
           <td>
-            <a th:href="@{/admin/comments/details/{id}(id=${comment.id})}">Details</a> |
-            <a th:href="@{/admin/comments/delete/{id}(id=${comment.id})}">Delete</a> |
+            <a th:href="@{/admin/comments/details/{id}(id=${comment.id})}">Chi tiết</a> |
+            <a th:href="@{/admin/comments/delete/{id}(id=${comment.id})}">Xoá</a> |
           </td>
         </tr>
       </tbody>
