@@ -45,7 +45,7 @@ public class OrdersController {
         Order order = orderService.getSessionOrder(session);
         if (order != null) {
             order.setPaymentMethod(PaymentMethod.Cash);
-            order.setStatus(OrderStatus.Completed);
+            order.setStatus(OrderStatus.Pending);
             order.setPaymentStatus(PaymentStatus.Unpaid);
             orderService.save(order);
         }
