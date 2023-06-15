@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>About</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+<div class="row mt-4 mb-4">
+    <div class="col-3">
+        <div class="card bg-primary">
+            <div class="card-body">
+                <h1 class="text-center text-white fw-bold">ĐỊA CHỈ</h1>
+                <p class="text-white">123 Đường A, Quận B, Phường C, TP.HCM</p>
+                <div class="d-grid">
+                    <button class="btn btn-info">LIÊN HỆ CỬA HÀNG</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-9">
+        <img src="/pictures/shop/minie-shop-map.png" class="img-fluid rounded-start"
+             alt="Minie Shop Map">
+    </div>
+</div>
+
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+</body>
+</html>

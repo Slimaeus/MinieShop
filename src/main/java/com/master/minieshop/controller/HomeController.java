@@ -51,4 +51,9 @@ public class HomeController {
     public String about() {
         return "home/about";
     }
+
+    @GetMapping("home/aboutShop")
+    public String aboutShop() {
+        return "home/aboutShop";
+    }
 }
