@@ -8,18 +8,18 @@
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-    <h1>User Details</h1>
+    <h1>Thông tin ngươi dùng</h1>
     <table>
         <tr>
-            <th>Full Name:</th>
+            <th>Họ và tên:</th>
             <td th:text="${userD.fullName}"></td>
         </tr>
         <tr>
-            <th>Username:</th>
+            <th>Tên đăng nhập:</th>
             <td th:text="${userD.userName}"></td>
         </tr>
         <tr>
-            <th>Gender:</th>
+            <th>Giới tính:</th>
             <td th:text="${userD.gender}"></td>
         </tr>
         <tr>
@@ -27,11 +27,11 @@
             <td th:text="${userD.email}"></td>
         </tr>
         <tr>
-            <th>Phone:</th>
+            <th>Số điện thoại:</th>
             <td th:text="${userD.phoneNumber}"></td>
         </tr>
     </table>
-    <a th:href="@{/edit-user/{username}(username=${userD.userName})}">Edit</a>
+    <a th:href="@{/edit-user/{username}(username=${userD.userName})}">Chỉnh sửa</a>
     <div class="mt-4">
     </div>
 </div>
