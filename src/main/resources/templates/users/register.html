@@ -25,7 +25,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <h1 class="card-title text-center text-white"><strong>ĐĂNG KÝ</strong></h1>
-                    <div th:action="@{/register}" th:object="${user}" method="post">
+                    <form th:action="@{/register}" th:object="${user}" method="post">
                         <div class="mb-3">
                             <label for="fullName" class="form-label text-white">Họ tên:</label>
                             <span class="text-danger">*</span>
@@ -90,13 +90,11 @@
                                 <i class="bi bi-google"></i>&nbsp;Đăng Ký Với Google
                             </a>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                </form>
             </div>
         </div>
     </div>
-</div>
 </div>
 <th:block th:replace="~{layout :: footer}"></th:block>
 </body>

@@ -2,37 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User Details</title>
+    <title>Hồ sơ của bạn</title>
     <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-    <h1>Thông tin ngươi dùng</h1>
-    <table>
-        <tr>
-            <th>Họ và tên:</th>
-            <td th:text="${userD.fullName}"></td>
-        </tr>
-        <tr>
-            <th>Tên đăng nhập:</th>
-            <td th:text="${userD.userName}"></td>
-        </tr>
-        <tr>
-            <th>Giới tính:</th>
-            <td th:text="${userD.gender}"></td>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <td th:text="${userD.email}"></td>
-        </tr>
-        <tr>
-            <th>Số điện thoại:</th>
-            <td th:text="${userD.phoneNumber}"></td>
-        </tr>
-    </table>
-    <a th:href="@{/edit-user/{username}(username=${userD.userName})}">Chỉnh sửa</a>
-    <div class="mt-4">
+    <div class="card bg-dark mt-4">
+        <div class="card-body">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-8">
+                    <h1 class="card-title text-center text-white"><strong>HỒ SƠ CỦA BẠN</strong></h1>
+                    <h3 class="card-title text-center text-white mt-2">Bạn là Khách Hàng Thành Viên tại Minie Shop!</h3>
+                    <form>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label text-white">Họ và tên:</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control"
+                                   th:value="${userD.fullName}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="userName" class="form-label text-white">Tên đăng nhập:</label>
+                            <input type="text" id="userName" name="userName" class="form-control"
+                                   th:value="${userD.userName}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="gender" class="form-label text-white">Giới tính:</label>
+                            <input type="text" id="gender" name="gender" class="form-control" th:value="${userD.gender}"
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-white">Email:</label>
+                            <input type="text" id="email" name="email" class="form-control" th:value="${userD.email}"
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label text-white">Số điện thoại:</label>
+                            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                                   th:value="${userD.phoneNumber}" placeholder="Bạn chưa cập nhật số điện thoại!" readonly>
+                        </div>
+                    </form>
+                    <a th:href="@{/edit-user/{username}(username=${userD.userName})}">Chỉnh sửa</a>
+                    <div class="mt-4">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <th:block th:replace="layout :: footer"></th:block>
