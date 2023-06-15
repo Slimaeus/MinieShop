@@ -2,16 +2,59 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Complete Order</title>
+    <title>Hoàn thành đặt hàng</title>
     <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
-<div class="container">
-    <div class="container">
-        <h1>Order Successfully</h1>
+<div class="container mt-4 mb-4">
+    <div class="row">
+        <div class="col-4 d-flex justify-content-center">
+            <div class="card bg-warning w-50">
+                <div class="card-header">
+                    <h5 class="text-white text-center fw-bold">BƯỚC 1</h5>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-cart4 text-white"></i>
+                    <h6 class="text-white text-center fw-bold">GIỎ HÀNG</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+            <div class="card bg-warning w-50">
+                <div class="card-header">
+                    <h5 class="text-white text-center fw-bold">BƯỚC 2</h5>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-cash-coin text-white"></i>
+                    <h6 class="text-white text-center fw-bold">THANH TOÁN</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 d-flex justify-content-center">
+            <div class="card bg-warning w-50">
+                <div class="card-header">
+                    <h5 class="text-white text-center fw-bold">BƯỚC 3</h5>
+                </div>
+                <div class="card-body text-center">
+                    <i class="bi bi-check-circle-fill text-white"></i>
+                    <h6 class="text-white text-center fw-bold">HOÀN THÀNH</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="alert alert-dismissible alert-success mt-2 mb-2">
+        <div class="d-flex justify-content-between">
+            <div>
+                <strong>Đã hoàn tất!</strong> Bạn đã đặt hàng thành công!
+                <br/>
+                Cảm ơn bạn đã tin tưởng chọn Minie Shop.
+            </div>
+            <button class="btn btn-primary" href="/">XEM CHI TIẾT ĐƠN HÀNG</button>
+        </div>
     </div>
 </div>
+
 <th:block th:replace="layout :: footer"></th:block>
 <th:block th:replace="layout :: script"></th:block>
 </body>
