@@ -83,9 +83,18 @@ public class UsersController {
     @PostMapping("/edit-user/{username}")
     public String editUser(@PathVariable("username") String username, @ModelAttribute("user") AppUser user
             , HttpSession session, BindingResult bindingResult, Model model) {
+        AppUser dbUser = userService.findByUsername(username);
+//        if (!dbUser.getPassword().equals(user.getPassword())) {
+//            model.addAttribute("password" + "_error",
+//                    "Mật khẩu xác nhận không hợp lệ!");
+//            user.setPassword("");
+//            model.addAttribute("user", user);
+//            return "users/edit-user";
+//        }
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
+                System.out.println(error.getField());
                 model.addAttribute(error.getField() + "_error",
                         error.getDefaultMessage());
             }
