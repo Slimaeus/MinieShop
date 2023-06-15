@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hồ sơ của bạn</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+<body>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container">
+    <div class="card bg-dark mt-4 mb-4 p-4">
+        <div class="card-body">
+            <h1 class="text-white text-center fw-bold">THẺ TÍCH ĐIỂM</h1>
+            <h6 class="text-white text-center fst-italic">Với mỗi 100K cho mỗi đơn hàng của bạn sẽ được tích 1 điểm.
+                <br/>
+                Tích đủ 5 điểm sẽ được nhận VOUCHER THÀNH VIÊN giảm 50% !!!</h6>
+            <hr/>
+            <h1 class="text-white text-center fw-bold">2/5 ĐIỂM</h1>
+            <div class="row">
+                <div class="col d-grid">
+                    <button class="btn btn-primary" disabled>NHẬN VOUCHER</button>
+                </div>
+                <div class="col d-grid">
+                    <a class="btn btn-primary" href="/home/about">LIÊN HỆ MINIE SHOP</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    Kiem tra ket qua nhan voucher-->
+    <!--    Bang xem tat ca voucher cua nguoi dung hien tai-->
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
+</body>
+</html>

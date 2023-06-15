@@ -72,6 +72,10 @@ public class UsersController {
         return "users/user-details";
     }
 
+    @GetMapping("/loyalty-card")
+    public String userLoyaltyCard(){
+        return "users/loyalty-card";
+    }
 
     @GetMapping("/edit-user/{username}")
     public String editUser( @PathVariable("username") String username,HttpSession session, Model model){
