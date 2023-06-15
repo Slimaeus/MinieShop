@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/orders")
@@ -30,9 +31,14 @@ public class OrdersController {
     @Autowired
     private CartService cartService;
 
-    @GetMapping("me")
-    public String me() {
-        return "orders/me";
+    @GetMapping({"", "index"})
+    public String myOrders(Principal principal, Model model) {
+        if (principal != null) {
+
+            model.addAttribute("orders", orderService.getByUserName(principal.getName()));
+            return "orders/me";
+        }
+        return "redirect:/home";
     }
     @GetMapping("cash-pay")
     public String cashPay(HttpSession session) {

@@ -32,6 +32,7 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
     public OrderService(OrderRepository repository) {
         super(repository);
     }
+    public List<Order> getByUserName(String username) { return repository.findByUser_UserName(username);}
     public MomoResponse createMomoPayment(Order order) throws NoSuchAlgorithmException, InvalidKeyException, JsonProcessingException {
         String endPoint = env.getProperty("payment.momo.endpoint");
         String partnerCode = env.getProperty("payment.momo.partner-code");
