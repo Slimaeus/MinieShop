@@ -2,33 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Checkout</title>
+    <title>Đặt hàng</title>
     <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-<h1>Checkout</h1>
+<h1>Đặt hàng</h1>
 
 <form th:action="@{/cart/checkout}" th:object="${order}" method="post">
     <!-- Display customer information -->
     <div class="form-group">
-        <label for="customerName">Customer Name:</label>
+        <label for="customerName">Tên khách hàng:</label>
         <input type="text" id="customerName" th:field="*{customerName}" class="form-control" required>
     </div>
-    <div class="form-group">
-        <label for="gender">Gender:</label>
+    <div class="form-group mb-3">
+        <label for="gender" class="form-label text-white">Giới tính:</label>
         <select id="gender" name="gender" th:field="*{gender}" class="form-select">
             <option th:each="gender : ${T(com.master.minieshop.enumeration.Gender).values()}"
-                    th:value="${gender}" th:text="${gender}"></option>
+                    th:value="${gender}"
+                    th:text="${gender == T(com.master.minieshop.enumeration.Gender).Male ? 'Nam' : 'Nữ'}"></option>
         </select>
     </div>
     <div class="form-group">
-        <label for="phoneNumber">Phone number:</label>
+        <label for="phoneNumber">Số điện thoại:</label>
         <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" required>
     </div>
     <div class="form-group">
-        <label for="address">Address:</label>
+        <label for="address">Địa chỉ:</label>
         <input type="text" id="address" th:field="*{address}" class="form-control" required>
     </div>
     <input type="hidden" th:field="*{id}" />
@@ -40,11 +41,11 @@
     <!-- Add more fields for customer information (e.g., phoneNumber, address) if needed -->
 
     <!-- Display total bill -->
-    <p>Total Bill: <span th:text="${order.totalBill}"></span></p>
+    <p>Tổng Hoá đơn: <span th:text="${order.totalBill}"></span></p>
 
     <!-- Add more fields for payment method if needed -->
     <div class="form-group">
-        <label for="paymentMethod">Payment Method:</label>
+        <label for="paymentMethod">Phương thức thanh toán:</label>
         <select id="paymentMethod" name="paymentMethod" th:field="*{paymentMethod}" class="form-select">
             <option th:each="paymentMethod : ${T(com.master.minieshop.enumeration.PaymentMethod).values()}"
                     th:value="${paymentMethod}" th:text="${paymentMethod}"></option>
@@ -54,19 +55,19 @@
 
     <!-- Add note field if needed -->
     <div class="form-group">
-        <label for="note">Note:</label>
+        <label for="note">Ghi chú:</label>
         <input type="text" id="note" th:field="*{note}" class="form-control" />
     </div>
 
 
     <!-- Display order details -->
-    <label for="order-details">Order Details:</label>
+    <label for="order-details">Chi tiết đơn hàng:</label>
     <table class="table" id="order-details">
         <thead>
         <tr>
-            <th scope="col">Product</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total Price</th>
+            <th scope="col">Sản phẩm</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Tổng giá</th>
         </tr>
         </thead>
         <tbody>
@@ -79,7 +80,7 @@
     </table>
 
     <div class="mt-4">
-        <button class="btn btn-primary" type="submit">Proceed to Payment</button>
+        <button class="btn btn-primary" type="submit">Tiến hành thanh toán</button>
     </div>
 </form>
 </div>

@@ -66,20 +66,22 @@ public class UsersController {
 
 
     @GetMapping("/user-details/{username}")
-    public String userDetail( @PathVariable("username") String username){
+    public String userDetail( @PathVariable("username") String username, Model model){
+        AppUser user = userService.findByUsername(username);
+        model.addAttribute("userD", user);
         return "users/user-details";
     }
 
 
     @GetMapping("/edit-user/{username}")
     public String editUser( @PathVariable("username") String username,HttpSession session, Model model){
-        AppUser user = (AppUser)session.getAttribute("userD");
-        model.addAttribute("user",user);
+//        AppUser user = (AppUser)session.getAttribute("userD");
+        model.addAttribute("user", userService.findByUsername(username));
         return "users/edit-user";
     }
 
     @PostMapping("/edit-user/{username}")
-    public String editUser(@PathVariable("username") String username, @Valid @ModelAttribute("user") AppUser user
+    public String editUser(@PathVariable("username") String username, @ModelAttribute("user") AppUser user
             , HttpSession session, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
@@ -87,6 +89,7 @@ public class UsersController {
                 model.addAttribute(error.getField() + "_error",
                         error.getDefaultMessage());
             }
+            model.addAttribute("user", userService.findByUsername(username));
             return "users/edit-user";
         }
         else{
@@ -97,13 +100,7 @@ public class UsersController {
             return "redirect:/login";
         }
     }
-    @GetMapping("/user-details/{id}")
-    public String userDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
-        AppUser user = userService.getById(id);
-        model.addAttribute("userD", user);
-        return "users/user-details";
 
-    }
 
     @GetMapping("/forgot_password")
     public String showForgotPasswordForm() {
