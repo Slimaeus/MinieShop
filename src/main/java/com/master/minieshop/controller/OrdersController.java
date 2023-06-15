@@ -2,6 +2,7 @@ package com.master.minieshop.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.master.minieshop.entity.Order;
+import com.master.minieshop.entity.Product;
 import com.master.minieshop.enumeration.OrderStatus;
 import com.master.minieshop.enumeration.PaymentMethod;
 import com.master.minieshop.enumeration.PaymentStatus;
@@ -16,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,6 +42,14 @@ public class OrdersController {
         }
         return "redirect:/home";
     }
+    @GetMapping("details/{id}")
+    public String details(@PathVariable("id") String id, Model model) {
+        Order order = orderService.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid order id: " + id));
+        model.addAttribute("order", order);
+        return "orders/details";
+    }
+
     @GetMapping("cash-pay")
     public String cashPay(HttpSession session) {
         Order order = orderService.getSessionOrder(session);

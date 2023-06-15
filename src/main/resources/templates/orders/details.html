@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Chi tiết đơn hàng</title>
+    <th:block th:replace="layout :: link-css"></th:block>
+</head>
+
+<body>
+    <th:block th:replace="layout :: header"></th:block>
+    <div class="container">
+        <h1>Chi tiết đơn hàng</h1>
+        <table>
+            <tr>
+                <th>Tên khách hàng:</th>
+                <td th:text="${phoneNumber}"></td>
+            </tr>
+            <tr>
+                <th>Số điện thoại:</th>
+                <td th:text="${order.phoneNumber}"></td>
+            </tr>
+            <tr>
+                <th>Giới tính:</th>
+                <td th:text="${order.gender == T(com.master.minieshop.enumeration.Gender) ? 'Nữ':'Nam'}"></td>
+            </tr>
+            <tr>
+                <th>Địa chỉ:</th>
+                <td th:text="${order.address}"></td>
+            </tr>
+            <tr>
+                <th>Phương thức thanh toán:</th>
+                <td
+                    th:text="${order.paymentMethod == T(com.master.minieshop.enumeration.PaymentMethod).Cash ? 'Tiền mặt' : 'Momo'}">
+                </td>
+            </tr>
+            <tr>
+                <th>Ghi chú:</th>
+                <td th:text="${order.note}"></td>
+            </tr>
+            <tr>
+                <th>Tổng tiền:</th>
+                <td th:text="${order.totalPrice}"></td>
+            </tr>
+            <tr>
+                <th>Giảm giá:</th>
+                <td th:text="${order.discountPrice}"></td>
+            </tr>
+            <tr>
+                <th>Phí vận chuyển:</th>
+                <td th:text="${order.shippingCost}"></td>
+            </tr>
+            <tr>
+                <th>Tổng hóa đơn:</th>
+                <td th:text="${order.totalBill}"></td>
+            </tr>
+        </table>
+        <div class="mt-4">
+            <a th:href="@{/orders}" class="btn btn-secondary">Back to List</a>
+        </div>
+    </div>
+    <th:block th:replace="layout :: footer"></th:block>
+    <th:block th:replace="layout :: script"></th:block>
+</body>
+
+</html>

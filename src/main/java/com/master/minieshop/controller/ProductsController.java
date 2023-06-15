@@ -60,7 +60,7 @@ public class ProductsController {
     public String details(@PathVariable("id") Integer id, Model model) {
         Product product = productService.getById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product id: " + id));
-        List<Image> images = product.getImages().stream().toList();
+        // List<Image> images = product.getImages().stream().toList();
         model.addAttribute("images", imageService.getImagesByProductId(id));
         model.addAttribute("product", product);
         return "products/details";
