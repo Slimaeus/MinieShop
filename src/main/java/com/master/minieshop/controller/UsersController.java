@@ -33,14 +33,16 @@ public class UsersController {
 
     @GetMapping("/login")
     public String login(Model model, AppUser user) {
-        model.addAttribute("userD",user);
+        model.addAttribute("userD", user);
         return "users/login";
     }
+
     @GetMapping("/register")
     public String register(Model model) {
         model.addAttribute("user", new AppUser());
         return "users/register";
     }
+
     @PostMapping("/register")
     public String register(@Valid @ModelAttribute("user") AppUser user,
                            BindingResult bindingResult, Model model) {
@@ -60,11 +62,10 @@ public class UsersController {
     }
 
     @GetMapping("/user-details/{id}")
-    public String userDetail( @PathVariable("id") Long id,Model model, HttpSession session){
+    public String userDetail(@PathVariable("id") Long id, Model model, HttpSession session) {
         AppUser user = userService.getById(id);
-        System.out.println(user);
-            model.addAttribute("userD",user);
-            return "users/user-details";
+        model.addAttribute("userD", user);
+        return "users/user-details";
 
     }
 
@@ -82,7 +83,7 @@ public class UsersController {
             userService.updateResetPasswordToken(token, email);
             String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
             sendEmail(email, resetPasswordLink);
-            model.addAttribute("message", "We have sent a reset password link to your email. Please check.");
+            model.addAttribute("message", "Chúng tôi đã gửi đường dẫn khôi phục mật khẩu đến email của bạn. Vui lòng kiểm tra hộp thư.");
 
         } catch (Exception ex) {
             model.addAttribute("error", ex.getMessage());
@@ -93,14 +94,14 @@ public class UsersController {
 
     public void sendEmail(String recipientEmail, String link) throws MessagingException {
         EmailDetails emailDetails = new EmailDetails();
-        String subject = "Here's the link to reset your password";
-        String content = "<p>Hello,</p>"
-                + "<p>You have requested to reset your password.</p>"
-                + "<p>Click the link below to change your password:</p>"
-                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+        String subject = "Đây là đường dẫn để khôi phục mật khẩu";
+        String content = "<p>Xinh chào,</p>"
+                + "<p>Bạn vừa yêu cầu đổi mật khẩu.</p>"
+                + "<p>Nhấn đường dẫn dưới đây để đổi mật khẩu:</p>"
+                + "<p><a href=\"" + link + "\">Đổi mật khẩu</a></p>"
                 + "<br>"
-                + "<p>Ignore this email if you do remember your password, "
-                + "or you have not made the request.</p>";
+                + "<p>Hãy bỏ qua email nếu bạn nhớ mật khẩu, "
+                + "hoặc không phải bạn gửi yêu cầu!</p>";
 
         emailDetails.setRecipient(recipientEmail);
         emailDetails.setSubject(subject);
@@ -115,8 +116,9 @@ public class UsersController {
         model.addAttribute("token", token);
 
         if (user == null) {
-            model.addAttribute("message", "Invalid Token");
-            return "message";
+
+            model.addAttribute("error" +
+                    "Không tìm thấy token!");
         }
 
         return "users/reset_password_form";
@@ -128,16 +130,16 @@ public class UsersController {
         String password = request.getParameter("password");
 
         AppUser customer = userService.getByResetPasswordToken(token);
-        model.addAttribute("title", "Reset your password");
+        model.addAttribute("title", "Khôi phục mật khẩu");
 
         if (customer == null) {
-            model.addAttribute("message", "Invalid Token");
-            return "message";
-        } else {
-            userService.updatePassword(customer, password);
-
-            model.addAttribute("message", "You have successfully changed your password.");
+            model.addAttribute("message", "Token không hợp lệ!");
+            return "users/reset_password_form";
         }
+
+        userService.updatePassword(customer, password);
+
+        model.addAttribute("message", "Bạn đã đổi mật khẩu thành công!");
 
         return "redirect:/home";
     }
