@@ -8,44 +8,53 @@
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-    <h1>Product List</h1>
-    <a th:href="@{/products/create}">Create Product</a>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Status</th>
-            <th scope="col">Price</th>
-            <th scope="col">Category</th>
-            <th scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${products}">
-            <td th:text="${product.title}"></td>
-            <td th:text="${product.name}"></td>
-            <td th:text="${product.description}"></td>
-            <td th:text="${product.status}"></td>
-            <td th:text="${product.price}"></td>
-            <td th:text="${product.category.name}"></td>
-            <td>
-                <a th:href="@{/products/details/{id}(id=${product.id})}">Details</a> |
-                <a th:href="@{/desserts/{name}(name=${product.name})}">Details By Name</a> |
-                <a th:href="@{/products/edit/{id}(id=${product.id})}">Edit</a> |
-                <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>|
-                <form th:action="@{/cart/add-to-cart}" method="post" class="d-inline">
-                    <input type="hidden" name="id" th:value="${product.getId()}">
-                    <button type="submit" class="btn btn-success"
-                            onclick="return confirm('Are you sure you want to add this book to cart?')">
-                        Add to cart</button>
-                </form>
+    <div class="row mt-4 mb-4 container-fluid">
+        <div class="col-3">
+            <div class="card bg-primary">
+                <div class="card-body">
+                    <form class="d-flex" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Tìm kiếm danh mục"
+                               aria-label="Search">
+                        <button class="btn btn-success" type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                    <h4 class="fw-bold text-white mt-4">DANH MỤC</h4>
+                    <ul class="text-white">
+                        <li th:each="category : ${categories}">
+                            <a th:href="@{/products(category=${category.id})}" class="text-white text-decoration-none">
+                                <span th:text="${category.title}">Category Title</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-9">
+            <h1 class="fw-bold">SẢN PHẨM</h1>
+            <h2 th:if="${selectedCategory != null}" class="fw-bold" th:text="${selectedCategory.title}"></h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col" th:each="product : ${products}">
+                    <a class="card h-100 bg-info text-center text-black text-decoration-none" th:href="@{/desserts/{name}(name=${product.name})}">
+                        <img th:if="${product.getImages().size() > 0}" th:src="@{${product.getImages()[0].getLink()}}"
+                             class="card-img-top" alt="Product Images">
+                        <img th:unless="${product.getImages().size() > 0}" src="/pictures/categories/category-flan.png"
+                             class="card-img-top" alt="Default Image">
 
-            </td>
-        </tr>
-        </tbody>
-    </table>
+                        <div class="card-body">
+                            <h3 class="card-title" th:text="${product.title}" style="font-weight: bold;"></h3>
+                            <h5 class="card-text" th:text="${product.price} + ' VND'"></h5>
+                            <form th:action="@{/cart/add-to-cart}" method="post" class="d-inline">
+                                <input type="hidden" name="id" th:value="${product.getId()}">
+                                <button class="btn btn-primary"
+                                        onclick="return confirm('Are you sure you want to add this book to cart?')">CHỌN
+                                    MUA
+                                </button>
+                            </form>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <th:block th:replace="layout :: footer"></th:block>
 <th:block th:replace="layout :: script"></th:block>

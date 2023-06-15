@@ -48,10 +48,11 @@ public class ProductsController {
         List<Product> products = new ArrayList<>();
         if (categoryId != null) {
             products = productService.getByCategoryId(categoryId);
+            model.addAttribute("selectedCategory", categoryService.getById(categoryId).orElseThrow());
         } else {
             products = productService.getAll();
         }
-
+        model.addAttribute("categories", categoryService.getAll());
         model.addAttribute("products", products);
         return "products/index";
     }
