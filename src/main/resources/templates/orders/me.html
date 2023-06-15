@@ -23,14 +23,14 @@
             <th scope="col">Phí vận chuyển</th>
             <th scope="col">Tổng hoá đơn</th>
             <th scope="col">Trạng thái</th>
-<!--            <th scope="col">Hành động</th>-->
+           <th scope="col">Hành động</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="order : ${orders}">
             <td th:text="${order.customerName}"></td>
             <td th:text="${order.phoneNumber}"></td>
-            <td th:text="${order.gender}"></td>
+            <td th:text="${order.gender == T(com.master.minieshop.enumeration.Gender) ? 'Nữ':'Nam'}"></td>
             <td th:text="${order.address}"></td>
             <td th:text="${order.paymentMethod == T(com.master.minieshop.enumeration.PaymentMethod).Cash ? 'Tiền mặt' : 'Momo'}"></td>
             <td th:text="${order.note}"></td>
@@ -39,9 +39,9 @@
             <td th:text="${order.shippingCost}"></td>
             <td th:text="${order.totalBill}"></td>
             <td th:text="${order.status == T(com.master.minieshop.enumeration.OrderStatus).Pending ? 'Đang đợi' : (order.status == T(com.master.minieshop.enumeration.OrderStatus).Completed ? 'Hoàn thành' : 'Thất bại') }"></td>
-<!--            <td>-->
-<!--                <a th:href="@{/orders/details/{id}(id=${order.id})}">Chi tiết</a> |-->
-<!--            </td>-->
+           <td>
+               <a th:href="@{/orders/details/{id}(id=${order.id})}">Chi tiết</a> |
+           </td>
         </tr>
         </tbody>
     </table>

@@ -34,4 +34,4 @@ build/
 
 ### Secret ###
 secret.properties
-application.log
+log
