@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import jakarta.websocket.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.util.List;
 import java.util.UUID;
 
@@ -60,6 +62,38 @@ public class UsersController {
         userService.save(user);
         return "redirect:/login";
     }
+
+
+    @GetMapping("/user-details/{username}")
+    public String userDetail( @PathVariable("username") String username){
+        return "users/user-details";
+    }
+
+    @GetMapping("/edit-user/{username}")
+    public String editUser( @PathVariable("username") String username,HttpSession session, Model model){
+        AppUser user = (AppUser)session.getAttribute("userD");
+        model.addAttribute("user",user);
+        return "users/edit-user";
+    }
+
+    @PostMapping("/edit-user/{username}")
+    public String editUser(@PathVariable("username") String username, @Valid @ModelAttribute("user") AppUser user
+            , HttpSession session, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<FieldError> errors = bindingResult.getFieldErrors();
+            for (FieldError error : errors) {
+                model.addAttribute(error.getField() + "_error",
+                        error.getDefaultMessage());
+            }
+            return "users/edit-user";
+        }
+        else{
+            user.setPassword(new
+                    BCryptPasswordEncoder().encode(user.getPassword()));
+            userService.save(user);
+
+            return "redirect:/login";
+        }
 
     @GetMapping("/user-details/{id}")
     public String userDetail(@PathVariable("id") Long id, Model model, HttpSession session) {

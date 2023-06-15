@@ -74,6 +74,7 @@
                     <a class="btn btn-info" href="/cart"><i class="bi bi-cart4"></i> Giỏ hàng</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
+                      //  <a class="btn btn-primary" th:href="@{/user-details/{id}(id=${session.userD.userName})}">Hello <span sec:authentication="name">Username</span></a>
                     <button class="btn btn-dark">Xin chào <span sec:authentication="name">Username</span></button>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
