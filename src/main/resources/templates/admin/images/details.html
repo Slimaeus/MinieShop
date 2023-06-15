@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Image Details</title>
+  <title>Chi tiết hình ảnh</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
@@ -11,21 +11,21 @@
   <h1>Image Details</h1>
   <table>
     <tr>
-      <th>Title:</th>
+      <th>Tên hình:</th>
       <td th:text="${image.title}"></td>
     </tr>
     <tr>
-      <th>Link:</th>
+      <th>Liên kết:</th>
       <td th:text="${image.link}"></td>
     </tr>
     <tr>
-      <th>Status:</th>
+      <th>Tình trạng:</th>
       <td th:text="${image.status}"></td>
     </tr>
     <img th:src="${image.link}" th:alt="${image.title}" />
   <div class="mt-4">
-    <a th:href="@{/admin/images/edit/{id}(id=${image.id})}" class="btn btn-primary">Edit</a>
-    <a th:href="@{/admin/images}" class="btn btn-secondary">Back to List</a>
+    <a th:href="@{/admin/images/edit/{id}(id=${image.id})}" class="btn btn-primary">Chỉnh sửa</a>
+    <a th:href="@{/admin/images}" class="btn btn-secondary">Quay lại</a>
   </div>
 </div>
 <th:block th:replace="layout :: footer"></th:block>

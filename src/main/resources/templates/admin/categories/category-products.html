@@ -2,23 +2,23 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Product List</title>
+  <title>Danh sách sản phẩm</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-  <h1>Product in Category</h1>
+  <h1>Sản phẩm trong danh mục</h1>
   <table class="table">
     <thead>
     <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Status</th>
-      <th scope="col">Price</th>
-      <th scope="col">Category</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Tên sản phẩm</th>
+      <th scope="col">Tên đặc trưng</th>
+      <th scope="col">Mô tả</th>
+      <th scope="col">Tình trạng</th>
+      <th scope="col">Giá</th>
+      <th scope="col">Danh mục</th>
+      <th scope="col">Hành động</th>
     </tr>
     </thead>
     <tbody>
@@ -30,7 +30,7 @@
       <td th:text="${product.price}"></td>
       <td th:text="${product.category.name}"></td>
       <td>
-        <a th:href="@{/admin/categories}" class="btn btn-secondary">Back to List</a>
+        <a th:href="@{/admin/categories}" class="btn btn-secondary">Quay lại</a>
       </td>
     </tr>
     </tbody>

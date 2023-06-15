@@ -65,8 +65,9 @@ public class UsersController {
     }
 
     @PostMapping("/edit-user/{username}")
-    public String editUser(@PathVariable("username") String username, @Valid @ModelAttribute("user") AppUser user
+    public String editUser(@PathVariable("username") String username, @ModelAttribute("user")@Valid AppUser user
             , HttpSession session, BindingResult bindingResult, Model model) {
+
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
@@ -75,12 +76,11 @@ public class UsersController {
             }
             return "users/edit-user";
         }
-        else{
+        else {
             user.setPassword(new
                     BCryptPasswordEncoder().encode(user.getPassword()));
-            userService.save(user);
-
-            return "redirect:/login";
+                userService.save(user);
         }
+            return "redirect:/login";
     }
 }

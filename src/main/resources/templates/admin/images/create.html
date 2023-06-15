@@ -2,41 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Create Image</title>
+  <title>Tạo hình ảnh</title>
   <th:block th:replace="layout :: link-css"></th:block>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-  <h1>Create Image</h1>
+  <h1>Tạo hình ảnh</h1>
   <form th:action="@{/admin/images/create}" th:object="${image}" method="post">
     <div class="form-group">
       <label for="id">Id:</label>
       <input type="text" id="id" th:field="*{id}" class="form-control" required>
     </div>
     <div class="form-group">
-      <label for="title">Title:</label>
+      <label for="title">Tên hình:</label>
       <input type="text" id="title" th:field="*{title}" class="form-control" required>
     </div>
     <div class="form-group">
-      <label for="link">link:</label>
+      <label for="link">Liên kết:</label>
       <input type="text" id="link" th:field="*{link}" class="form-control" required>
     </div>
     <div class="form-group">
-      <label for="status">Status:</label>
+      <label for="status">Tình trạng:</label>
       <select id="status" name="status" th:field="*{status}" class="form-select">
         <option th:each="status : ${T(com.master.minieshop.enumeration.ImageStatus).values()}"
                 th:value="${status}" th:text="${status}"></option>
       </select>
     </div>
     <div class="form-group">
-      <label for="category">Product:</label>
+      <label for="category">Sản phẩm:</label>
       <select id="category" th:field="*{product.id}" class="form-control" required>
         <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
       </select>
     </div>
     <div class="mt-4">
-      <button type="submit" class="btn btn-primary">Create</button>
+      <button type="submit" class="btn btn-primary">Tạo</button>
     </div>
   </form>
 </div>
