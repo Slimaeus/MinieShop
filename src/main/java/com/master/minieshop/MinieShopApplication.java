@@ -9,6 +9,8 @@ import com.master.minieshop.repository.ProductRepository;
 import com.master.minieshop.repository.UserRepository;
 import com.master.minieshop.service.*;
 import org.hibernate.Hibernate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -48,9 +50,17 @@ public class MinieShopApplication {
 
     @Autowired
     private PromotionService promotionService;
-
+    private static Logger logger = LoggerFactory.getLogger(MinieShopApplication.class);
     public static void main(String[] args) {
+
         SpringApplication.run(MinieShopApplication.class, args);
+
+        logger.info("debug enabled: {}", logger.isDebugEnabled());
+        logger.trace("trace");
+        logger.debug("debug");
+        logger.info("info");
+        logger.warn("warn");
+        logger.error("error");
     }
 
 
