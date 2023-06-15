@@ -42,7 +42,7 @@ public class OrderService extends BaseEntityService<Order, String, OrderReposito
         String ipnUrl = env.getProperty("payment.momo.ipnUrl");
         String requestType = "captureWallet";
         String orderInfo = "Khách hàng: " + order.getCustomerName() + " thanh toán";
-        String amount = String.valueOf(order.getTotalBill()).replaceAll("[^\\d]", ""); // Xóa dấu phẩy
+        String amount = String.valueOf(Math.round(order.getTotalBill())).replaceAll("[^\\d]", ""); // Xóa dấu phẩy
         String orderId = order.getId();
         String requestId = java.util.UUID.randomUUID().toString();
         String extraData = "";
