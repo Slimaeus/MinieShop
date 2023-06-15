@@ -23,4 +23,5 @@ public class ProductService extends BaseEntityService<Product, Integer, ProductR
     public Page<Product> getAll(Pageable pageable) {
         return repository.findAll(pageable);
     }
+    public List<Product> getByCategoryId(Integer categoryId) {return repository.findByCategory_Id(categoryId);}
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -34,13 +35,24 @@ public class ProductsController {
         model.addAttribute("product", product);
         return "products/info";
     }
+
     @GetMapping({"products/index", "products"})
-    public String index(Model model, @RequestParam("index") @Nullable Integer index, @RequestParam("size") @Nullable Integer size) {
+    public String index(Model model,
+                        @RequestParam("index") @Nullable Integer index,
+                        @RequestParam("size") @Nullable Integer size,
+                        @RequestParam("category") @Nullable Integer categoryId) {
         int pageIndex = index == null || index <= 0 ? 1 : index;
         int pageSize = size == null || size <= 0 ? 10 : size;
         Pageable paging = PageRequest.of(pageIndex, pageSize, Sort.by("title"));
 
-        model.addAttribute("products", productService.getAll());
+        List<Product> products = new ArrayList<>();
+        if (categoryId != null) {
+            products = productService.getByCategoryId(categoryId);
+        } else {
+            products = productService.getAll();
+        }
+
+        model.addAttribute("products", products);
         return "products/index";
     }
 
