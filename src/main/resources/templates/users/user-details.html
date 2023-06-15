@@ -4,26 +4,61 @@
     <meta charset="UTF-8">
     <title>Hồ sơ của bạn</title>
     <th:block th:replace="layout :: link-css"></th:block>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        function togglePasswordVisibilityNewPassword() {
+            var passwordInput = document.getElementById("new-password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+
+        function togglePasswordVisibilityConfirmPassword() {
+            var passwordInput = document.getElementById("confirm-password");
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+            } else {
+                passwordInput.type = "password";
+            }
+        }
+    </script>
 </head>
 <body>
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
-    <div class="card bg-dark mt-4">
+    <div class="card bg-dark mt-4 mb-4">
         <div class="card-body">
             <div class="row justify-content-center">
                 <div class="col-lg-6 col-md-8">
                     <h1 class="card-title text-center text-white"><strong>HỒ SƠ CỦA BẠN</strong></h1>
-                    <h3 class="card-title text-center text-white mt-2">Bạn là Khách Hàng Thành Viên tại Minie Shop!</h3>
+                    <h6 class="card-title text-center text-white mt-2 fst-italic">Bạn là Khách Hàng Thành Viên tại Minie
+                        Shop!</h6>
                     <form>
-                        <div class="mb-3">
-                            <label for="fullName" class="form-label text-white">Họ và tên:</label>
-                            <input type="text" id="fullName" name="fullName" class="form-control"
-                                   th:value="${userD.fullName}" readonly>
-                        </div>
                         <div class="mb-3">
                             <label for="userName" class="form-label text-white">Tên đăng nhập:</label>
                             <input type="text" id="userName" name="userName" class="form-control"
                                    th:value="${userD.userName}" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber" class="form-label text-white">Số điện thoại:</label>
+                            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
+                                   th:value="${userD.phoneNumber}" placeholder="Bạn chưa cập nhật số điện thoại!"
+                                   readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="fullName" class="form-label text-white">Họ tên:</label>
+                            <input type="text" id="fullName" name="fullName" class="form-control"
+                                   th:value="${userD.fullName}" readonly>
                         </div>
                         <div class="mb-3">
                             <label for="gender" class="form-label text-white">Giới tính:</label>
@@ -35,14 +70,59 @@
                             <input type="text" id="email" name="email" class="form-control" th:value="${userD.email}"
                                    readonly>
                         </div>
-                        <div class="mb-3">
-                            <label for="phoneNumber" class="form-label text-white">Số điện thoại:</label>
-                            <input type="text" id="phoneNumber" name="phoneNumber" class="form-control"
-                                   th:value="${userD.phoneNumber}" placeholder="Bạn chưa cập nhật số điện thoại!" readonly>
-                        </div>
                     </form>
-                    <a th:href="@{/edit-user/{username}(username=${userD.userName})}">Chỉnh sửa</a>
-                    <div class="mt-4">
+                    <div class="row mt-2">
+                        <div class="col d-grid">
+                            <button class="btn btn-primary">XEM THẺ TÍCH ĐIỂM</button>
+                        </div>
+                        <div class="col d-grid">
+                            <a th:href="@{/edit-user/{username}(username=${userD.userName})}" class="btn btn-primary">CHỈNH
+                                SỬA THÔNG TIN</a>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div class="mt-2">
+                        <h4 class="text-white"><strong>THAY ĐỔI MẬT KHẨU</strong></h4>
+                        <form>
+                            <div class="mb-3">
+                                <label for="password" class="form-label text-white">Mật khẩu hiện tại: </label>
+                                <div class="input-group">
+                                    <input type="password" name="password" id="password" class="form-control"
+                                           placeholder="Hãy mật khẩu mới!" required autofocus/>
+                                    <button type="button" class="btn btn-primary" onclick="togglePasswordVisibility()">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="new-password" class="form-label text-white">Mật khẩu mới: </label>
+                                <div class="input-group">
+                                    <input type="password" id="new-password" class="form-control"
+                                           placeholder="Xác nhận mật khẩu mới!"
+                                           required oninput="checkPasswordMatch(this);"/>
+                                    <button type="button" class="btn btn-primary"
+                                            onclick="togglePasswordVisibilityNewPassword()">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirm-password" class="form-label text-white">Xác nhận mật khẩu
+                                    mới: </label>
+                                <div class="input-group">
+                                    <input type="password" id="confirm-password" class="form-control"
+                                           placeholder="Xác nhận mật khẩu mới!"
+                                           required oninput="checkPasswordMatch(this);"/>
+                                    <button type="button" class="btn btn-primary"
+                                            onclick="togglePasswordVisibilityConfirmPassword()">
+                                        <i class="bi bi-eye-fill"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <p class="text-center d-grid">
+                                <input type="submit" value="CẬP NHẬT MẬT KHẨU" class="btn btn-primary"/>
+                            </p>
+                        </form>
                     </div>
                 </div>
             </div>
