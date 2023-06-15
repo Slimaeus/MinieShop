@@ -71,14 +71,14 @@
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item me-2">
-                    <a class="btn btn-info" href="/cart"><i class="bi bi-cart4"></i> Cart</a>
+                    <a class="btn btn-info" href="/cart"><i class="bi bi-cart4"></i> Giỏ hàng</a>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
-                    <button class="btn btn-dark">Hello <span sec:authentication="name">Username</span></button>
+                    <button class="btn btn-dark">Xin chào <span sec:authentication="name">Username</span></button>
                 </li>
                 <li sec:authorize="isAuthenticated()" class="nav-item me-2">
                     <form th:action="@{/logout}" method="post">
-                        <button class="btn btn-danger" type="submit">Logout</button>
+                        <button class="btn btn-danger" type="submit">Đăng xuất</button>
                     </form>
                 </li>
                 <li sec:authorize="!isAuthenticated()" class="nav-item me-2">
