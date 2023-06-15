@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
   <h1>Danh sách danh mục</h1>
   <a th:href="@{/admin/categories/create}">Create Category</a>
@@ -38,8 +38,8 @@
     </tbody>
   </table>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
 
 </html>

@@ -101,13 +101,12 @@ public class UsersController {
             model.addAttribute("user", userService.findByUsername(username));
             return "users/edit-user";
         }
-        else{
+        else {
             user.setPassword(new
                     BCryptPasswordEncoder().encode(user.getPassword()));
-            userService.save(user);
-
-            return "redirect:/login";
+                userService.save(user);
         }
+            return "redirect:/login";
     }
 
 

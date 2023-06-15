@@ -4,11 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Danh sách sản phẩm</title>
-    <th:block th:replace="layout :: link-css"></th:block>
+    <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
 
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
     <h1>Promotion List</h1>
     <a th:href="@{/admin/promotions/create}">Tạo khuyến mãi</a>
@@ -47,8 +47,8 @@
         </tbody>
     </table>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
 
 </html>

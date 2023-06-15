@@ -8,7 +8,7 @@
 </head>
 
 <body>
-<th:block th:replace="layout :: header"></th:block>
+<th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
   <h1>Tạo danh mục</h1>
   <form th:action="@{/admin/categories/create}" th:object="${category}" method="post">
@@ -36,8 +36,8 @@
     </div>
   </form>
 </div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<th:block th:replace="./admin/layout :: footer"></th:block>
+<th:block th:replace="./admin/layout :: script"></th:block>
 </body>
 
 </html>
