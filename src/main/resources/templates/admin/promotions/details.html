@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Promotion Details</title>
-    <th:block th:replace="layout :: link-css"></th:block>
+    <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
+
 <body>
-<th:block th:replace="layout :: header"></th:block>
-<div class="container">
-    <h1>Promotion Details</h1>
-    <table>
-        <tr>
-            <th>Code:</th>
-            <td th:text="${promotion.code}"></td>
-        </tr>
-        <tr>
-            <th>Title:</th>
-            <td th:text="${promotion.title}"></td>
-        </tr>
-        <tr>
-            <th>Value:</th>
-            <td th:text="${promotion.value}"></td>
-        </tr>
-        <tr>
-            <th>Quantity:</th>
-            <td th:text="${promotion.quantity}"></td>
-        </tr>
-        <tr>
-            <th>Remain:</th>
-            <td th:text="${promotion.remain}"></td>
-        </tr>
-        <tr>
-            <th>Status:</th>
-            <td th:text="${promotion.status}"></td>
-        </tr>
-        <tr>
-            <th>Type:</th>
-            <td th:text="${promotion.type}"></td>
-        </tr>
-        <tr>
-            <th>Started At:</th>
-            <td th:text="${promotion.startedAt}"></td>
-        </tr>
-        <tr>
-            <th>Ended At:</th>
-            <td th:text="${promotion.endedAt}"></td>
-        </tr>
-    </table>
-    <div class="mt-4">
-        <a th:href="@{/admin/promotions/edit/{id}(id=${promotion.id})}" class="btn btn-primary">Edit</a>
-        <a th:href="@{/admin/promotions}" class="btn btn-secondary">Back to List</a>
+    <th:block th:replace="./admin/layout :: header"></th:block>
+    <div class="container">
+        <h1>Promotion Details</h1>
+        <table>
+            <tr>
+                <th>Code:</th>
+                <td th:text="${promotion.code}"></td>
+            </tr>
+            <tr>
+                <th>Title:</th>
+                <td th:text="${promotion.title}"></td>
+            </tr>
+            <tr>
+                <th>Value:</th>
+                <td th:text="${promotion.value}"></td>
+            </tr>
+            <tr>
+                <th>Quantity:</th>
+                <td th:text="${promotion.quantity}"></td>
+            </tr>
+            <tr>
+                <th>Remain:</th>
+                <td th:text="${promotion.remain}"></td>
+            </tr>
+            <tr>
+                <th>Status:</th>
+                <td th:text="${promotion.status}"></td>
+            </tr>
+            <tr>
+                <th>Type:</th>
+                <td th:text="${promotion.type}"></td>
+            </tr>
+            <tr>
+                <th>Started At:</th>
+                <td th:text="${promotion.startedAt}"></td>
+            </tr>
+            <tr>
+                <th>Ended At:</th>
+                <td th:text="${promotion.endedAt}"></td>
+            </tr>
+        </table>
+        <div class="mt-4">
+            <a th:href="@{/admin/promotions/edit/{id}(id=${promotion.id})}" class="btn btn-primary">Edit</a>
+            <a th:href="@{/admin/promotions}" class="btn btn-secondary">Back to List</a>
+        </div>
     </div>
-</div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+    <th:block th:replace="./admin/layout :: footer"></th:block>
+    <th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>

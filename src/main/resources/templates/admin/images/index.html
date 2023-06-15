@@ -1,42 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Image List</title>
-  <th:block th:replace="layout :: link-css"></th:block>
+  <th:block th:replace="./admin/layout :: link-css"></th:block>
 </head>
-<body>
-<th:block th:replace="layout :: header"></th:block>
-<div class="container">
-  <h1>Image List</h1>
-  <a th:href="@{/admin/images/create}">Create Image</a>
-  <table class="table">
-    <thead>
-    <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Link</th>
-      <th scope="col">Status</th>
-      <th scope="col">Product</th>
-      <th scope="col">Actions</th>
 
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="image : ${images}">
-      <td th:text="${image.title}"></td>
-      <td th:text="${image.link}"></td>
-      <td th:text="${image.status}"></td>
-      <td th:text="${image.product.name}"></td>
-      <td>
-        <a th:href="@{/admin/images/details/{id}(id=${image.id})}">Details</a> |
-        <a th:href="@{/admin/images/edit/{id}(id=${image.id})}">Edit</a> |
-        <a th:href="@{/admin/images/delete/{id}(id=${image.id})}">Delete</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-<th:block th:replace="layout :: footer"></th:block>
-<th:block th:replace="layout :: script"></th:block>
+<body>
+  <th:block th:replace="./admin/layout :: header"></th:block>
+  <div class="container">
+    <h1>Image List</h1>
+    <a th:href="@{/admin/images/create}">Create Image</a>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Link</th>
+          <th scope="col">Status</th>
+          <th scope="col">Product</th>
+          <th scope="col">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="image : ${images}">
+          <td th:text="${image.title}"></td>
+          <td th:text="${image.link}"></td>
+          <td th:text="${image.status}"></td>
+          <td th:text="${image.product.name}"></td>
+          <td>
+            <a th:href="@{/admin/images/details/{id}(id=${image.id})}">Details</a> |
+            <a th:href="@{/admin/images/edit/{id}(id=${image.id})}">Edit</a> |
+            <a th:href="@{/admin/images/delete/{id}(id=${image.id})}">Delete</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <th:block th:replace="./admin/layout :: footer"></th:block>
+  <th:block th:replace="./admin/layout :: script"></th:block>
 </body>
+
 </html>
