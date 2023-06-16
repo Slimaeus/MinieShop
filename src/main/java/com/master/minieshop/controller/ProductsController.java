@@ -33,6 +33,7 @@ public class ProductsController {
         Product product = productService.findByName(name)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product name: " + name));
         model.addAttribute("product", product);
+        model.addAttribute("image", product.getImages().stream().findFirst().orElse(null));
         return "products/info";
     }
 

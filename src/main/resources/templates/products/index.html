@@ -45,8 +45,7 @@
                             <form th:action="@{/cart/add-to-cart}" method="post" class="d-inline">
                                 <input type="hidden" name="id" th:value="${product.getId()}">
                                 <button class="btn btn-primary"
-                                        onclick="return confirm('Are you sure you want to add this book to cart?')">CHỌN
-                                    MUA
+                                        onclick="return true;">CHỌN MUA
                                 </button>
                             </form>
                         </div>

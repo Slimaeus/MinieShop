@@ -13,12 +13,14 @@
     <div class="row mt-4 mb-4">
         <div class="col-4">
             <ul style="list-style-type: none;">
-                <th:block th:each="image : ${product.getImages()}">
-                    <li>
+                    <li th:unless="${image == null}">
                         <img class="border" th:src="${image.link}" th:alt="${image.title}"
                              style="width: 100%; height: auto"/>
                     </li>
-                </th:block>
+                    <li th:if="${image == null}">
+                        <img class="border" src="/pictures/categories/category-flan.png" alt="Default Image"
+                             style="width: 100%; height: auto"/>
+                    </li>
             </ul>
         </div>
         <div class="col-8">
@@ -36,7 +38,7 @@
             </label>
 
             <div class="form-action mt-2">
-                <button type="submit" class="btn btn-primary" id="add-to-cart"><i class="bi bi-cart4"></i> THÊM VÀO GIỎ
+                <button type="submit" class="btn btn-primary" th:attr="data-id=${product.id}"><i class="bi bi-cart4"></i> THÊM VÀO GIỎ
                     HÀNG
                 </button>
             </div>
@@ -99,7 +101,7 @@
     </div>
 
     <div class="mt-4 mb-4">
-        <a th:href="@{/products}" class="btn btn-secondary">Back to List</a>
+        <a th:href="@{/products}" class="btn btn-secondary">Quay lại danh sách</a>
     </div>
 </div>
 <th:block th:replace="layout :: footer"></th:block>

@@ -10,4 +10,17 @@ $(document).ready(function () {
             }
         });
     });
+    $('.add-to-cart-buttons').click(function (event) {
+        event.preventDefault();
+        const id = $(this).attr("data-id");
+        $.ajax({
+            url: '/api/cart/add-to-cart/' + id + '/' + 1,
+            type: 'GET',
+            success: function () {
+                Snackbar.show({
+                    text: "Thêm thành công"
+                });
+            }
+        });
+    })
 });
