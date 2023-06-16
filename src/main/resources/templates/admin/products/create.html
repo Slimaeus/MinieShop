@@ -11,7 +11,6 @@
 <th:block th:replace="./admin/layout :: header"></th:block>
 <div class="container">
     <h1>Tạo sản phẩm</h1>
-    <th:block th:replace="./admin/layout :: header"></th:block>
     <div class="container">
         <h1>Create Product</h1>
         <form th:action="@{/admin/products/create}" th:object="${createProductDto}" method="post"
