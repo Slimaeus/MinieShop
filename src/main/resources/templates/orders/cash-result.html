@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Hoàn thành đặt hàng</title>
@@ -50,7 +52,8 @@
                 <br/>
                 Cảm ơn bạn đã tin tưởng chọn Minie Shop.
             </div>
-            <button class="btn btn-primary" href="/">XEM CHI TIẾT ĐƠN HÀNG</button>
+            <a sec:authorize="isAuthenticated()" class="btn btn-primary" href="/orders">XEM ĐƠN HÀNG</a>
+            <a sec:authorize="!isAuthenticated()" class="btn btn-primary" href="/home">QUAY VỀ TRANG CHỦ</a>
         </div>
     </div>
 </div>

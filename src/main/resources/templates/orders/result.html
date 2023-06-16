@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4"
+      lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Kết quả thanh toán</title>
@@ -9,7 +11,7 @@
 <th:block th:replace="layout :: header"></th:block>
 <div class="container">
 
-<h1>Kết quả thanh toán</h1>
+    <h1>Kết quả thanh toán</h1>
     <table>
         <tr>
             <td>Thông báo:</td>
@@ -36,6 +38,11 @@
             <td th:text="${momoResult.transId}"></td>
         </tr>
     </table>
+    <div class="mt-4">
+        <a sec:authorize="isAuthenticated()" class="btn btn-primary" href="/orders">XEM ĐƠN HÀNG</a>
+        <a sec:authorize="!isAuthenticated()" class="btn btn-primary" href="/home">QUAY VỀ TRANG CHỦ</a>
+
+    </div>
 </div>
 <th:block th:replace="layout ::  footer"></th:block>
 </body>

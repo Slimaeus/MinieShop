@@ -51,7 +51,7 @@ public class OrdersController {
     }
 
     @GetMapping("cash-pay")
-    public String cashPay(HttpSession session) {
+    public String cashPay(HttpSession session, Model model) {
         Order order = orderService.getSessionOrder(session);
         if (order != null) {
             order.setPaymentMethod(PaymentMethod.Cash);
@@ -62,6 +62,7 @@ public class OrdersController {
 
         cartService.removeCart(session);
         orderService.removeSessionOrder(session);
+        model.addAttribute("order", order);
         return "orders/cash-result";
     }
     @GetMapping("momo-pay")
