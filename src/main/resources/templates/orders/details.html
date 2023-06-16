@@ -8,59 +8,76 @@
 </head>
 
 <body>
-    <th:block th:replace="layout :: header"></th:block>
-    <div class="container">
-        <h1>Chi tiết đơn hàng</h1>
-        <table>
-            <tr>
-                <th>Tên khách hàng:</th>
-                <td th:text="${phoneNumber}"></td>
-            </tr>
-            <tr>
-                <th>Số điện thoại:</th>
-                <td th:text="${order.phoneNumber}"></td>
-            </tr>
-            <tr>
-                <th>Giới tính:</th>
-                <td th:text="${order.gender == T(com.master.minieshop.enumeration.Gender) ? 'Nữ':'Nam'}"></td>
-            </tr>
-            <tr>
-                <th>Địa chỉ:</th>
-                <td th:text="${order.address}"></td>
-            </tr>
-            <tr>
-                <th>Phương thức thanh toán:</th>
-                <td
-                    th:text="${order.paymentMethod == T(com.master.minieshop.enumeration.PaymentMethod).Cash ? 'Tiền mặt' : 'Momo'}">
-                </td>
-            </tr>
-            <tr>
-                <th>Ghi chú:</th>
-                <td th:text="${order.note}"></td>
-            </tr>
-            <tr>
-                <th>Tổng tiền:</th>
-                <td th:text="${order.totalPrice}"></td>
-            </tr>
-            <tr>
-                <th>Giảm giá:</th>
-                <td th:text="${order.discountPrice}"></td>
-            </tr>
-            <tr>
-                <th>Phí vận chuyển:</th>
-                <td th:text="${order.shippingCost}"></td>
-            </tr>
-            <tr>
-                <th>Tổng hóa đơn:</th>
-                <td th:text="${order.totalBill}"></td>
-            </tr>
-        </table>
-        <div class="mt-4">
-            <a th:href="@{/orders}" class="btn btn-secondary">Back to List</a>
+<th:block th:replace="layout :: header"></th:block>
+<div class="container mt-4 mb-4">
+    <div class="card p-4 bg-dark">
+        <div class="card-header">
+            <h1 class="text-center text-white fw-bold">CHI TIẾT ĐƠN HÀNG</h1>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="mb-3">
+                    <label for="customerName" class="form-label text-white">Tên khách hàng:</label>
+                    <input type="text" id="customerName" name="customerName" class="form-control"
+                           th:value="${order.customerName}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="orderPhoneNumber" class="form-label text-white">Số điện thoại:</label>
+                    <input type="text" id="orderPhoneNumber" name="orderPhoneNumber" class="form-control"
+                           th:value="${order.phoneNumber}"
+                           readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="gender" class="form-label text-white">Giới tính:</label>
+                    <input type="text" id="gender" name="gender" class="form-control"
+                           th:value="${order.gender == T(com.master.minieshop.enumeration.Gender) ? 'Nữ' : 'Nam'}"
+                           readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="address" class="form-label text-white">Địa chỉ:</label>
+                    <input type="text" id="address" name="address" class="form-control" th:value="${order.address}"
+                           readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="paymentMethod" class="form-label text-white">Phương thức thanh toán:</label>
+                    <input type="text" id="paymentMethod" name="paymentMethod" class="form-control"
+                           th:value="${order.paymentMethod == T(com.master.minieshop.enumeration.PaymentMethod).Cash ? 'Tiền mặt' : 'Momo'}"
+                           readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="note" class="form-label text-white">Ghi chú:</label>
+                    <input type="text" id="note" name="note" class="form-control" th:value="${order.note}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="totalPrice" class="form-label text-white">Tổng tiền:</label>
+                    <input type="text" id="totalPrice" name="totalPrice" class="form-control"
+                           th:value="${order.totalPrice}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="discountPrice" class="form-label text-white">Giảm giá:</label>
+                    <input type="text" id="discountPrice" name="discountPrice" class="form-control"
+                           th:value="${order.discountPrice}"
+                           readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="shippingCost" class="form-label text-white">Phí vận chuyển:</label>
+                    <input type="text" id="shippingCost" name="shippingCost" class="form-control"
+                           th:value="${order.shippingCost}" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="totalBill" class="form-label text-white">Tổng hóa đơn:</label>
+                    <input type="text" id="totalBill" name="totalBill" class="form-control"
+                           th:value="${order.totalBill}" readonly>
+                </div>
+            </form>
         </div>
     </div>
-    <th:block th:replace="layout :: footer"></th:block>
-    <th:block th:replace="layout :: script"></th:block>
+    <div class="mt-4">
+        <a th:href="@{/orders}" class="btn btn-secondary">Trở về danh sách</a>
+    </div>
+</div>
+<th:block th:replace="layout :: footer"></th:block>
+<th:block th:replace="layout :: script"></th:block>
 </body>
 
 </html>
