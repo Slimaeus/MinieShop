@@ -42,7 +42,7 @@ public class HomeController {
 */
     
 
-    @GetMapping({"home", "/"})
+    @GetMapping({"home", "/", ""})
     public String home(Model model) {
         model.addAttribute("products", productService.getAll());
         return "home/index";
