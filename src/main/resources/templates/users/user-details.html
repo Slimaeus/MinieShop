@@ -62,7 +62,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="gender" class="form-label text-white">Giới tính:</label>
-                            <input type="text" id="gender" name="gender" class="form-control" th:value="${userD.gender}"
+                            <input type="text" id="gender" name="gender" class="form-control" th:value="${userD.gender == T(com.master.minieshop.enumeration.Gender).Male ? 'Nam' : 'Nữ'}"
                                    readonly>
                         </div>
                         <div class="mb-3">

@@ -1,5 +1,6 @@
 package com.master.minieshop.controller;
 
+import com.master.minieshop.dto.EditUserDto;
 import com.master.minieshop.entity.AppUser;
 import com.master.minieshop.enumeration.Role;
 import com.master.minieshop.model.EmailDetails;
@@ -80,21 +81,23 @@ public class UsersController {
     @GetMapping("/edit-user/{username}")
     public String editUser( @PathVariable("username") String username,HttpSession session, Model model){
 //        AppUser user = (AppUser)session.getAttribute("userD");
-        model.addAttribute("user", userService.findByUsername(username));
+
+        AppUser user = userService.findByUsername(username);
+        EditUserDto editUserDto = new EditUserDto();
+        editUserDto.setId(user.getId());
+        editUserDto.setFullName(user.getFullName());
+        editUserDto.setUserName(user.getUserName());
+        editUserDto.setEmail(user.getEmail());
+        editUserDto.setGender(user.getGender());
+        editUserDto.setPhoneNumber(user.getPhoneNumber());
+        model.addAttribute("user", editUserDto);
         return "users/edit-user";
     }
 
     @PostMapping("/edit-user/{username}")
-    public String editUser(@PathVariable("username") String username, @ModelAttribute("user") AppUser user
+    public String editUser(@PathVariable("username") String username,@Valid @ModelAttribute("user") EditUserDto editUserDto
             , HttpSession session, BindingResult bindingResult, Model model) {
-        AppUser dbUser = userService.findByUsername(username);
-//        if (!dbUser.getPassword().equals(user.getPassword())) {
-//            model.addAttribute("password" + "_error",
-//                    "Mật khẩu xác nhận không hợp lệ!");
-//            user.setPassword("");
-//            model.addAttribute("user", user);
-//            return "users/edit-user";
-//        }
+
         if (bindingResult.hasErrors()) {
             List<FieldError> errors = bindingResult.getFieldErrors();
             for (FieldError error : errors) {
@@ -105,12 +108,14 @@ public class UsersController {
             model.addAttribute("user", userService.findByUsername(username));
             return "users/edit-user";
         }
-        else {
-            user.setPassword(new
-                    BCryptPasswordEncoder().encode(user.getPassword()));
-                userService.save(user);
-        }
-            return "redirect:/login";
+        AppUser user = userService.getById(editUserDto.getId());
+
+        user.setFullName(editUserDto.getFullName());
+        user.setEmail(editUserDto.getEmail());
+        user.setGender(editUserDto.getGender());
+        user.setPhoneNumber(editUserDto.getPhoneNumber());
+        userService.save(user);
+        return "redirect:/user-details/" + user.getUserName();
     }
 
 

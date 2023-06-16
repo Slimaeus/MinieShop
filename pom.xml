@@ -118,16 +118,16 @@
                             <artifactId>lombok</artifactId>
                         </exclude>
                     </excludes>
-                    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-                        <file>D:/Project/MinieShop/src/main/java/com/master/minieshop/application.log</file>
-                        <encoder>
-                            <pattern>%date %level [%thread] %logger{10} [%file:%line] - %msg%n</pattern>
-                        </encoder>
-                    </appender>
+<!--                    <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--                        <file>D:/Project/MinieShop/src/main/java/com/master/minieshop/application.log</file>-->
+<!--                        <encoder>-->
+<!--                            <pattern>%date %level [%thread] %logger{10} [%file:%line] - %msg%n</pattern>-->
+<!--                        </encoder>-->
+<!--                    </appender>-->
 
-                    <root level="info">
-                        <appender-ref ref="FILE" />
-                    </root>
+<!--                    <root level="info">-->
+<!--                        <appender-ref ref="FILE" />-->
+<!--                    </root>-->
                 </configuration>
             </plugin>
         </plugins>

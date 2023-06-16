@@ -26,12 +26,7 @@
                             <span class="text-danger" th:if="${#fields.hasErrors('fullName')}"
                                   th:errors="*{fullName}"></span>
                         </div>
-                        <div class="mb-3">
-                            <label for="email" class="form-label text-white">Email:</label>
-                            <input type="email" class="form-control" id="email" th:field="*{email}"
-                                   placeholder="Nhập email!">
-                            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-                        </div>
+
                         <div class="mb-3">
                             <label for="phoneNumber" class="form-label text-white">Số điện thoại:</label>
                             <span class="text-danger">*</span>
@@ -49,31 +44,36 @@
                             </select>
                         </div>
                         <div class="mb-3">
+                            <label for="email" class="form-label text-white">Email:</label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}" readonly
+                                   placeholder="Nhập email!">
+                            <span class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                        </div>
+                        <div class="mb-3">
                             <label for="userName" class="form-label text-white">Tên đăng nhập:</label>
-                            <span class="text-danger">*</span>
-                            <input type="text" class="form-control" id="userName" th:field="*{userName}"
+                            <input type="text" class="form-control" id="userName" th:field="*{userName}" readonly
                                    placeholder="Nhập tên đăng nhập!">
                             <span class="text-danger" th:if="${#fields.hasErrors('userName')}"
                                   th:errors="*{userName}"></span>
                         </div>
-                        <div class="mb-3">
-                            <label for="password" class="form-label text-white">Mật khẩu:</label>
-                            <span class="text-danger">*</span>
+<!--                        <div class="mb-3">-->
+<!--                            <label for="password" class="form-label text-white">Mật khẩu:</label>-->
+<!--                            <span class="text-danger">*</span>-->
 
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="password" autocomplete="password" th:field="*{password}"
-                                       placeholder="Nhập mật khẩu xác nhận!">
-                                <button type="button" class="btn btn-primary" onclick="togglePasswordVisibility()">
-                                    <i class="bi bi-eye-fill"></i>
-                                </button>
-                            </div>
-                            <span class="text-danger" th:if="${#fields.hasErrors('password')}"
-                                  th:errors="*{password}"></span>
-                        </div>
+<!--                            <div class="input-group">-->
+<!--                                <input type="password" class="form-control" id="password" autocomplete="password" th:field="*{password}"-->
+<!--                                       placeholder="Nhập mật khẩu xác nhận!">-->
+<!--                                <button type="button" class="btn btn-primary" onclick="togglePasswordVisibility()">-->
+<!--                                    <i class="bi bi-eye-fill"></i>-->
+<!--                                </button>-->
+<!--                            </div>-->
+<!--                            <span class="text-danger" th:if="${#fields.hasErrors('password')}"-->
+<!--                                  th:errors="*{password}"></span>-->
+<!--                        </div>-->
 
                         <form th:action="@{/logout}" method="post">
                             <button class="btn btn-primary" type="submit" onclick="return confirm('Bạn cần đăng nhập lại với ' +
-           'Username và Password vừa đổi(Nếu có) để lưu các thay đổi trên')">Save
+           'Username và Password vừa đổi(Nếu có) để lưu các thay đổi trên')">Lưu
                             </button>
                         </form>
                     </form>
