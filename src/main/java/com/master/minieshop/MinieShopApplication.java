@@ -84,12 +84,13 @@ public class MinieShopApplication {
                     Role.Manager);
             AppUser user = createUser("user", "user@gmail.com", "User", Gender.Female, "0987654322", password,
                     Role.LoyalCustomer);
-            AppUser manager = createUser("manamger", "manamger@gmail.com", "Manager", Gender.Female, "0987654323", password,
-                    Role.LoyalCustomer);
+            AppUser manager = createUser("manager", "manager@gmail.com", "Manager", Gender.Female, "0987654323", password,
+                    Role.Manager);
 
             userRepository.save(thai);
             userRepository.save(mei);
             userRepository.save(user);
+            userRepository.save(manager);
 
             LoyaltyCard thaiLoyaltyCard = createLoyaltyCard(10, LoyaltyCardStatus.Closed, thai);
             LoyaltyCard meiLoyaltyCard = createLoyaltyCard(50, LoyaltyCardStatus.Closed, mei);

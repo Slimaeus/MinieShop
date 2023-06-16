@@ -70,6 +70,9 @@
                 </li>
             </ul>
             <ul class="navbar-nav">
+                <li sec:authorize="hasAuthority('Manager')" class="nav-item me-2">
+                    <a href="/admin" class="btn btn-warning">ADMIN</a>
+                </li>
                 <li class="nav-item me-2">
                     <a class="btn btn-info" href="/cart"><i class="bi bi-cart4"></i> Giỏ hàng</a>
                 </li>
