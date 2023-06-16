@@ -82,7 +82,9 @@ public class MinieShopApplication {
                     Role.Manager);
             AppUser mei = createUser("mei", "mei@gmail.com", "Truong Thuc Van", Gender.Female, "0987654321", password,
                     Role.Manager);
-            AppUser user = createUser("user", "user@gmail.com", "User", Gender.Female, "0987654321", password,
+            AppUser user = createUser("user", "user@gmail.com", "User", Gender.Female, "0987654322", password,
+                    Role.LoyalCustomer);
+            AppUser manager = createUser("manamger", "manamger@gmail.com", "Manager", Gender.Female, "0987654323", password,
                     Role.LoyalCustomer);
 
             userRepository.save(thai);
@@ -103,21 +105,24 @@ public class MinieShopApplication {
             // endregion
 
             // region Category Seed Data
-            Category cake = createCategory("Cake", "cake", "Variety of delicious cakes", CategoryStatus.Open);
-            Category iceCream = createCategory("Ice Cream", "ice-cream", "Creamy frozen desserts",
+            Category cake = createCategory("Bánh", "banh", "Đa dạng các loại bánh ngon", CategoryStatus.Open);
+            Category iceCream = createCategory("Kem", "kem", "Những món tráng miệng kem mát lạnh",
                     CategoryStatus.Closed);
-            Category cookies = createCategory("Cookies", "cookies", "Delightful cookie treats", CategoryStatus.Closed);
-            Category pie = createCategory("Pie", "pie", "Flaky and flavorful pies", CategoryStatus.Open);
-            Category pudding = createCategory("Pudding", "pudding", "Smooth and creamy puddings",
-                    CategoryStatus.Closed);
-            Category chocolate = createCategory("Chocolate", "chocolate", "Decadent chocolate treats",
+            Category cookies = createCategory("Bánh quy", "banh-quy", "Những món bánh quy thú vị", CategoryStatus.Closed);
+            Category pie = createCategory("Bánh bông lan", "banh-bong-lan", "Bánh bông lan giòn ngon",
                     CategoryStatus.Open);
-            Category tart = createCategory("Tart", "tart", "Sweet and tangy tart desserts", CategoryStatus.Open);
-            Category mousse = createCategory("Mousse", "mousse", "Light and airy mousse desserts",
+            Category pudding = createCategory("Bánh pudding", "banh-pudding", "Những món bánh pudding mềm mịn",
                     CategoryStatus.Closed);
-            Category parfait = createCategory("Parfait", "parfait", "Layered and delightful parfaits",
+            Category chocolate = createCategory("Sô cô la", "so-co-la", "Những món sô cô la ngọt ngào",
                     CategoryStatus.Open);
-            Category trifle = createCategory("Trifle", "trifle", "Trifles with layers of flavors", CategoryStatus.Open);
+            Category tart = createCategory("Bánh tart", "banh-tart", "Những món bánh tart ngọt chua",
+                    CategoryStatus.Open);
+            Category mousse = createCategory("Bánh mousse", "banh-mousse", "Những món bánh mousse nhẹ nhàng",
+                    CategoryStatus.Closed);
+            Category parfait = createCategory("Bánh parfait", "banh-parfait", "Những món bánh parfait xếp lớp tuyệt vời",
+                    CategoryStatus.Open);
+            Category trifle = createCategory("Bánh trifle", "banh-trifle", "Bánh trifle với những lớp hương vị",
+                    CategoryStatus.Open);
 
             categoryService.save(cake);
             categoryService.save(iceCream);
@@ -132,23 +137,24 @@ public class MinieShopApplication {
 
             // endregion
 
+
+
             // region Product Seed Data
             List<Category> categories = categoryService.getAll();
 
             Product pannaCotta = createProduct("Panna Cotta", "panna-cotta",
-                    "Creamy Italian dessert with vanilla flavor", ProductStatus.Closed, 20000,
-                    getRandomCategory(categories, random));
-            Product flan = createProduct("Flan", "classic-flan", "Smooth and caramelized custard dessert",
-                    ProductStatus.Open, 20000,
-                    getRandomCategory(categories, random));
-
+                    "Món tráng miệng Ý mịn màng với hương vị vani", ProductStatus.Closed, 20000,
+                    pudding);
+            Product flan = createProduct("Flan", "classic-flan", "Món tráng miệng kem caramel mềm mịn",
+                    ProductStatus.Open, 20000, pudding);
             Product tiramisu = createProduct("Tiramisu", "tiramisu",
-                    "Layered Italian dessert with coffee and mascarpone", ProductStatus.Closed, 20000,
-                    getRandomCategory(categories, random));
+                    "Món tráng miệng Ý xếp lớp với cà phê và mascarpone", ProductStatus.Closed, 20000,
+                    cake);
 
-            Product chocolateCake = createProduct("Chocolate Cake", "chocolate-cake", "Rich and moist chocolate cake",
+            Product chocolateCake = createProduct("Chocolate Cake", "chocolate-cake", "Bánh sô cô la đậm đà và ẩm mịn",
                     ProductStatus.Closed, 20000,
-                    getRandomCategory(categories, random));
+                    cake);
+
 
             productService.save(pannaCotta);
             productService.save(flan);
@@ -156,20 +162,20 @@ public class MinieShopApplication {
             productService.save(tiramisu);
             // endregion
 
-            // region Image Seed Data
+// region Image Seed Data
             List<Product> products = productService.getAll();
 
-            Image image1 = createImage("image1",
-                    "https://images.pexels.com/photos/16307711/pexels-photo-16307711/free-photo-of-red-cabrio-car-driving-in-the-desert.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                    "Image 1", ImageStatus.Open,
-                    getRandomProduct(products, random));
-            Image image2 = createImage("image2",
-                    "https://images.pexels.com/photos/16494849/pexels-photo-16494849/free-photo-of-wood-light-dawn-landscape.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                    "Image 2", ImageStatus.Closed,
-                    getRandomProduct(products, random));
+            Image flanImage = createImage("qriqgvzxbxluixofnicp",
+                    "https://res.cloudinary.com/dlrcjwqxz/image/upload/v1686856769/qriqgvzxbxluixofnicp.png",
+                    "flan", ImageStatus.Open,
+                    flan);
+            Image tiramisuImage = createImage("xmqtuxj20f4si2mterw8",
+                    "https://res.cloudinary.com/dlrcjwqxz/image/upload/v1686857364/xmqtuxj20f4si2mterw8.png",
+                    "tiramisu", ImageStatus.Closed,
+                    tiramisu);
 
-            imageService.save(image1);
-            imageService.save(image2);
+            imageService.save(flanImage);
+            imageService.save(tiramisuImage);
             // endregion
 
             // region Comment Seed Data
