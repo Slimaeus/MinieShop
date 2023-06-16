@@ -70,6 +70,26 @@
                            th:value="${order.totalBill}" readonly>
                 </div>
             </form>
+
+            <div class="bg-secondary p-4">
+                <label for="order-details">THÔNG TIN SẢN PHẨM ĐẶT HÀNG</label>
+                <table class="table" id="order-details">
+                    <thead>
+                    <tr>
+                        <th scope="col">Sản phẩm</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Tổng giá</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="orderDetail : ${order.getOrderDetails()}">
+                        <td th:text="${orderDetail.product.name}"></td>
+                        <td th:text="${orderDetail.quantity}"></td>
+                        <td th:text="${orderDetail.totalPrice}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     <div class="mt-4">
