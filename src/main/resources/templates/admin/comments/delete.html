@@ -10,7 +10,7 @@
 <body>
   <th:block th:replace="./admin/layout :: header"></th:block>
   <div class="container">
-    <h1>Delete Product</h1>
+    <h1>Delete Comment</h1>
     <p>Bạn có thật sự muốn xoá bình luận này?</p>
     <form th:action="@{/admin/comments/delete/{id}(id=${comment.id})}" method="post">
       <button type="submit" class="btn btn-danger">Xoá</button>
